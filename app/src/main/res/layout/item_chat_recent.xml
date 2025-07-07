@@ -71,9 +71,22 @@
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.MyApplication.Caption"
             android:textColor="@color/colorTextTertiary"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/iv_delete_chat"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="14:30" />
+
+        <!-- Delete chat -->
+        <ImageView
+            android:id="@+id/iv_delete_chat"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:contentDescription="@string/delete"
+            android:padding="2dp"
+            android:src="@android:drawable/ic_delete"
+            android:tint="@color/colorError"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <!-- Unread indicator (optional) -->
         <TextView

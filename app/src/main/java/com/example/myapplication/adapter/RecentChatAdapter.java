@@ -22,12 +22,18 @@ public class RecentChatAdapter extends RecyclerView.Adapter<RecentChatAdapter.Vi
         void onItemClick(RecentChat chat);
     }
 
+    public interface OnItemDeleteListener {
+        void onDelete(RecentChat chat);
+    }
+
     private List<RecentChat> chatList;
     private OnItemClickListener listener;
+    private OnItemDeleteListener deleteListener;
 
-    public RecentChatAdapter(List<RecentChat> chatList, OnItemClickListener listener) {
+    public RecentChatAdapter(List<RecentChat> chatList, OnItemClickListener listener, OnItemDeleteListener deleteListener) {
         this.chatList = chatList;
         this.listener = listener;
+        this.deleteListener = deleteListener;
     }
 
     @NonNull
@@ -49,15 +55,22 @@ public class RecentChatAdapter extends RecyclerView.Adapter<RecentChatAdapter.Vi
 
     class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvTitle, tvLastMessage, tvTime;
+        View ivDelete;
 
         ViewHolder(View itemView) {
             super(itemView);
             tvTitle = itemView.findViewById(R.id.tv_chat_title);
             tvLastMessage = itemView.findViewById(R.id.tv_chat_last_message);
             tvTime = itemView.findViewById(R.id.tv_chat_time);
+            ivDelete = itemView.findViewById(R.id.iv_delete_chat);
             itemView.setOnClickListener(v -> {
                 if (listener != null) {
                     listener.onItemClick(chatList.get(getAdapterPosition()));
+                }
+            });
+            ivDelete.setOnClickListener(v -> {
+                if (deleteListener != null) {
+                    deleteListener.onDelete(chatList.get(getAdapterPosition()));
                 }
             });
         }

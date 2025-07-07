@@ -45,6 +45,15 @@ public class ChatFragment extends Fragment {
             Intent intent = new Intent(getActivity(), ChatActivity.class);
             intent.putExtra("doctor_name", chat.getDoctorName());
             startActivity(intent);
+        }, chat -> {
+            new androidx.appcompat.app.AlertDialog.Builder(requireContext())
+                    .setMessage("确定要删除这条对话吗？")
+                    .setPositiveButton("确定", (d, which) -> {
+                        messageDao.deleteMessagesByDoctor(chat.getDoctorName());
+                        loadChats();
+                    })
+                    .setNegativeButton("取消", null)
+                    .show();
         });
 
         rvRecentChats.setLayoutManager(new LinearLayoutManager(getContext()));

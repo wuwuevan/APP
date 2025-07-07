@@ -200,17 +200,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/card_feature_1" />
 
-    <TextView
-        android:id="@+id/tv_view_all_chats"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:text="查看全部"
-        android:textAppearance="@style/TextAppearance.MyApplication.Caption"
-        android:textColor="@color/colorPrimary"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_recent_chats_title"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tv_recent_chats_title" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_recent_chats"
