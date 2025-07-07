@@ -33,6 +33,9 @@
     <string name="password_empty">密码不能为空</string>
     <string name="password_not_match">两次输入的密码不一致</string>
     <string name="username_exists">用户名已存在</string>
+    <string name="select_gender">请选择您的性别</string>
+    <string name="male">男</string>
+    <string name="female">女</string>
     
     <!-- 主页面 -->
     <string name="home">首页</string>

@@ -36,6 +36,7 @@ public class ProfileFragment extends Fragment {
     
     private ImageView ivAvatar;
     private TextView tvUsername;
+    private TextView tvGenderSymbol;
     private TextView tvRegisterTime;
     private Button btnPersonalInfo;
     private Button btnAccountSettings;
@@ -89,6 +90,7 @@ public class ProfileFragment extends Fragment {
     private void initViews(View view) {
         ivAvatar = view.findViewById(R.id.iv_avatar);
         tvUsername = view.findViewById(R.id.tv_username);
+        tvGenderSymbol = view.findViewById(R.id.tv_gender_symbol);
         tvRegisterTime = view.findViewById(R.id.tv_register_time);
         btnPersonalInfo = view.findViewById(R.id.btn_personal_info);
         btnAccountSettings = view.findViewById(R.id.btn_account_settings);
@@ -170,6 +172,13 @@ public class ProfileFragment extends Fragment {
                 spUtil.saveInt("current_user_id", currentUserId);
                 
                 tvUsername.setText(username);
+                if ("女".equals(currentUser.getGender())) {
+                    tvGenderSymbol.setText("\u2640");
+                    tvGenderSymbol.setTextColor(getResources().getColor(R.color.colorFemale));
+                } else {
+                    tvGenderSymbol.setText("\u2642");
+                    tvGenderSymbol.setTextColor(getResources().getColor(R.color.colorMale));
+                }
                 
                 // 设置注册时间
                 if (currentUser.getRegisterTimestamp() > 0) {
@@ -181,16 +190,17 @@ public class ProfileFragment extends Fragment {
                 }
                 
                 // 加载用户头像
+                int defaultAvatar = "女".equals(currentUser.getGender()) ? R.drawable.ic_avatar_female : R.drawable.ic_avatar_male;
                 if (currentUser.getAvatarPath() != null && !currentUser.getAvatarPath().isEmpty()) {
                     // 使用Glide加载头像
                     Glide.with(this)
                             .load(new File(currentUser.getAvatarPath()))
                             .circleCrop()
-                            .placeholder(R.drawable.ic_person)
+                            .placeholder(defaultAvatar)
                             .into(ivAvatar);
                 } else {
                     // 使用默认头像
-                    ivAvatar.setImageResource(R.drawable.ic_person);
+                    ivAvatar.setImageResource(defaultAvatar);
                 }
             } else {
                 // 用户不存在，跳转到登录页面

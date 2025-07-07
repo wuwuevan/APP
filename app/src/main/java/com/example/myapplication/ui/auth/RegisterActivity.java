@@ -19,7 +19,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.data.AppDatabase;
 import com.example.myapplication.data.User;
 import com.example.myapplication.data.UserDao;
-import com.example.myapplication.ui.health.InitialHealthMetricsActivity;
+import com.example.myapplication.ui.auth.GenderSelectionActivity;
 import com.example.myapplication.utils.SharedPreferencesUtil;
 
 /**
@@ -155,8 +155,8 @@ public class RegisterActivity extends AppCompatActivity {
             // 注册成功提示
             Toast.makeText(this, R.string.register_success, Toast.LENGTH_SHORT).show();
             
-            // 注册成功，跳转到初始健康信息页面
-            Intent intent = new Intent(RegisterActivity.this, InitialHealthMetricsActivity.class);
+            // 注册成功，跳转到性别选择页面
+            Intent intent = new Intent(RegisterActivity.this, GenderSelectionActivity.class);
             startActivity(intent);
             finish(); // 结束当前活动
         } catch (Exception e) {

@@ -41,6 +41,11 @@
             android:name=".ui.auth.RegisterActivity"
             android:theme="@style/Theme.MyApplication.NoActionBar"
             android:exported="false" />
+
+        <!-- 性别选择页面 -->
+        <activity
+            android:name=".ui.auth.GenderSelectionActivity"
+            android:exported="false" />
             
         <!-- 个人信息编辑页面 -->
         <activity

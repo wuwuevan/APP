@@ -180,16 +180,19 @@ public class EditProfileActivity extends AppCompatActivity {
             }
             
             // 加载头像
+            int defaultAvatar = "女".equals(currentUser.getGender()) ? R.drawable.ic_avatar_female : R.drawable.ic_avatar_male;
             if (currentUser.getAvatarPath() != null && !currentUser.getAvatarPath().isEmpty()) {
                 // 使用Glide加载头像图片
                 Glide.with(this)
                         .load(new File(currentUser.getAvatarPath()))
                         .circleCrop()
-                        .placeholder(R.drawable.ic_person)
+                        .placeholder(defaultAvatar)
                         .into(ivAvatar);
-                
+
                 // 保存当前选择的图片路径
                 selectedImagePath = currentUser.getAvatarPath();
+            } else {
+                ivAvatar.setImageResource(defaultAvatar);
             }
         } else {
             Toast.makeText(this, "未登录，请先登录", Toast.LENGTH_SHORT).show();
