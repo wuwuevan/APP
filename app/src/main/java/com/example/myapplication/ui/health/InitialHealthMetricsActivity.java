@@ -28,7 +28,7 @@ import java.util.Locale;
 public class InitialHealthMetricsActivity extends AppCompatActivity {
 
     private EditText etHeight, etWeight, etHeartRate, etSystolic, etDiastolic;
-    private EditText etBloodSugar, etSleepHours;
+    private EditText etBloodSugar, etSleepHours, etStepCount;
     private RadioGroup rgGender;
     private RadioButton rbMale;
     private RadioButton rbFemale;
@@ -77,6 +77,7 @@ public class InitialHealthMetricsActivity extends AppCompatActivity {
         etDiastolic = findViewById(R.id.et_diastolic);
         etBloodSugar = findViewById(R.id.et_blood_sugar);
         etSleepHours = findViewById(R.id.et_sleep_hours);
+        etStepCount = findViewById(R.id.et_step_count);
         btnGenerateReport = findViewById(R.id.btn_generate_report);
     }
 
@@ -85,7 +86,7 @@ public class InitialHealthMetricsActivity extends AppCompatActivity {
             TextUtils.isEmpty(etHeight.getText()) || TextUtils.isEmpty(etWeight.getText()) ||
             TextUtils.isEmpty(etHeartRate.getText()) || TextUtils.isEmpty(etSystolic.getText()) ||
             TextUtils.isEmpty(etDiastolic.getText()) || TextUtils.isEmpty(etBloodSugar.getText()) ||
-            TextUtils.isEmpty(etSleepHours.getText())) {
+            TextUtils.isEmpty(etSleepHours.getText()) || TextUtils.isEmpty(etStepCount.getText())) {
             Toast.makeText(this, "所有字段均为必填项", Toast.LENGTH_SHORT).show();
             return false;
         }
@@ -112,7 +113,8 @@ public class InitialHealthMetricsActivity extends AppCompatActivity {
         float bmi = calculateBmi(height, weight);
         float bloodSugar = Float.parseFloat(etBloodSugar.getText().toString());
         float sleepHours = Float.parseFloat(etSleepHours.getText().toString());
-        
+        int stepCount = Integer.parseInt(etStepCount.getText().toString());
+
         saveIndicator("身高", height, currentTime);
         saveIndicator("体重", weight, currentTime);
         saveIndicator("BMI", bmi, currentTime);
@@ -121,12 +123,21 @@ public class InitialHealthMetricsActivity extends AppCompatActivity {
         saveIndicator("舒张压", Float.parseFloat(etDiastolic.getText().toString()), currentTime);
         saveIndicator("血糖", bloodSugar, currentTime);
         saveIndicator("睡眠时长", sleepHours, currentTime);
+        saveStepCountIndicator(stepCount, currentTime);
         
         Toast.makeText(this, "健康数据已保存", Toast.LENGTH_SHORT).show();
     }
     
     private void saveIndicator(String type, float value, String time) {
         HealthIndicator indicator = new HealthIndicator(userId, type, value, time);
+        healthIndicatorDao.addHealthIndicator(indicator);
+    }
+
+    private void saveStepCountIndicator(int stepCount, String time) {
+        HealthIndicator indicator = new HealthIndicator(userId, "步数", stepCount, time);
+        if (stepCount < 2000 || stepCount > 30000) {
+            indicator.setIsAbnormal(1);
+        }
         healthIndicatorDao.addHealthIndicator(indicator);
     }
 

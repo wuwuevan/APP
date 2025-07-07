@@ -212,7 +212,7 @@
                         android:layout_margin="4dp">
 
                         <ImageView
-                            android:id="@+id/iv_blood_oxygen_icon"
+                            android:id="@+id/iv_blood_sugar_icon"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:src="@drawable/ic_health"
@@ -221,19 +221,19 @@
                             app:tint="@color/colorInfo" />
 
                         <TextView
-                            android:id="@+id/tv_blood_oxygen_title"
+                            android:id="@+id/tv_blood_sugar_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
-                            android:text="血氧"
+                            android:text="血糖"
                             android:textAppearance="@style/TextAppearance.MyApplication.Caption"
                             android:textColor="@color/colorTextSecondary"
-                            app:layout_constraintBottom_toBottomOf="@+id/iv_blood_oxygen_icon"
-                            app:layout_constraintStart_toEndOf="@+id/iv_blood_oxygen_icon"
-                            app:layout_constraintTop_toTopOf="@+id/iv_blood_oxygen_icon" />
+                            app:layout_constraintBottom_toBottomOf="@+id/iv_blood_sugar_icon"
+                            app:layout_constraintStart_toEndOf="@+id/iv_blood_sugar_icon"
+                            app:layout_constraintTop_toTopOf="@+id/iv_blood_sugar_icon" />
 
                         <TextView
-                            android:id="@+id/tv_blood_oxygen"
+                            android:id="@+id/tv_blood_sugar"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
@@ -241,7 +241,7 @@
                             android:textAppearance="@style/TextAppearance.MyApplication.Headline3"
                             android:textColor="@color/colorTextPrimary"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/iv_blood_oxygen_icon" />
+                            app:layout_constraintTop_toBottomOf="@+id/iv_blood_sugar_icon" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -250,8 +250,8 @@
                             android:text="%"
                             android:textAppearance="@style/TextAppearance.MyApplication.Caption"
                             android:textColor="@color/colorTextTertiary"
-                            app:layout_constraintBaseline_toBaselineOf="@+id/tv_blood_oxygen"
-                            app:layout_constraintStart_toEndOf="@+id/tv_blood_oxygen" />
+                            app:layout_constraintBaseline_toBaselineOf="@+id/tv_blood_sugar"
+                            app:layout_constraintStart_toEndOf="@+id/tv_blood_sugar" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </androidx.gridlayout.widget.GridLayout>

@@ -39,7 +39,6 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Locale;
-import java.util.Random;
 
 /**
  * 健康页面Fragment
@@ -48,7 +47,7 @@ public class HealthFragment extends Fragment {
 
     private TextView tvHeartRate;
     private TextView tvBloodPressure;
-    private TextView tvBloodOxygen;
+    private TextView tvBloodSugar;
     private TextView tvHealthReport;
     private Button btnUpdateHealthData;
     private Button btnViewReport;
@@ -61,12 +60,10 @@ public class HealthFragment extends Fragment {
     private int heartRate;
     private int systolic;
     private int diastolic;
-    private int bloodOxygen;
     private float bmi = 22.5f; // 默认BMI值
     private float bloodSugar = 5.2f; // 默认血糖值
     private int sleepHours = 7; // 默认睡眠时间
     
-    private Random random = new Random();
     private HealthIndicatorDao healthIndicatorDao;
     private int userId;
     
@@ -111,7 +108,7 @@ public class HealthFragment extends Fragment {
     private void initViews(View root) {
         tvHeartRate = root.findViewById(R.id.tv_heart_rate);
         tvBloodPressure = root.findViewById(R.id.tv_blood_pressure);
-        tvBloodOxygen = root.findViewById(R.id.tv_blood_oxygen);
+        tvBloodSugar = root.findViewById(R.id.tv_blood_sugar);
         tvHealthReport = root.findViewById(R.id.tv_health_report);
         btnUpdateHealthData = root.findViewById(R.id.btn_update_health_data);
         btnViewReport = root.findViewById(R.id.btn_view_report);
@@ -128,9 +125,8 @@ public class HealthFragment extends Fragment {
         btnUpdateHealthData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateHealthData();
-                loadChartData(); // 更新图表数据
-                Toast.makeText(getContext(), "健康数据已更新", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getContext(), InitialHealthMetricsActivity.class);
+                startActivity(intent);
             }
         });
         
@@ -157,41 +153,35 @@ public class HealthFragment extends Fragment {
      * 更新健康数据
      */
     private void updateHealthData() {
-        // 生成随机健康数据
-        heartRate = 60 + random.nextInt(40); // 60-100
-        systolic = 110 + random.nextInt(30); // 110-140
-        diastolic = 70 + random.nextInt(20); // 70-90
-        bloodOxygen = 95 + random.nextInt(5); // 95-100
-        
-        // 随机生成其他健康数据
-        bmi = 17.5f + random.nextFloat() * 8.0f; // 17.5-25.5
-        bloodSugar = 3.5f + random.nextFloat() * 3.0f; // 3.5-6.5
-        sleepHours = 5 + random.nextInt(5); // 5-9
-        
-        // 更新UI
+        HealthIndicator hr = healthIndicatorDao.getLatestHealthIndicator(userId, "心率");
+        HealthIndicator sys = healthIndicatorDao.getLatestHealthIndicator(userId, "收缩压");
+        HealthIndicator dia = healthIndicatorDao.getLatestHealthIndicator(userId, "舒张压");
+        HealthIndicator sugar = healthIndicatorDao.getLatestHealthIndicator(userId, "血糖");
+
+        if (hr != null) {
+            heartRate = (int) hr.getIndicatorValue();
+        }
+        if (sys != null) {
+            systolic = (int) sys.getIndicatorValue();
+        }
+        if (dia != null) {
+            diastolic = (int) dia.getIndicatorValue();
+        }
+        if (sugar != null) {
+            bloodSugar = sugar.getIndicatorValue();
+        }
+
         tvHeartRate.setText(String.valueOf(heartRate));
         tvBloodPressure.setText(systolic + "/" + diastolic);
-        tvBloodOxygen.setText(String.valueOf(bloodOxygen));
-        
-        // 更新健康报告
-        updateHealthReport(heartRate, systolic, diastolic, bloodOxygen);
+        tvBloodSugar.setText(String.format(Locale.getDefault(), "%.1f", bloodSugar));
 
-        // 将新数据存入数据库
-        saveHealthData();
-    }
-    
-    private void saveHealthData() {
-        String currentTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
-        healthIndicatorDao.addHealthIndicator(new HealthIndicator(userId, "心率", heartRate, currentTime));
-        healthIndicatorDao.addHealthIndicator(new HealthIndicator(userId, "收缩压", systolic, currentTime));
-        healthIndicatorDao.addHealthIndicator(new HealthIndicator(userId, "舒张压", diastolic, currentTime));
-        healthIndicatorDao.addHealthIndicator(new HealthIndicator(userId, "血氧", bloodOxygen, currentTime));
+        updateHealthReport(heartRate, systolic, diastolic, bloodSugar);
     }
     
     /**
      * 更新健康报告
      */
-    private void updateHealthReport(int heartRate, int systolic, int diastolic, int bloodOxygen) {
+    private void updateHealthReport(int heartRate, int systolic, int diastolic, float bloodSugar) {
         StringBuilder report = new StringBuilder();
         
         // 添加时间戳
@@ -222,14 +212,14 @@ public class HealthFragment extends Fragment {
         }
         report.append("\n\n");
         
-        // 血氧评估
-        report.append("血氧：");
-        if (bloodOxygen >= 95) {
+        // 血糖评估
+        report.append("血糖：");
+        if (bloodSugar >= 3.9f && bloodSugar <= 6.1f) {
             report.append("正常范围内，继续保持健康的生活方式。");
-        } else if (bloodOxygen >= 90) {
-            report.append("轻度偏低，建议增加户外活动，改善呼吸。");
+        } else if (bloodSugar < 3.9f) {
+            report.append("偏低，注意补充能量。");
         } else {
-            report.append("偏低，建议咨询医生。");
+            report.append("偏高，建议控制饮食并咨询医生。");
         }
         
         // 更新UI

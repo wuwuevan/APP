@@ -261,7 +261,7 @@ public class HomeFragment extends Fragment {
      */
     private void loadHealthIndicators() {
         // 获取最新的心率数据
-        HealthIndicator heartRate = healthIndicatorDao.getLatestHealthIndicator((int)userId, "heart_rate");
+        HealthIndicator heartRate = healthIndicatorDao.getLatestHealthIndicator((int)userId, "心率");
         if (heartRate != null) {
             tvHeartRate.setText(String.format(Locale.getDefault(), "%.0f bpm", heartRate.getIndicatorValue()));
         } else {
@@ -269,11 +269,11 @@ public class HomeFragment extends Fragment {
             tvHeartRate.setText("72 bpm");
             
             // 创建并保存默认数据
-            saveDefaultHealthIndicator("heart_rate", 72);
+            saveDefaultHealthIndicator("心率", 72);
         }
         
         // 获取最新的步数数据
-        HealthIndicator stepCount = healthIndicatorDao.getLatestHealthIndicator((int)userId, "step_count");
+        HealthIndicator stepCount = healthIndicatorDao.getLatestHealthIndicator((int)userId, "步数");
         if (stepCount != null) {
             tvStepCount.setText(String.format(Locale.getDefault(), "%,.0f 步", stepCount.getIndicatorValue()));
         } else {
@@ -281,11 +281,11 @@ public class HomeFragment extends Fragment {
             tvStepCount.setText("6,243 步");
             
             // 创建并保存默认数据
-            saveDefaultHealthIndicator("step_count", 6243);
+            saveDefaultHealthIndicator("步数", 6243);
         }
         
         // 获取最新的睡眠时长数据
-        HealthIndicator sleepHours = healthIndicatorDao.getLatestHealthIndicator((int)userId, "sleep_hours");
+        HealthIndicator sleepHours = healthIndicatorDao.getLatestHealthIndicator((int)userId, "睡眠时长");
         if (sleepHours != null) {
             tvSleepHours.setText(String.format(Locale.getDefault(), "%.1f 小时", sleepHours.getIndicatorValue()));
         } else {
@@ -293,7 +293,7 @@ public class HomeFragment extends Fragment {
             tvSleepHours.setText("7.5 小时");
             
             // 创建并保存默认数据
-            saveDefaultHealthIndicator("sleep_hours", 7.5f);
+            saveDefaultHealthIndicator("睡眠时长", 7.5f);
         }
     }
     
