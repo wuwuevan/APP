@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.database.HealthIndicatorDao;
@@ -277,6 +278,8 @@ public class HealthFragment extends Fragment {
                 TextView tvStatus = itemView.findViewById(R.id.tv_indicator_status);
                 TextView tvRange = itemView.findViewById(R.id.tv_indicator_range);
                 TextView tvTime = itemView.findViewById(R.id.tv_record_time);
+                View btnEdit = itemView.findViewById(R.id.btn_edit_indicator);
+                View btnDelete = itemView.findViewById(R.id.btn_delete_indicator);
                 
                 // 获取自定义信息
                 CustomHealthIndicator customInfo = healthIndicatorDao.getCustomHealthIndicatorInfo(indicator.getId());
@@ -335,7 +338,30 @@ public class HealthFragment extends Fragment {
                 } else {
                     tvTime.setVisibility(View.GONE);
                 }
-                
+
+                btnEdit.setOnClickListener(v -> {
+                    Intent intent = new Intent(getContext(), AddHealthIndicatorActivity.class);
+                    intent.putExtra(AddHealthIndicatorActivity.EXTRA_INDICATOR_ID, indicator.getId());
+                    startActivityForResult(intent, REQUEST_ADD_INDICATOR);
+                });
+
+                btnDelete.setOnClickListener(v -> {
+                    new AlertDialog.Builder(getContext())
+                            .setTitle("删除指标")
+                            .setMessage("确定删除该指标吗？")
+                            .setPositiveButton("删除", (dialog, which) -> {
+                                boolean success = healthIndicatorDao.deleteHealthIndicator(indicator.getId());
+                                if (success) {
+                                    Toast.makeText(getContext(), "已删除", Toast.LENGTH_SHORT).show();
+                                    loadCustomHealthIndicators();
+                                } else {
+                                    Toast.makeText(getContext(), "删除失败", Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .setNegativeButton("取消", null)
+                            .show();
+                });
+
                 // 添加到容器
                 containerCustomIndicators.addView(itemView);
             }

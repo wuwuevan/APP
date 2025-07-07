@@ -237,6 +237,23 @@ public class HealthIndicatorDao {
         db.close();
         return typeList;
     }
+
+    /**
+     * 根据ID获取健康指标
+     */
+    public HealthIndicator getHealthIndicatorById(int indicatorId) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.query(DatabaseHelper.TABLE_HEALTH_INDICATOR, null,
+                "id = ?", new String[]{String.valueOf(indicatorId)},
+                null, null, null);
+        HealthIndicator indicator = null;
+        if (cursor != null && cursor.moveToFirst()) {
+            indicator = cursorToHealthIndicator(cursor);
+            cursor.close();
+        }
+        db.close();
+        return indicator;
+    }
     
     /**
      * 更新健康指标
