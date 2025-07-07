@@ -39,6 +39,7 @@ public class HealthReportActivity extends AppCompatActivity {
     private TextView tvHeartRate, tvHeartRateStatus;
     private TextView tvBloodPressure, tvBloodPressureStatus;
     private TextView tvBloodSugar, tvBloodSugarStatus;
+    private TextView tvStepCount, tvStepCountStatus;
     private TextView tvSleepQuality, tvSleepQualityStatus;
     private TextView tvSuggestion;
     private Button btnUpdateSuggestion;
@@ -139,6 +140,8 @@ public class HealthReportActivity extends AppCompatActivity {
         tvBloodPressureStatus = findViewById(R.id.tv_blood_pressure_status);
         tvBloodSugar = findViewById(R.id.tv_blood_sugar_value);
         tvBloodSugarStatus = findViewById(R.id.tv_blood_sugar_status);
+        tvStepCount = findViewById(R.id.tv_step_count_value);
+        tvStepCountStatus = findViewById(R.id.tv_step_count_status);
         tvSleepQuality = findViewById(R.id.tv_sleep_quality_value);
         tvSleepQualityStatus = findViewById(R.id.tv_sleep_quality_status);
         tvSuggestion = findViewById(R.id.tv_health_suggestion);
@@ -184,6 +187,13 @@ public class HealthReportActivity extends AppCompatActivity {
             float bs = bloodSugarIndicator.getIndicatorValue();
             tvBloodSugar.setText(String.format(Locale.getDefault(), "%.1f", bs));
             updateStatus(tvBloodSugarStatus, bs, 3.9f, 6.1f);
+        }
+
+        HealthIndicator stepIndicator = healthIndicatorDao.getLatestHealthIndicator(userId, "步数");
+        if (stepIndicator != null) {
+            int steps = (int) stepIndicator.getIndicatorValue();
+            tvStepCount.setText(String.valueOf(steps));
+            updateStatus(tvStepCountStatus, steps, 2000, 30000);
         }
 
         HealthIndicator sleepIndicator = healthIndicatorDao.getLatestHealthIndicator(userId, "睡眠时长");
