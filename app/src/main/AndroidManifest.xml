@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.myapplication">
+
+    <!-- 权限声明 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="28" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.MyApplication">
+        
+        <!-- 启动页 -->
+        <activity
+            android:name=".ui.SplashActivity"
+            android:theme="@style/Theme.MyApplication.Splash"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        
+        <!-- 主页面 -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" />
+        
+        <!-- 登录页面 -->
+        <activity
+            android:name=".ui.auth.LoginActivity"
+            android:theme="@style/Theme.MyApplication.NoActionBar"
+            android:exported="false" />
+        
+        <!-- 注册页面 -->
+        <activity
+            android:name=".ui.auth.RegisterActivity"
+            android:theme="@style/Theme.MyApplication.NoActionBar"
+            android:exported="false" />
+            
+        <!-- 个人信息编辑页面 -->
+        <activity
+            android:name=".ui.profile.EditProfileActivity"
+            android:exported="false" />
+            
+        <!-- 账号设置页面 -->
+        <activity
+            android:name=".ui.profile.AccountSettingsActivity"
+            android:exported="false" />
+            
+        <!-- 隐私设置页面 -->
+        <activity
+            android:name=".ui.profile.PrivacySettingsActivity"
+            android:exported="false" />
+            
+        <!-- 帮助与反馈页面 -->
+        <activity
+            android:name=".ui.profile.HelpFeedbackActivity"
+            android:exported="false" />
+            
+        <!-- 关于我们页面 -->
+        <activity
+            android:name=".ui.profile.AboutUsActivity"
+            android:exported="false" />
+            
+        <!-- 通知页面 -->
+        <activity
+            android:name=".ui.profile.NotificationActivity"
+            android:label="通知"
+            android:exported="false" />
+            
+        <!-- 通知详情页面 -->
+        <activity
+            android:name=".ui.notification.NotificationDetailActivity"
+            android:label="通知详情" />
+            
+        <!-- 医生详情页面 -->
+        <activity
+            android:name=".ui.chat.DoctorDetailActivity"
+            android:label="医生详情" />
+            
+        <!-- 聊天页面 -->
+        <activity
+            android:name=".ui.chat.ChatActivity"
+            android:label="聊天" />
+            
+        <!-- 健康报告详情页面 -->
+        <activity
+            android:name=".ui.health.HealthReportActivity"
+            android:label="健康报告" />
+            
+        <!-- 训练详情页面 -->
+        <activity
+            android:name=".ui.exercise.ExerciseDetailActivity"
+            android:label="训练详情" />
+            
+        <!-- 添加训练计划页面 -->
+        <activity
+            android:name=".ui.exercise.AddExerciseActivity"
+            android:label="添加训练计划" />
+            
+        <!-- 任务详情页面 -->
+        <activity
+            android:name=".ui.task.TaskDetailActivity"
+            android:label="任务详情" />
+            
+        <!-- 每日任务中心页面 -->
+        <activity
+            android:name=".ui.task.TaskActivity"
+            android:label="每日任务中心" />
+            
+        <!-- 教育内容页面 -->
+        <activity
+            android:name=".ui.task.EducationContentActivity"
+            android:label="教育内容" />
+            
+        <!-- 问卷调查页面 -->
+        <activity
+            android:name=".ui.task.SurveyActivity"
+            android:label="问卷调查" />
+            
+        <!-- 疼痛评分页面 -->
+        <activity
+            android:name=".ui.task.PainScoreActivity"
+            android:label="疼痛评分" />
+            
+        <!-- 添加自定义健康指标页面 -->
+        <activity
+            android:name=".ui.health.AddHealthIndicatorActivity"
+            android:label="添加健康指标" />
+            
+        <!-- 初始健康指标页面 -->
+        <activity
+            android:name=".ui.health.InitialHealthMetricsActivity"
+            android:label="初始健康信息" />
+    </application>
+
+</manifest>

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    app:cardBackgroundColor="@color/colorSurface"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="1dp"
+    app:strokeWidth="0dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/iv_indicator_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_task"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/colorPrimary" />
+
+        <TextView
+            android:id="@+id/tv_indicator_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:text="指标名称"
+            android:textAppearance="@style/TextAppearance.MyApplication.Subtitle1"
+            app:layout_constraintEnd_toStartOf="@+id/tv_indicator_status"
+            app:layout_constraintStart_toEndOf="@+id/iv_indicator_icon"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_indicator_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_status_normal"
+            android:paddingStart="8dp"
+            android:paddingTop="2dp"
+            android:paddingEnd="8dp"
+            android:paddingBottom="2dp"
+            android:text="正常"
+            android:textAppearance="@style/TextAppearance.MyApplication.Caption"
+            android:textColor="@color/colorSuccess"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_indicator_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="75"
+            android:textAppearance="@style/TextAppearance.MyApplication.Headline3"
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintStart_toStartOf="@+id/tv_indicator_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_indicator_name" />
+
+        <TextView
+            android:id="@+id/tv_indicator_unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="bpm"
+            android:textAppearance="@style/TextAppearance.MyApplication.Caption"
+            android:textColor="@color/colorTextSecondary"
+            app:layout_constraintBaseline_toBaselineOf="@+id/tv_indicator_value"
+            app:layout_constraintStart_toEndOf="@+id/tv_indicator_value" />
+
+        <TextView
+            android:id="@+id/tv_indicator_range"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="正常范围: 60-100"
+            android:textAppearance="@style/TextAppearance.MyApplication.Caption"
+            android:textColor="@color/colorTextTertiary"
+            app:layout_constraintStart_toStartOf="@+id/tv_indicator_value"
+            app:layout_constraintTop_toBottomOf="@+id/tv_indicator_value" />
+
+        <TextView
+            android:id="@+id/tv_record_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="2025-07-05"
+            android:textAppearance="@style/TextAppearance.MyApplication.Caption"
+            android:textColor="@color/colorTextTertiary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_indicator_value" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_edit_indicator"
+            style="@style/Widget.MyApplication.Button.TextButton.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="编辑"
+            android:textAppearance="@style/TextAppearance.MyApplication.Button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tv_indicator_range"
+            app:layout_constraintTop_toBottomOf="@+id/tv_indicator_range" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_delete_indicator"
+            style="@style/Widget.MyApplication.Button.TextButton.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="删除"
+            android:textAppearance="@style/TextAppearance.MyApplication.Button"
+            android:textColor="@color/colorDanger"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_edit_indicator"
+            app:layout_constraintStart_toEndOf="@+id/btn_edit_indicator"
+            app:layout_constraintTop_toTopOf="@+id/btn_edit_indicator" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView> 
