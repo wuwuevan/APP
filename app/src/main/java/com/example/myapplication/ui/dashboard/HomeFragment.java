@@ -189,10 +189,10 @@ public class HomeFragment extends Fragment {
         List<DailyTask> todayTasks = taskDao.getTodayTasks((int) userId, today);
         
         if (todayTasks.isEmpty()) {
-            // 创建默认任务
-            DailyTask task1 = new DailyTask((int) userId, "阅读康复文章", "了解术后恢复的注意事项", "教育内容", today, null);
-            DailyTask task2 = new DailyTask((int) userId, "填写健康问卷", "让我们更好地了解您的恢复情况", "问卷", today, null);
-            DailyTask task3 = new DailyTask((int) userId, "记录今日疼痛评分", "记录疼痛变化，帮助医生评估", "疼痛评分", today, null);
+            // 创建默认任务，开始和结束时间均设为今天，确保查询时能够获取到
+            DailyTask task1 = new DailyTask((int) userId, "阅读康复文章", "了解术后恢复的注意事项", "教育内容", today, today);
+            DailyTask task2 = new DailyTask((int) userId, "填写健康问卷", "让我们更好地了解您的恢复情况", "问卷", today, today);
+            DailyTask task3 = new DailyTask((int) userId, "记录今日疼痛评分", "记录疼痛变化，帮助医生评估", "疼痛评分", today, today);
             
             // 添加到数据库
             taskDao.addDailyTask(task1);
