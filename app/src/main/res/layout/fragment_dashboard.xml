@@ -33,7 +33,7 @@
             android:id="@+id/tv_user_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/default_name"
+            android:text=""
             android:textAppearance="@style/TextAppearance.MyApplication.Headline3"
             android:textColor="@color/colorPrimary"
             app:layout_constraintEnd_toStartOf="@+id/iv_profile"

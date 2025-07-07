@@ -28,6 +28,7 @@ public class DashboardFragment extends Fragment {
     private TextView tvCompletedTaskCount;
     private ProgressBar progressBar;
     private TextView tvProgressPercent;
+    private TextView tvUserName;
     private TextView tvHeartRate;
     private TextView tvStepCount;
     private TextView tvSleepHours;
@@ -46,6 +47,7 @@ public class DashboardFragment extends Fragment {
         tvCompletedTaskCount = view.findViewById(R.id.tv_completed_task_count);
         progressBar = view.findViewById(R.id.progress_bar);
         tvProgressPercent = view.findViewById(R.id.tv_progress_percent);
+        tvUserName = view.findViewById(R.id.tv_user_name);
         tvHeartRate = view.findViewById(R.id.tv_heart_rate);
         tvStepCount = view.findViewById(R.id.tv_step_count);
         tvSleepHours = view.findViewById(R.id.tv_sleep_hours);
@@ -60,6 +62,7 @@ public class DashboardFragment extends Fragment {
         
         // 获取当前用户ID（假设已经登录）
         int userId = 1;
+        tvUserName.setText(String.valueOf(userId));
         
         // 获取当日任务
         DailyTaskDao taskDao = new DailyTaskDao(getContext());
