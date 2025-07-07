@@ -85,6 +85,9 @@ dependencies {
     
     // Shimmer effect for loading states
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
+
+    // Google Fit API
+    implementation 'com.google.android.gms:play-services-fitness:21.1.0'
     
     // Testing
     testImplementation 'junit:junit:4.13.2'

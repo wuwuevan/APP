@@ -8,9 +8,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -21,6 +23,7 @@ import com.example.myapplication.data.UserDao;
 import com.example.myapplication.database.HealthIndicatorDao;
 import com.example.myapplication.model.HealthIndicator;
 import com.example.myapplication.utils.SharedPreferencesUtil;
+import com.example.myapplication.utils.GoogleFitUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -30,10 +33,12 @@ public class InitialHealthMetricsActivity extends AppCompatActivity {
 
     private EditText etHeight, etWeight, etHeartRate, etSystolic, etDiastolic;
     private EditText etBloodSugar, etSleepHours, etStepCount;
+    private ImageButton btnFetchSleep, btnFetchSteps;
     private RadioGroup rgGender;
     private RadioButton rbMale;
     private RadioButton rbFemale;
     private Button btnGenerateReport;
+    private GoogleFitUtil googleFitUtil;
     private Toolbar toolbar;
     private HealthIndicatorDao healthIndicatorDao;
     private UserDao userDao;
@@ -64,6 +69,12 @@ public class InitialHealthMetricsActivity extends AppCompatActivity {
         userId = (int) prefsUtil.getCurrentUserId();
 
         initViews();
+        googleFitUtil = new GoogleFitUtil(this);
+
+        btnFetchSteps.setOnClickListener(v ->
+                googleFitUtil.getTodayStepCount(data -> etStepCount.setText(String.valueOf(data))));
+        btnFetchSleep.setOnClickListener(v ->
+                googleFitUtil.getTodaySleepHours(data -> etSleepHours.setText(String.format(Locale.getDefault(), "%.1f", data))));
 
         btnGenerateReport.setOnClickListener(v -> {
             if (validateInput()) {
@@ -88,6 +99,8 @@ public class InitialHealthMetricsActivity extends AppCompatActivity {
         etBloodSugar = findViewById(R.id.et_blood_sugar);
         etSleepHours = findViewById(R.id.et_sleep_hours);
         etStepCount = findViewById(R.id.et_step_count);
+        btnFetchSleep = findViewById(R.id.btn_fetch_sleep);
+        btnFetchSteps = findViewById(R.id.btn_fetch_steps);
         btnGenerateReport = findViewById(R.id.btn_generate_report);
     }
 
@@ -165,4 +178,12 @@ public class InitialHealthMetricsActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-} 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (googleFitUtil != null) {
+            googleFitUtil.onPermissionResult(requestCode, resultCode);
+        }
+    }
+}
