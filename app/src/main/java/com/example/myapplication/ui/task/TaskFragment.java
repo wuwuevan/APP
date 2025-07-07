@@ -15,6 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.R;
 import com.example.myapplication.database.DailyTaskDao;
 import com.example.myapplication.model.DailyTask;
+import com.example.myapplication.ui.task.EducationContentActivity;
+import com.example.myapplication.ui.task.SurveyActivity;
+import com.example.myapplication.ui.task.PainScoreActivity;
 import com.example.myapplication.utils.SharedPreferencesUtil;
 
 import java.text.SimpleDateFormat;
@@ -136,7 +139,7 @@ public class TaskFragment extends Fragment implements TaskAdapter.OnTaskActionLi
 
     @Override
     public void onTaskComplete(DailyTask task) {
-        // 根据任务类型打开不同的页面
+        // 点击完成任务时仅跳转到对应页面，不直接修改状态
         if ("教育内容".equals(task.getTaskType())) {
             Intent intent = new Intent(requireContext(), EducationContentActivity.class);
             intent.putExtra("task_id", task.getId());
@@ -150,29 +153,19 @@ public class TaskFragment extends Fragment implements TaskAdapter.OnTaskActionLi
             intent.putExtra("task_id", task.getId());
             startActivity(intent);
         } else {
-            // 直接标记为完成
-            task.setStatus("已完成");
-            task.setCompletionRate(1.0f);
-            taskDao.updateTaskStatus(task.getId(), task.getStatus(), task.getCompletionRate());
-            taskAdapter.notifyDataSetChanged();
+            Intent intent = new Intent(requireContext(), TaskDetailActivity.class);
+            intent.putExtra("task_id", task.getId());
+            startActivity(intent);
         }
     }
 
     @Override
     public void onTaskSkip(DailyTask task) {
-        // 跳过任务
-        task.setStatus("已跳过");
-        task.setCompletionRate(0.0f);
-        taskDao.updateTaskStatus(task.getId(), task.getStatus(), task.getCompletionRate());
-        taskAdapter.notifyDataSetChanged();
+        // 功能已移除，保留空实现以兼容旧接口
     }
 
     @Override
     public void onTaskDelay(DailyTask task) {
-        // 延后任务
-        task.setStatus("已延后");
-        task.setCompletionRate(0.0f);
-        taskDao.updateTaskStatus(task.getId(), task.getStatus(), task.getCompletionRate());
-        taskAdapter.notifyDataSetChanged();
+        // 功能已移除，保留空实现以兼容旧接口
     }
-} 
+}

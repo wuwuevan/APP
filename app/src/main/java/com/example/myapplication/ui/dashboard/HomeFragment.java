@@ -23,6 +23,9 @@ import com.example.myapplication.model.HealthIndicator;
 import com.example.myapplication.ui.task.TaskActivity;
 import com.example.myapplication.ui.task.TaskAdapter;
 import com.example.myapplication.ui.task.TaskDetailActivity;
+import com.example.myapplication.ui.task.EducationContentActivity;
+import com.example.myapplication.ui.task.SurveyActivity;
+import com.example.myapplication.ui.task.PainScoreActivity;
 import com.example.myapplication.utils.SharedPreferencesUtil;
 
 import java.text.SimpleDateFormat;
@@ -162,11 +165,24 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onTaskComplete(DailyTask task) {
-                // 在主页预览中，完成按钮通常用于快速操作，这里我们只刷新状态
-                task.setStatus("已完成");
-                task.setCompletionRate(1.0f);
-                taskDao.updateTaskStatus(task.getId(), task.getStatus(), task.getCompletionRate());
-                loadData(); // 重新加载数据以更新UI
+                // 点击完成任务仅跳转至相应页面
+                if ("教育内容".equals(task.getTaskType())) {
+                    Intent intent = new Intent(requireContext(), EducationContentActivity.class);
+                    intent.putExtra("task_id", task.getId());
+                    startActivity(intent);
+                } else if ("问卷".equals(task.getTaskType())) {
+                    Intent intent = new Intent(requireContext(), SurveyActivity.class);
+                    intent.putExtra("task_id", task.getId());
+                    startActivity(intent);
+                } else if ("疼痛评分".equals(task.getTaskType())) {
+                    Intent intent = new Intent(requireContext(), PainScoreActivity.class);
+                    intent.putExtra("task_id", task.getId());
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(requireContext(), TaskDetailActivity.class);
+                    intent.putExtra("task_id", task.getId());
+                    startActivity(intent);
+                }
             }
 
             @Override

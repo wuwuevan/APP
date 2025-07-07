@@ -30,9 +30,6 @@ public class TaskDetailActivity extends AppCompatActivity {
     private TextView tvStatus;
     private ProgressBar progressBar;
     private TextView tvProgressPercent;
-    private Button btnComplete;
-    private Button btnSkip;
-    private Button btnDelay;
     private Button btnContent;
     private Toolbar toolbar;
     
@@ -91,9 +88,6 @@ public class TaskDetailActivity extends AppCompatActivity {
         tvStatus = findViewById(R.id.tv_status);
         progressBar = findViewById(R.id.progress_bar);
         tvProgressPercent = findViewById(R.id.tv_progress_percent);
-        btnComplete = findViewById(R.id.btn_complete);
-        btnSkip = findViewById(R.id.btn_skip);
-        btnDelay = findViewById(R.id.btn_delay);
         btnContent = findViewById(R.id.btn_content);
     }
     
@@ -139,61 +133,13 @@ public class TaskDetailActivity extends AppCompatActivity {
             btnContent.setVisibility(View.GONE);
         }
         
-        // 根据状态设置按钮
-        updateButtonsByStatus();
     }
     
-    /**
-     * 根据状态更新按钮
-     */
-    private void updateButtonsByStatus() {
-        if ("已完成".equals(currentTask.getStatus())) {
-            btnComplete.setEnabled(false);
-            btnComplete.setText("已完成");
-            btnSkip.setEnabled(false);
-            btnDelay.setEnabled(false);
-        } else if ("已跳过".equals(currentTask.getStatus())) {
-            btnComplete.setEnabled(false);
-            btnSkip.setEnabled(false);
-            btnSkip.setText("已跳过");
-            btnDelay.setEnabled(false);
-        } else if ("已延后".equals(currentTask.getStatus())) {
-            btnComplete.setEnabled(true);
-            btnSkip.setEnabled(true);
-            btnDelay.setEnabled(false);
-            btnDelay.setText("已延后");
-        } else {
-            btnComplete.setEnabled(true);
-            btnSkip.setEnabled(true);
-            btnDelay.setEnabled(true);
-        }
-    }
     
     /**
      * 设置点击事件
      */
     private void setClickListeners() {
-        // 完成任务按钮
-        btnComplete.setOnClickListener(v -> {
-            if (currentTask != null) {
-                completeTask();
-            }
-        });
-        
-        // 跳过任务按钮
-        btnSkip.setOnClickListener(v -> {
-            if (currentTask != null) {
-                skipTask();
-            }
-        });
-        
-        // 延后任务按钮
-        btnDelay.setOnClickListener(v -> {
-            if (currentTask != null) {
-                delayTask();
-            }
-        });
-        
         // 内容按钮
         btnContent.setOnClickListener(v -> {
             if (currentTask != null) {
@@ -202,53 +148,6 @@ public class TaskDetailActivity extends AppCompatActivity {
         });
     }
     
-    /**
-     * 完成任务
-     */
-    private void completeTask() {
-        currentTask.setStatus("已完成");
-        currentTask.setCompletionRate(1.0f);
-        
-        int result = taskDao.updateTaskStatus(currentTask.getId(), currentTask.getStatus(), currentTask.getCompletionRate());
-        if (result > 0) {
-            Toast.makeText(this, "任务已完成", Toast.LENGTH_SHORT).show();
-            loadTaskData(); // 重新加载数据
-        } else {
-            Toast.makeText(this, "操作失败，请重试", Toast.LENGTH_SHORT).show();
-        }
-    }
-    
-    /**
-     * 跳过任务
-     */
-    private void skipTask() {
-        currentTask.setStatus("已跳过");
-        currentTask.setCompletionRate(0.0f);
-        
-        int result = taskDao.updateTaskStatus(currentTask.getId(), currentTask.getStatus(), currentTask.getCompletionRate());
-        if (result > 0) {
-            Toast.makeText(this, "任务已跳过", Toast.LENGTH_SHORT).show();
-            loadTaskData(); // 重新加载数据
-        } else {
-            Toast.makeText(this, "操作失败，请重试", Toast.LENGTH_SHORT).show();
-        }
-    }
-    
-    /**
-     * 延后任务
-     */
-    private void delayTask() {
-        currentTask.setStatus("已延后");
-        currentTask.setCompletionRate(0.0f);
-        
-        int result = taskDao.updateTaskStatus(currentTask.getId(), currentTask.getStatus(), currentTask.getCompletionRate());
-        if (result > 0) {
-            Toast.makeText(this, "任务已延后", Toast.LENGTH_SHORT).show();
-            loadTaskData(); // 重新加载数据
-        } else {
-            Toast.makeText(this, "操作失败，请重试", Toast.LENGTH_SHORT).show();
-        }
-    }
     
     /**
      * 打开任务内容
