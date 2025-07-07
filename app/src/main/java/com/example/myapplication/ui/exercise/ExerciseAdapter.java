@@ -52,6 +52,7 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
         holder.tvTitle.setText(item.getTitle());
         holder.tvDescription.setText(item.getDescription());
         holder.chipDuration.setText(item.getDuration());
+        holder.chipDifficulty.setText(item.getDifficulty());
         
         // 设置点击事件
         holder.cardView.setOnClickListener(new View.OnClickListener() {
@@ -80,6 +81,7 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
         TextView tvTitle;
         TextView tvDescription;
         Chip chipDuration;
+        Chip chipDifficulty;
         
         public ExerciseViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -87,6 +89,7 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
             tvTitle = itemView.findViewById(R.id.tv_title);
             tvDescription = itemView.findViewById(R.id.tv_description);
             chipDuration = itemView.findViewById(R.id.chip_duration);
+            chipDifficulty = itemView.findViewById(R.id.chip_difficulty);
         }
     }
     

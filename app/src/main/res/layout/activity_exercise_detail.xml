@@ -35,7 +35,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -210,16 +211,16 @@
                         android:textColor="@color/colorText" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
+            <Button
+                android:id="@+id/btn_delete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="删除训练计划"
+                android:textColor="@color/colorOnPrimary"
+                android:backgroundTint="@color/colorDanger" />
+
         </LinearLayout>
     </ScrollView>
-
-    <Button
-        android:id="@+id/btn_delete"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:text="删除训练计划"
-        android:textColor="@color/colorOnPrimary"
-        android:backgroundTint="@color/colorDanger" />
 
 </LinearLayout>
