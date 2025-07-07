@@ -94,6 +94,9 @@ public class EducationContentActivity extends AppCompatActivity {
             // 如果任务未完成，标记为进行中
             if ("未完成".equals(currentTask.getStatus())) {
                 taskDao.updateTaskStatus(taskId, "进行中", 0.5f);
+                // 同步更新内存中的任务状态，确保页面关闭时可以正确识别
+                currentTask.setStatus("进行中");
+                currentTask.setCompletionRate(0.5f);
             }
         } else {
             // 如果没有找到内容，显示默认内容
@@ -117,6 +120,9 @@ public class EducationContentActivity extends AppCompatActivity {
             // 如果任务未完成，标记为进行中
             if ("未完成".equals(currentTask.getStatus())) {
                 taskDao.updateTaskStatus(taskId, "进行中", 0.5f);
+                // 更新内存中的状态
+                currentTask.setStatus("进行中");
+                currentTask.setCompletionRate(0.5f);
             }
         }
     }
@@ -127,7 +133,10 @@ public class EducationContentActivity extends AppCompatActivity {
         // 如果任务是进行中状态，完成任务
         if (currentTask != null && "进行中".equals(currentTask.getStatus())) {
             taskDao.updateTaskStatus(taskId, "已完成", 1.0f);
+            // 同步更新内存中的任务状态
+            currentTask.setStatus("已完成");
+            currentTask.setCompletionRate(1.0f);
             Toast.makeText(this, "学习完成！", Toast.LENGTH_SHORT).show();
         }
     }
-} 
+}
