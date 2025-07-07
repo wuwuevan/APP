@@ -88,6 +88,8 @@ dependencies {
 
     // Google Fit API
     implementation 'com.google.android.gms:play-services-fitness:21.1.0'
+    // Google Sign-In for Fit access
+    implementation 'com.google.android.gms:play-services-auth:20.7.0'
     
     // Testing
     testImplementation 'junit:junit:4.13.2'
