@@ -6,13 +6,17 @@ import android.text.TextUtils;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.myapplication.MainActivity;
 import com.example.myapplication.R;
+import com.example.myapplication.data.AppDatabase;
+import com.example.myapplication.data.User;
+import com.example.myapplication.data.UserDao;
 import com.example.myapplication.database.HealthIndicatorDao;
 import com.example.myapplication.model.HealthIndicator;
 import com.example.myapplication.utils.SharedPreferencesUtil;
@@ -25,8 +29,13 @@ public class InitialHealthMetricsActivity extends AppCompatActivity {
 
     private EditText etHeight, etWeight, etHeartRate, etSystolic, etDiastolic;
     private EditText etBloodSugar, etSleepHours;
+    private RadioGroup rgGender;
+    private RadioButton rbMale;
+    private RadioButton rbFemale;
     private Button btnGenerateReport;
     private HealthIndicatorDao healthIndicatorDao;
+    private UserDao userDao;
+    private SharedPreferencesUtil prefsUtil;
     private int userId;
 
     @Override
@@ -40,7 +49,8 @@ public class InitialHealthMetricsActivity extends AppCompatActivity {
         }
 
         healthIndicatorDao = new HealthIndicatorDao(this);
-        SharedPreferencesUtil prefsUtil = new SharedPreferencesUtil(this);
+        prefsUtil = new SharedPreferencesUtil(this);
+        userDao = AppDatabase.getInstance(this).userDao();
         userId = (int) prefsUtil.getCurrentUserId();
 
         initViews();
@@ -57,6 +67,9 @@ public class InitialHealthMetricsActivity extends AppCompatActivity {
     }
 
     private void initViews() {
+        rgGender = findViewById(R.id.rg_gender);
+        rbMale = findViewById(R.id.rb_male);
+        rbFemale = findViewById(R.id.rb_female);
         etHeight = findViewById(R.id.et_height);
         etWeight = findViewById(R.id.et_weight);
         etHeartRate = findViewById(R.id.et_heart_rate);
@@ -68,7 +81,8 @@ public class InitialHealthMetricsActivity extends AppCompatActivity {
     }
 
     private boolean validateInput() {
-        if (TextUtils.isEmpty(etHeight.getText()) || TextUtils.isEmpty(etWeight.getText()) ||
+        if (rgGender.getCheckedRadioButtonId() == -1 ||
+            TextUtils.isEmpty(etHeight.getText()) || TextUtils.isEmpty(etWeight.getText()) ||
             TextUtils.isEmpty(etHeartRate.getText()) || TextUtils.isEmpty(etSystolic.getText()) ||
             TextUtils.isEmpty(etDiastolic.getText()) || TextUtils.isEmpty(etBloodSugar.getText()) ||
             TextUtils.isEmpty(etSleepHours.getText())) {
@@ -80,6 +94,16 @@ public class InitialHealthMetricsActivity extends AppCompatActivity {
 
     private void saveHealthData() {
         String currentTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
+
+        String gender = rbMale.isChecked() ? "男" : "女";
+        String username = prefsUtil.getString("current_username", "");
+        if (!username.isEmpty()) {
+            User user = userDao.getUserByUsername(username);
+            if (user != null) {
+                user.setGender(gender);
+                userDao.updateUser(user);
+            }
+        }
 
         // For simplicity, we are creating separate HealthIndicator objects for each metric.
         // In a real-world app, you might handle this differently.
