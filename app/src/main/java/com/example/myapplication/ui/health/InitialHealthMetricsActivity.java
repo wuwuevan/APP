@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.myapplication.R;
 import com.example.myapplication.data.AppDatabase;
@@ -33,6 +34,7 @@ public class InitialHealthMetricsActivity extends AppCompatActivity {
     private RadioButton rbMale;
     private RadioButton rbFemale;
     private Button btnGenerateReport;
+    private Toolbar toolbar;
     private HealthIndicatorDao healthIndicatorDao;
     private UserDao userDao;
     private SharedPreferencesUtil prefsUtil;
@@ -43,9 +45,17 @@ public class InitialHealthMetricsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_initial_health_metrics);
 
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle("初始健康信息");
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar = findViewById(R.id.toolbar);
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
+            if (getSupportActionBar() != null) {
+                getSupportActionBar().setDisplayShowTitleEnabled(false);
+            }
+            boolean showBack = getIntent().getBooleanExtra("show_back_button", false);
+            if (showBack) {
+                toolbar.setNavigationIcon(R.drawable.ic_arrow_left);
+                toolbar.setNavigationOnClickListener(v -> onBackPressed());
+            }
         }
 
         healthIndicatorDao = new HealthIndicatorDao(this);

@@ -126,6 +126,7 @@ public class HealthFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), InitialHealthMetricsActivity.class);
+                intent.putExtra("show_back_button", true);
                 startActivity(intent);
             }
         });
