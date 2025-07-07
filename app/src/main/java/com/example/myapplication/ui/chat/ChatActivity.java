@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,6 +16,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.adapter.MessageAdapter;
 import com.example.myapplication.db.MessageDao;
 import com.example.myapplication.model.ChatMessage;
+import com.example.myapplication.model.Message;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -33,6 +33,7 @@ public class ChatActivity extends AppCompatActivity {
     private List<ChatMessage> chatMessages;
     private String doctorName;
     private Toolbar toolbar;
+    private MessageDao messageDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +58,18 @@ public class ChatActivity extends AppCompatActivity {
         }
         setTitle(doctorName);
 
+        messageDao = new MessageDao(this);
+
         chatMessages = new ArrayList<>();
         messageAdapter = new MessageAdapter(chatMessages);
+
+        // Load history messages
+        List<Message> history = messageDao.getMessagesByDoctor(doctorName);
+        for (Message msg : history) {
+            String time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date(msg.getTimestamp()));
+            String type = msg.isSent() ? "USER" : "BOT";
+            chatMessages.add(new ChatMessage(msg.isSent() ? 1 : 0, type, msg.getContent(), time));
+        }
 
         recyclerView.setAdapter(messageAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -70,12 +81,15 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
-        // Add a welcome message from the assistant
-        addAutoReply("您好！我是您的智能健康助手，请问有什么可以帮助您的吗？");
+        // Add a welcome message only if there is no history
+        if (history.isEmpty()) {
+            addAutoReply("您好！我是您的智能健康助手，请问有什么可以帮助您的吗？");
+        }
     }
 
     private void sendMessage(String messageText) {
-        String currentTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
+        long timestamp = System.currentTimeMillis();
+        String currentTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date(timestamp));
         // User's message
         ChatMessage userMessage = new ChatMessage(1, "USER", messageText, currentTime);
         chatMessages.add(userMessage);
@@ -83,17 +97,24 @@ public class ChatActivity extends AppCompatActivity {
         recyclerView.scrollToPosition(chatMessages.size() - 1);
         etMessage.setText("");
 
+        // Save to database
+        messageDao.saveMessage(new Message(messageText, timestamp, true, doctorName));
+
         // Auto-reply from the assistant
         addAutoReply("感谢您的提问，我会尽快为您解答。");
     }
 
     private void addAutoReply(String messageText) {
-        String currentTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
+        long timestamp = System.currentTimeMillis();
+        String currentTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date(timestamp));
         // Assistant's message
         ChatMessage botMessage = new ChatMessage(0, "BOT", messageText, currentTime);
         chatMessages.add(botMessage);
         messageAdapter.notifyItemInserted(chatMessages.size() - 1);
         recyclerView.scrollToPosition(chatMessages.size() - 1);
+
+        // Save to database
+        messageDao.saveMessage(new Message(messageText, timestamp, false, doctorName));
     }
     
     @Override

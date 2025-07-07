@@ -104,7 +104,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="健康建议"
+                android:text="智能问答"
                 android:textAppearance="@style/TextAppearance.MyApplication.Body1"
                 android:textColor="@color/colorTextPrimary" />
 
@@ -113,7 +113,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:gravity="center"
-                android:text="随时获取康复指导"
+                android:text="AI助手快速解答疑问"
                 android:textAppearance="@style/TextAppearance.MyApplication.Caption"
                 android:textColor="@color/colorTextSecondary" />
         </LinearLayout>
@@ -153,7 +153,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="人工咨询"
+                android:text="专家协助"
                 android:textAppearance="@style/TextAppearance.MyApplication.Body1"
                 android:textColor="@color/colorTextPrimary" />
 
@@ -162,7 +162,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:gravity="center"
-                android:text="一键连接专业医师"
+                android:text="需要时可联系医生"
                 android:textAppearance="@style/TextAppearance.MyApplication.Caption"
                 android:textColor="@color/colorTextSecondary" />
         </LinearLayout>

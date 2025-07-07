@@ -49,7 +49,7 @@
     <string name="title_home">首页</string>
     <string name="title_exercise">训练计划</string>
     <string name="title_health">健康监测</string>
-    <string name="title_chat">医患沟通</string>
+    <string name="title_chat">智能健康助手</string>
     <string name="title_profile">个人中心</string>
     
     <!-- 训练页面 -->
