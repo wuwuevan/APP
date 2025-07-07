@@ -104,6 +104,9 @@ public class MessageDao {
                     firstMessage = firstCursor.getString(0);
                     firstCursor.close();
                 }
+                if (firstMessage == null || firstMessage.isEmpty()) {
+                    firstMessage = doctorName;
+                }
 
                 // 获取最后一条消息内容及时间
                 String lastMessage = "";

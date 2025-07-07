@@ -52,8 +52,9 @@ public class ChatFragment extends Fragment {
 
         btnStartChat.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), ChatActivity.class);
-            // Pass a generic name for the assistant
-            intent.putExtra("doctor_name", "智能健康助手");
+            // Use a unique conversation id so each consultation appears separately
+            String conversationId = "智能健康助手_" + System.currentTimeMillis();
+            intent.putExtra("doctor_name", conversationId);
             startActivity(intent);
         });
 
