@@ -12,7 +12,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
     <!-- Header area with gradient -->
     <View
@@ -79,7 +79,8 @@
         app:cardElevation="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_slogan">
+        app:layout_constraintTop_toBottomOf="@+id/tv_slogan"
+        app:layout_constraintBottom_toTopOf="@id/layout_register">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -162,6 +163,7 @@
 
     <!-- Register link -->
     <LinearLayout
+        android:id="@+id/layout_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
@@ -169,7 +171,8 @@
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/card_login_form">
 
         <TextView
             android:layout_width="wrap_content"
