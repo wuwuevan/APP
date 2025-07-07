@@ -50,8 +50,7 @@
             android:contentDescription="@string/profile_picture"
             android:src="@drawable/ic_person"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tv_greeting"
-            app:tint="@color/colorPrimary" />
+            app:layout_constraintTop_toTopOf="@id/tv_greeting" />
 
         <!-- Daily progress summary card -->
         <com.google.android.material.card.MaterialCardView
