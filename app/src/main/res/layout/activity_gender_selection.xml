@@ -40,10 +40,10 @@
 
             <Button
                 android:id="@+id/btn_male"
+                style="@style/Widget.MyApplication.Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/male"
-                android:textColor="@color/colorMale"
                 android:layout_marginTop="8dp"/>
         </LinearLayout>
 
@@ -64,11 +64,20 @@
 
             <Button
                 android:id="@+id/btn_female"
+                style="@style/Widget.MyApplication.Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/female"
-                android:textColor="@color/colorFemale"
                 android:layout_marginTop="8dp"/>
         </LinearLayout>
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_confirm"
+        style="@style/Widget.MyApplication.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/confirm"
+        android:visibility="gone"/>
 </LinearLayout>

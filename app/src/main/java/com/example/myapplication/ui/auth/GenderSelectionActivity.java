@@ -24,6 +24,9 @@ public class GenderSelectionActivity extends AppCompatActivity {
     private ImageView ivFemale;
     private Button btnMale;
     private Button btnFemale;
+    private Button btnConfirm;
+
+    private String selectedGender;
 
     private UserDao userDao;
     private SharedPreferencesUtil spUtil;
@@ -45,24 +48,35 @@ public class GenderSelectionActivity extends AppCompatActivity {
         ivFemale = findViewById(R.id.iv_female);
         btnMale = findViewById(R.id.btn_male);
         btnFemale = findViewById(R.id.btn_female);
+        btnConfirm = findViewById(R.id.btn_confirm);
     }
 
     private void setListeners() {
-        View.OnClickListener maleListener = v -> selectGender("男");
-        View.OnClickListener femaleListener = v -> selectGender("女");
+        View.OnClickListener maleListener = v -> chooseGender("男");
+        View.OnClickListener femaleListener = v -> chooseGender("女");
 
         ivMale.setOnClickListener(maleListener);
         btnMale.setOnClickListener(maleListener);
         ivFemale.setOnClickListener(femaleListener);
         btnFemale.setOnClickListener(femaleListener);
+
+        btnConfirm.setOnClickListener(v -> confirmSelection());
     }
 
-    private void selectGender(String gender) {
+    private void chooseGender(String gender) {
+        selectedGender = gender;
+        btnConfirm.setVisibility(View.VISIBLE);
+    }
+
+    private void confirmSelection() {
+        if (selectedGender == null) {
+            return;
+        }
         String username = spUtil.getString("current_username", "");
         if (!username.isEmpty()) {
             User user = userDao.getUserByUsername(username);
             if (user != null) {
-                user.setGender(gender);
+                user.setGender(selectedGender);
                 userDao.updateUser(user);
             }
         }
