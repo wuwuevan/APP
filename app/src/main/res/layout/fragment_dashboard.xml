@@ -83,55 +83,42 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
-                    android:text="@string/rehabilitation_progress"
+                    android:text="@string/task_progress"
                     android:textAppearance="@style/TextAppearance.MyApplication.Subtitle1"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/view_gradient_header" />
 
-                <TextView
-                    android:id="@+id/tv_day_count"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:text="@string/day_count_format"
-                    android:textAppearance="@style/TextAppearance.MyApplication.Body2"
-                    app:layout_constraintBottom_toBottomOf="@+id/tv_progress_title"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/tv_progress_title" />
-
-                <!-- Progress bar with modern style -->
                 <ProgressBar
                     android:id="@+id/progress_bar"
                     style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                    android:layout_width="0dp"
-                    android:layout_height="8dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:layout_marginEnd="16dp"
                     android:max="100"
                     android:progress="65"
                     android:progressDrawable="@drawable/progress_circular_determinate"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_progress_title"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_progress_title" />
+                    app:layout_constraintTop_toTopOf="@+id/tv_progress_title" />
 
                 <TextView
                     android:id="@+id/tv_progress_percent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
                     android:text="65%"
                     android:textAppearance="@style/TextAppearance.MyApplication.Body2"
                     android:textColor="@color/colorPrimary"
+                    app:layout_constraintBottom_toBottomOf="@+id/progress_bar"
                     app:layout_constraintEnd_toEndOf="@+id/progress_bar"
-                    app:layout_constraintTop_toBottomOf="@+id/progress_bar" />
+                    app:layout_constraintStart_toStartOf="@+id/progress_bar"
+                    app:layout_constraintTop_toTopOf="@+id/progress_bar" />
 
                 <!-- Today's tasks summary -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="16dp"
                     android:orientation="horizontal"
