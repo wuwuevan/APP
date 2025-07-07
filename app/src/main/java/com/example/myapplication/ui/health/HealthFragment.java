@@ -201,7 +201,9 @@ public class HealthFragment extends Fragment {
         
         // 血压评估
         report.append("血压：");
-        if (systolic < 120 && diastolic < 80) {
+        if (systolic < 90 || diastolic < 60) {
+            report.append("偏低，注意补充水分并适当休息。");
+        } else if (systolic < 120 && diastolic < 80) {
             report.append("理想血压，继续保持健康的生活方式。");
         } else if (systolic < 130 && diastolic < 85) {
             report.append("正常血压，定期监测。");

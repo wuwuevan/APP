@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,6 +19,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.R;
 import com.example.myapplication.database.DailyTaskDao;
 import com.example.myapplication.database.HealthIndicatorDao;
+import com.example.myapplication.data.AppDatabase;
+import com.example.myapplication.data.UserDao;
+import com.example.myapplication.data.User;
+import com.bumptech.glide.Glide;
 import com.example.myapplication.model.DailyTask;
 import com.example.myapplication.model.HealthIndicator;
 import com.example.myapplication.ui.task.TaskActivity;
@@ -46,15 +51,17 @@ public class HomeFragment extends Fragment {
     private TextView tvStepCount;
     private TextView tvSleepHours;
     private TextView tvUserName;
+    private ImageView ivProfile;
     private CardView cardTodayTask;
     private CardView cardHealthIndicators;
     private TextView tvViewAll;
     private RecyclerView rvTasks;
     private TaskAdapter taskAdapter;
     private List<DailyTask> taskList = new ArrayList<>();
-    
+
     private DailyTaskDao taskDao;
     private HealthIndicatorDao healthIndicatorDao;
+    private UserDao userDao;
     private SharedPreferencesUtil spUtil;
     private long userId;
     private String username = "";
@@ -63,11 +70,12 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
-        
+
         // 初始化DAO和工具类
         taskDao = new DailyTaskDao(requireContext());
         healthIndicatorDao = new HealthIndicatorDao(requireContext());
         spUtil = new SharedPreferencesUtil(requireContext());
+        userDao = AppDatabase.getInstance(requireContext()).userDao();
 
         // 获取当前用户名
         username = spUtil.getString("current_username", "");
@@ -81,12 +89,12 @@ public class HomeFragment extends Fragment {
                 userId = 1;
             }
         }
-        
+
         initView(view);
         setClickListeners();
         return view;
     }
-    
+
     @Override
     public void onResume() {
         super.onResume();
@@ -99,6 +107,8 @@ public class HomeFragment extends Fragment {
         if (tvUserName != null && !username.isEmpty()) {
             tvUserName.setText(username);
         }
+        // 更新头像
+        loadUserAvatar();
     }
 
     /**
@@ -106,6 +116,7 @@ public class HomeFragment extends Fragment {
      */
     private void initView(View view) {
         tvUserName = view.findViewById(R.id.tv_user_name);
+        ivProfile = view.findViewById(R.id.iv_profile);
         tvTodayTaskCount = view.findViewById(R.id.tv_today_task_count);
         tvCompletedTaskCount = view.findViewById(R.id.tv_completed_task_count);
         progressBar = view.findViewById(R.id.progress_bar);
@@ -121,7 +132,9 @@ public class HomeFragment extends Fragment {
         if (!username.isEmpty()) {
             tvUserName.setText(username);
         }
-        
+
+        loadUserAvatar();
+
         // 初始化RecyclerView
         rvTasks = view.findViewById(R.id.rv_tasks);
         rvTasks.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -129,7 +142,7 @@ public class HomeFragment extends Fragment {
         rvTasks.setAdapter(taskAdapter);
         rvTasks.setNestedScrollingEnabled(false); // 在NestedScrollView中禁用滚动
     }
-    
+
     /**
      * 设置点击事件
      */
@@ -139,13 +152,13 @@ public class HomeFragment extends Fragment {
             Intent intent = new Intent(requireContext(), TaskActivity.class);
             startActivity(intent);
         });
-        
+
         // "查看全部"跳转到任务中心
         tvViewAll.setOnClickListener(v -> {
             Intent intent = new Intent(requireContext(), TaskActivity.class);
             startActivity(intent);
         });
-        
+
         // 点击健康指标卡片，跳转到健康页面
         cardHealthIndicators.setOnClickListener(v -> {
             // 切换到健康页面的底部导航
@@ -196,6 +209,29 @@ public class HomeFragment extends Fragment {
             }
         });
     }
+    /**
+     * 加载并显示用户头像
+     */
+    private void loadUserAvatar() {
+        String name = spUtil.getString("current_username", "");
+        if (name.isEmpty() || ivProfile == null) {
+            return;
+        }
+
+        User user = userDao.getUserByUsername(name);
+        if (user != null) {
+            int defaultAvatar = "女".equals(user.getGender()) ? R.drawable.ic_avatar_female : R.drawable.ic_avatar_male;
+            if (user.getAvatarPath() != null && !user.getAvatarPath().isEmpty()) {
+                Glide.with(this)
+                        .load(new java.io.File(user.getAvatarPath()))
+                        .circleCrop()
+                        .placeholder(defaultAvatar)
+                        .into(ivProfile);
+            } else {
+                ivProfile.setImageResource(defaultAvatar);
+            }
+        }
+    }
 
     /**
      * 如果当天没有任务，则生成默认任务
@@ -203,13 +239,13 @@ public class HomeFragment extends Fragment {
     private void generateDefaultTasksIfNeeded() {
         String today = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
         List<DailyTask> todayTasks = taskDao.getTodayTasks((int) userId, today);
-        
+
         if (todayTasks.isEmpty()) {
             // 创建默认任务，开始和结束时间均设为今天，确保查询时能够获取到
             DailyTask task1 = new DailyTask((int) userId, "阅读康复文章", "了解术后恢复的注意事项", "教育内容", today, today);
             DailyTask task2 = new DailyTask((int) userId, "填写健康问卷", "让我们更好地了解您的恢复情况", "问卷", today, today);
             DailyTask task3 = new DailyTask((int) userId, "记录今日疼痛评分", "记录疼痛变化，帮助医生评估", "疼痛评分", today, today);
-            
+
             // 添加到数据库
             taskDao.addDailyTask(task1);
             taskDao.addDailyTask(task2);
@@ -223,39 +259,39 @@ public class HomeFragment extends Fragment {
     private void loadData() {
         // 获取当前日期
         String today = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
-        
+
         // 获取当日任务
         List<DailyTask> todayTasks = taskDao.getTodayTasks((int)userId, today);
-        
+
         // 更新任务列表数据
         taskList.clear();
         taskList.addAll(todayTasks);
         taskAdapter.notifyDataSetChanged();
-        
+
         // 设置任务数量
         int totalTasks = todayTasks.size();
         int completedTasks = 0;
-        
+
         // 计算已完成任务
         for (DailyTask task : todayTasks) {
             if ("已完成".equals(task.getStatus())) {
                 completedTasks++;
             }
         }
-        
+
         // 设置显示数据
         tvTodayTaskCount.setText(String.valueOf(totalTasks));
         tvCompletedTaskCount.setText(String.valueOf(completedTasks));
-        
+
         // 设置进度
         int progress = totalTasks > 0 ? (completedTasks * 100 / totalTasks) : 0;
         progressBar.setProgress(progress);
         tvProgressPercent.setText(progress + "%");
-        
+
         // 加载健康指标数据
         loadHealthIndicators();
     }
-    
+
     /**
      * 加载健康指标数据
      */
@@ -267,11 +303,11 @@ public class HomeFragment extends Fragment {
         } else {
             // 没有数据时显示默认值
             tvHeartRate.setText("72 bpm");
-            
+
             // 创建并保存默认数据
             saveDefaultHealthIndicator("心率", 72);
         }
-        
+
         // 获取最新的步数数据
         HealthIndicator stepCount = healthIndicatorDao.getLatestHealthIndicator((int)userId, "步数");
         if (stepCount != null) {
@@ -279,11 +315,11 @@ public class HomeFragment extends Fragment {
         } else {
             // 没有数据时显示默认值
             tvStepCount.setText("6,243 步");
-            
+
             // 创建并保存默认数据
             saveDefaultHealthIndicator("步数", 6243);
         }
-        
+
         // 获取最新的睡眠时长数据
         HealthIndicator sleepHours = healthIndicatorDao.getLatestHealthIndicator((int)userId, "睡眠时长");
         if (sleepHours != null) {
@@ -291,12 +327,12 @@ public class HomeFragment extends Fragment {
         } else {
             // 没有数据时显示默认值
             tvSleepHours.setText("7.5 小时");
-            
+
             // 创建并保存默认数据
             saveDefaultHealthIndicator("睡眠时长", 7.5f);
         }
     }
-    
+
     /**
      * 保存默认健康指标数据
      */
@@ -305,4 +341,4 @@ public class HomeFragment extends Fragment {
         HealthIndicator indicator = new HealthIndicator((int)userId, type, value, currentTime);
         healthIndicatorDao.addHealthIndicator(indicator);
     }
-} 
+}
