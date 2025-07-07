@@ -60,9 +60,14 @@ public class DashboardFragment extends Fragment {
         // 获取当前日期
         String today = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
         
-        // 获取当前用户ID（假设已经登录）
-        int userId = 1;
-        tvUserName.setText(String.valueOf(userId));
+        SharedPreferencesUtil spUtil = new SharedPreferencesUtil(requireContext());
+        int userId = (int) spUtil.getCurrentUserId();
+        String username = spUtil.getCurrentUsername();
+        if (!username.isEmpty()) {
+            tvUserName.setText(username);
+        } else {
+            tvUserName.setText(String.valueOf(userId));
+        }
         
         // 获取当日任务
         DailyTaskDao taskDao = new DailyTaskDao(getContext());

@@ -65,11 +65,11 @@ public class HomeFragment extends Fragment {
         healthIndicatorDao = new HealthIndicatorDao(requireContext());
         spUtil = new SharedPreferencesUtil(requireContext());
         
-        // 获取用户ID
+        // 获取用户ID和用户名
         userId = spUtil.getCurrentUserId();
+        String username = spUtil.getCurrentUsername();
         if (userId == -1) {
             // 如果没有获取到用户ID，尝试从SharedPreferences获取当前用户名
-            String username = spUtil.getString("current_username", "");
             if (!username.isEmpty()) {
                 // 假设用户ID为1，实际应用中应该根据用户名查询数据库获取用户ID
                 userId = 1;
@@ -77,7 +77,11 @@ public class HomeFragment extends Fragment {
         }
         
         initView(view);
-        tvUserName.setText(String.valueOf(userId));
+        if (!username.isEmpty()) {
+            tvUserName.setText(username);
+        } else {
+            tvUserName.setText(String.valueOf(userId));
+        }
         setClickListeners();
         return view;
     }
