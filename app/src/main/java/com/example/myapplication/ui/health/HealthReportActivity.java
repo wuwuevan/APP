@@ -150,6 +150,13 @@ public class HealthReportActivity extends AppCompatActivity {
 
     private void loadDataFromDatabase() {
         // Load standard indicators
+        HealthIndicator bmiIndicator = healthIndicatorDao.getLatestHealthIndicator(userId, "BMI");
+        if (bmiIndicator != null) {
+            float bmi = bmiIndicator.getIndicatorValue();
+            tvBMI.setText(String.format(Locale.getDefault(), "%.1f", bmi));
+            updateStatus(tvBMIStatus, bmi, 18.5f, 24f);
+        }
+
         HealthIndicator heartRateIndicator = healthIndicatorDao.getLatestHealthIndicator(userId, "心率");
         if (heartRateIndicator != null) {
             int heartRate = (int) heartRateIndicator.getIndicatorValue();
@@ -170,6 +177,20 @@ public class HealthReportActivity extends AppCompatActivity {
                 tvBloodPressureStatus.setText("正常");
                 tvBloodPressureStatus.setTextColor(getResources().getColor(R.color.colorSuccess));
             }
+        }
+
+        HealthIndicator bloodSugarIndicator = healthIndicatorDao.getLatestHealthIndicator(userId, "血糖");
+        if (bloodSugarIndicator != null) {
+            float bs = bloodSugarIndicator.getIndicatorValue();
+            tvBloodSugar.setText(String.format(Locale.getDefault(), "%.1f", bs));
+            updateStatus(tvBloodSugarStatus, bs, 3.9f, 6.1f);
+        }
+
+        HealthIndicator sleepIndicator = healthIndicatorDao.getLatestHealthIndicator(userId, "睡眠时长");
+        if (sleepIndicator != null) {
+            float hours = sleepIndicator.getIndicatorValue();
+            tvSleepQuality.setText(String.format(Locale.getDefault(), "%.1f", hours));
+            updateStatus(tvSleepQualityStatus, hours, 6f, 9f);
         }
 
         // Load and display custom indicators

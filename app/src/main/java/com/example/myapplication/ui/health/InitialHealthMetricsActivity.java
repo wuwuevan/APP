@@ -24,6 +24,7 @@ import java.util.Locale;
 public class InitialHealthMetricsActivity extends AppCompatActivity {
 
     private EditText etHeight, etWeight, etHeartRate, etSystolic, etDiastolic;
+    private EditText etBloodSugar, etSleepHours;
     private Button btnGenerateReport;
     private HealthIndicatorDao healthIndicatorDao;
     private int userId;
@@ -61,13 +62,16 @@ public class InitialHealthMetricsActivity extends AppCompatActivity {
         etHeartRate = findViewById(R.id.et_heart_rate);
         etSystolic = findViewById(R.id.et_systolic);
         etDiastolic = findViewById(R.id.et_diastolic);
+        etBloodSugar = findViewById(R.id.et_blood_sugar);
+        etSleepHours = findViewById(R.id.et_sleep_hours);
         btnGenerateReport = findViewById(R.id.btn_generate_report);
     }
 
     private boolean validateInput() {
         if (TextUtils.isEmpty(etHeight.getText()) || TextUtils.isEmpty(etWeight.getText()) ||
             TextUtils.isEmpty(etHeartRate.getText()) || TextUtils.isEmpty(etSystolic.getText()) ||
-            TextUtils.isEmpty(etDiastolic.getText())) {
+            TextUtils.isEmpty(etDiastolic.getText()) || TextUtils.isEmpty(etBloodSugar.getText()) ||
+            TextUtils.isEmpty(etSleepHours.getText())) {
             Toast.makeText(this, "所有字段均为必填项", Toast.LENGTH_SHORT).show();
             return false;
         }
@@ -82,6 +86,8 @@ public class InitialHealthMetricsActivity extends AppCompatActivity {
         float height = Float.parseFloat(etHeight.getText().toString());
         float weight = Float.parseFloat(etWeight.getText().toString());
         float bmi = calculateBmi(height, weight);
+        float bloodSugar = Float.parseFloat(etBloodSugar.getText().toString());
+        float sleepHours = Float.parseFloat(etSleepHours.getText().toString());
         
         saveIndicator("身高", height, currentTime);
         saveIndicator("体重", weight, currentTime);
@@ -89,6 +95,8 @@ public class InitialHealthMetricsActivity extends AppCompatActivity {
         saveIndicator("心率", Float.parseFloat(etHeartRate.getText().toString()), currentTime);
         saveIndicator("收缩压", Float.parseFloat(etSystolic.getText().toString()), currentTime);
         saveIndicator("舒张压", Float.parseFloat(etDiastolic.getText().toString()), currentTime);
+        saveIndicator("血糖", bloodSugar, currentTime);
+        saveIndicator("睡眠时长", sleepHours, currentTime);
         
         Toast.makeText(this, "健康数据已保存", Toast.LENGTH_SHORT).show();
     }
