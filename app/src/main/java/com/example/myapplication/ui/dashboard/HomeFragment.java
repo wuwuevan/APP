@@ -42,6 +42,7 @@ public class HomeFragment extends Fragment {
     private TextView tvHeartRate;
     private TextView tvStepCount;
     private TextView tvSleepHours;
+    private TextView tvUserName;
     private CardView cardTodayTask;
     private CardView cardHealthIndicators;
     private TextView tvViewAll;
@@ -53,6 +54,7 @@ public class HomeFragment extends Fragment {
     private HealthIndicatorDao healthIndicatorDao;
     private SharedPreferencesUtil spUtil;
     private long userId;
+    private String username = "";
 
     @Nullable
     @Override
@@ -63,12 +65,14 @@ public class HomeFragment extends Fragment {
         taskDao = new DailyTaskDao(requireContext());
         healthIndicatorDao = new HealthIndicatorDao(requireContext());
         spUtil = new SharedPreferencesUtil(requireContext());
-        
+
+        // 获取当前用户名
+        username = spUtil.getString("current_username", "");
+
         // 获取用户ID
         userId = spUtil.getCurrentUserId();
         if (userId == -1) {
             // 如果没有获取到用户ID，尝试从SharedPreferences获取当前用户名
-            String username = spUtil.getString("current_username", "");
             if (!username.isEmpty()) {
                 // 假设用户ID为1，实际应用中应该根据用户名查询数据库获取用户ID
                 userId = 1;
@@ -87,12 +91,18 @@ public class HomeFragment extends Fragment {
         generateDefaultTasksIfNeeded();
         // 每次恢复时重新加载数据
         loadData();
+        // 更新用户名显示
+        username = spUtil.getString("current_username", username);
+        if (tvUserName != null && !username.isEmpty()) {
+            tvUserName.setText(username);
+        }
     }
 
     /**
      * 初始化视图
      */
     private void initView(View view) {
+        tvUserName = view.findViewById(R.id.tv_user_name);
         tvTodayTaskCount = view.findViewById(R.id.tv_today_task_count);
         tvCompletedTaskCount = view.findViewById(R.id.tv_completed_task_count);
         progressBar = view.findViewById(R.id.progress_bar);
@@ -103,6 +113,11 @@ public class HomeFragment extends Fragment {
         cardTodayTask = view.findViewById(R.id.card_today_task);
         cardHealthIndicators = view.findViewById(R.id.card_health_indicators);
         tvViewAll = view.findViewById(R.id.tv_view_all);
+
+        // 设置用户名
+        if (!username.isEmpty()) {
+            tvUserName.setText(username);
+        }
         
         // 初始化RecyclerView
         rvTasks = view.findViewById(R.id.rv_tasks);
