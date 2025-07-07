@@ -139,6 +139,14 @@ public class TaskDetailActivity extends AppCompatActivity {
             ivTaskIcon.setImageResource(R.drawable.ic_task);
             btnContent.setVisibility(View.GONE);
         }
+
+        // 如果任务已完成，禁用按钮并显示已完成状态
+        if ("已完成".equals(currentTask.getStatus())) {
+            btnContent.setEnabled(false);
+            btnContent.setText("已完成");
+        } else {
+            btnContent.setEnabled(true);
+        }
         
     }
     
