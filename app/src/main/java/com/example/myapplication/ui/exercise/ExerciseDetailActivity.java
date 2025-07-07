@@ -1,13 +1,18 @@
 package com.example.myapplication.ui.exercise;
 
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.myapplication.R;
+import com.example.myapplication.data.ExerciseDao;
 
 /**
  * 训练详情页面
@@ -23,7 +28,8 @@ public class ExerciseDetailActivity extends AppCompatActivity {
     private TextView tvSteps;
     private TextView tvNotes;
     private Toolbar toolbar;
-
+    private Button btnDelete;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +60,18 @@ public class ExerciseDetailActivity extends AppCompatActivity {
 
         // 加载数据
         loadData(title, duration, calories, difficulty, description, imageResId, steps, notes);
+
+        btnDelete.setOnClickListener(v -> new AlertDialog.Builder(this)
+                .setTitle("删除训练计划")
+                .setMessage("是否确认删除？")
+                .setNegativeButton("取消", null)
+                .setPositiveButton("确定", (dialog, which) -> {
+                    ExerciseDao dao = new ExerciseDao(this);
+                    dao.deleteExerciseByTitle(title);
+                    Toast.makeText(this, "训练计划已删除", Toast.LENGTH_SHORT).show();
+                    finish();
+                })
+                .show());
     }
 
     /**
@@ -68,6 +86,7 @@ public class ExerciseDetailActivity extends AppCompatActivity {
         tvDescription = findViewById(R.id.tv_description);
         tvSteps = findViewById(R.id.tv_steps);
         tvNotes = findViewById(R.id.tv_notes);
+        btnDelete = findViewById(R.id.btn_delete);
     }
 
     /**

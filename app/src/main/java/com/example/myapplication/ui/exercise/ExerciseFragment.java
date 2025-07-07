@@ -18,6 +18,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.R;
 import com.example.myapplication.data.DatabaseHelper;
 import com.example.myapplication.data.ExerciseDao;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
 import java.util.ArrayList;
@@ -31,6 +33,11 @@ public class ExerciseFragment extends Fragment {
     private RecyclerView recyclerView;
     private ExerciseAdapter adapter;
     private ExtendedFloatingActionButton fabAddExercise;
+    private ChipGroup chipGroupFilter;
+    private Chip chipAll;
+    private Chip chipBeginner;
+    private Chip chipIntermediate;
+    private Chip chipAdvanced;
     private List<ExerciseItem> exerciseList;
     private static final int REQUEST_ADD_EXERCISE = 100;
     private ExerciseDao exerciseDao;
@@ -70,8 +77,36 @@ public class ExerciseFragment extends Fragment {
     private void initViews(View root) {
         recyclerView = root.findViewById(R.id.recycler_exercise);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        
+
         fabAddExercise = root.findViewById(R.id.fab_add_exercise);
+
+        chipGroupFilter = root.findViewById(R.id.chip_group_filter);
+        chipAll = root.findViewById(R.id.chip_all);
+        chipBeginner = root.findViewById(R.id.chip_beginner);
+        chipIntermediate = root.findViewById(R.id.chip_intermediate);
+        chipAdvanced = root.findViewById(R.id.chip_advanced);
+
+        setupFilterChips();
+    }
+
+    /**
+     * 设置筛选芯片
+     */
+    private void setupFilterChips() {
+        chipGroupFilter.setOnCheckedChangeListener(new ChipGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(ChipGroup group, int checkedId) {
+                if (checkedId == R.id.chip_all || checkedId == View.NO_ID) {
+                    loadExercisesFromDatabase();
+                } else if (checkedId == R.id.chip_beginner) {
+                    filterExercises("初级");
+                } else if (checkedId == R.id.chip_intermediate) {
+                    filterExercises("中级");
+                } else if (checkedId == R.id.chip_advanced) {
+                    filterExercises("高级");
+                }
+            }
+        });
     }
     
     /**
@@ -170,6 +205,22 @@ public class ExerciseFragment extends Fragment {
             adapter.notifyDataSetChanged();
         }
     }
+
+    /**
+     * 根据难度筛选训练计划
+     */
+    private void filterExercises(String level) {
+        exerciseList.clear();
+        List<ExerciseItem> all = exerciseDao.getAllExercises();
+        for (ExerciseItem item : all) {
+            if (item.getDifficulty().equals(level)) {
+                exerciseList.add(item);
+            }
+        }
+        if (adapter != null) {
+            adapter.notifyDataSetChanged();
+        }
+    }
     
     /**
      * 创建默认训练计划数据
@@ -190,15 +241,15 @@ public class ExerciseFragment extends Fragment {
                 "瑜伽是一种结合了身体姿势、呼吸控制和冥想的运动形式，能提高身体柔韧性、平衡能力和核心力量，同时减轻压力，改善心理健康。", 
                 R.drawable.ic_exercise));
         
-        defaultExercises.add(new ExerciseItem("力量训练", "增强肌肉力量和耐力的训练", "40分钟", 250, "中级", 
+        defaultExercises.add(new ExerciseItem("力量训练", "增强肌肉力量和耐力的训练", "40分钟", 250, "高级",
                 "力量训练通过对抗阻力来增强肌肉力量和耐力，提高基础代谢率，塑造体型，预防骨质疏松，改善姿势和平衡能力。", 
                 R.drawable.ic_exercise));
         
-        defaultExercises.add(new ExerciseItem("游泳", "全身性有氧运动，关节负担小", "30分钟", 300, "中级", 
+        defaultExercises.add(new ExerciseItem("游泳", "全身性有氧运动，关节负担小", "30分钟", 300, "高级",
                 "游泳是一种全身性有氧运动，对关节冲击小，适合各年龄段人群。它能提高心肺功能，增强全身肌肉力量，改善姿势和灵活性。", 
                 R.drawable.ic_exercise));
         
-        defaultExercises.add(new ExerciseItem("骑行", "中高强度有氧运动，锻炼下肢力量", "45分钟", 350, "中级", 
+        defaultExercises.add(new ExerciseItem("骑行", "中高强度有氧运动，锻炼下肢力量", "45分钟", 350, "中级",
                 "骑行是一种中高强度有氧运动，能有效锻炼下肢肌肉力量，提高心肺功能，消耗热量，同时对关节冲击较小。", 
                 R.drawable.ic_exercise));
         
@@ -207,7 +258,7 @@ public class ExerciseFragment extends Fragment {
                 "上肢康复训练针对肩部、手臂和手部功能障碍设计，通过一系列渐进式练习，恢复上肢力量、灵活性和协调性。", 
                 R.drawable.ic_exercise));
         
-        defaultExercises.add(new ExerciseItem("下肢康复训练", "适合下肢功能障碍患者的训练计划", "45分钟", 150, "初级", 
+        defaultExercises.add(new ExerciseItem("下肢康复训练", "适合下肢功能障碍患者的训练计划", "45分钟", 150, "中级",
                 "下肢康复训练针对髋部、膝盖和脚踝功能障碍设计，通过渐进式练习，恢复下肢力量、灵活性和平衡能力。", 
                 R.drawable.ic_exercise));
         
@@ -219,7 +270,7 @@ public class ExerciseFragment extends Fragment {
                 "手指灵活性训练针对手部精细动作障碍设计，通过各种手指练习，提高灵活度、力量和协调性，改善日常生活能力。", 
                 R.drawable.ic_exercise));
         
-        defaultExercises.add(new ExerciseItem("颈椎康复训练", "缓解颈椎疼痛和改善活动度的训练", "10分钟", 60, "初级", 
+        defaultExercises.add(new ExerciseItem("颈椎康复训练", "缓解颈椎疼痛和改善活动度的训练", "10分钟", 60, "高级",
                 "颈椎康复训练通过温和的伸展和强化练习，缓解颈部疼痛，增加活动范围，改善姿势，预防颈椎问题恶化。", 
                 R.drawable.ic_exercise));
         

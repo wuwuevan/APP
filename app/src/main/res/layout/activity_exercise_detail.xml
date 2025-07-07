@@ -212,4 +212,14 @@
             </androidx.cardview.widget.CardView>
         </LinearLayout>
     </ScrollView>
-</LinearLayout> 
+
+    <Button
+        android:id="@+id/btn_delete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="删除训练计划"
+        android:textColor="@color/colorOnPrimary"
+        android:backgroundTint="@color/colorDanger" />
+
+</LinearLayout>

@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.myapplication.R;
 import com.example.myapplication.data.ExerciseDao;
@@ -28,6 +29,7 @@ public class AddExerciseActivity extends AppCompatActivity {
     private EditText etSteps;
     private EditText etNotes;
     private Button btnSave;
+    private Toolbar toolbar;
     private ExerciseDao exerciseDao;
 
     @Override
@@ -38,11 +40,12 @@ public class AddExerciseActivity extends AppCompatActivity {
         // 初始化数据访问对象
         exerciseDao = new ExerciseDao(this);
 
-        // 设置标题和返回按钮
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle("添加训练计划");
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
+        toolbar.setNavigationOnClickListener(v -> onBackPressed());
 
         // 初始化视图
         initViews();

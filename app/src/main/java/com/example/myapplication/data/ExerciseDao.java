@@ -155,4 +155,15 @@ public class ExerciseDao {
         
         close();
     }
-} 
+
+    /**
+     * 根据标题删除训练计划
+     */
+    public int deleteExerciseByTitle(String title) {
+        open();
+        int rows = database.delete(DatabaseHelper.TABLE_EXERCISE,
+                DatabaseHelper.COLUMN_TITLE + " = ?", new String[]{title});
+        close();
+        return rows;
+    }
+}

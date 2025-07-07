@@ -61,25 +61,25 @@
                     android:text="全部" />
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_daily"
+                    android:id="@+id/chip_beginner"
                     style="@style/Widget.MyApplication.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="日常训练" />
+                    android:text="初级" />
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_strength"
+                    android:id="@+id/chip_intermediate"
                     style="@style/Widget.MyApplication.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="力量训练" />
+                    android:text="中级" />
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_stretch"
+                    android:id="@+id/chip_advanced"
                     style="@style/Widget.MyApplication.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="拉伸训练" />
+                    android:text="高级" />
 
             </com.google.android.material.chip.ChipGroup>
         </androidx.constraintlayout.widget.ConstraintLayout>
