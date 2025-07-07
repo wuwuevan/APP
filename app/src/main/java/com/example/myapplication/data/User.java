@@ -18,7 +18,6 @@ public class User {
     
     private String password;
     
-    private String nickname;
     private String gender;
     private int age;
     private float height;
@@ -58,13 +57,6 @@ public class User {
         this.username = username;
     }
     
-    public String getNickname() {
-        return nickname;
-    }
-    
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
     
     public String getGender() {
         return gender;

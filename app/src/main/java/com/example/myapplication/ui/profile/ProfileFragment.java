@@ -36,7 +36,6 @@ public class ProfileFragment extends Fragment {
     
     private ImageView ivAvatar;
     private TextView tvUsername;
-    private TextView tvNickname;
     private TextView tvRegisterTime;
     private Button btnPersonalInfo;
     private Button btnAccountSettings;
@@ -90,7 +89,6 @@ public class ProfileFragment extends Fragment {
     private void initViews(View view) {
         ivAvatar = view.findViewById(R.id.iv_avatar);
         tvUsername = view.findViewById(R.id.tv_username);
-        tvNickname = view.findViewById(R.id.tv_nickname);
         tvRegisterTime = view.findViewById(R.id.tv_register_time);
         btnPersonalInfo = view.findViewById(R.id.btn_personal_info);
         btnAccountSettings = view.findViewById(R.id.btn_account_settings);
@@ -172,7 +170,6 @@ public class ProfileFragment extends Fragment {
                 spUtil.saveInt("current_user_id", currentUserId);
                 
                 tvUsername.setText(username);
-                tvNickname.setText(currentUser.getNickname() != null ? currentUser.getNickname() : "未设置昵称");
                 
                 // 设置注册时间
                 if (currentUser.getRegisterTimestamp() > 0) {

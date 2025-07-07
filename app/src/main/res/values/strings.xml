@@ -20,7 +20,6 @@
     <string name="username">用户名</string>
     <string name="password">密码</string>
     <string name="confirm_password">确认密码</string>
-    <string name="nickname">昵称</string>
     <string name="forgot_password">忘记密码？</string>
     <string name="no_account">还没有账号？</string>
     <string name="register_now">立即注册</string>

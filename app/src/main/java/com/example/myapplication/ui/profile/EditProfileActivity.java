@@ -44,7 +44,6 @@ public class EditProfileActivity extends AppCompatActivity {
     private ImageView ivAvatar;
     private Button btnChangeAvatar;
     private TextInputEditText etUsername;
-    private TextInputEditText etNickname;
     private RadioGroup rgGender;
     private RadioButton rbMale;
     private RadioButton rbFemale;
@@ -98,7 +97,6 @@ public class EditProfileActivity extends AppCompatActivity {
         ivAvatar = findViewById(R.id.iv_avatar);
         btnChangeAvatar = findViewById(R.id.btn_change_avatar);
         etUsername = findViewById(R.id.et_username);
-        etNickname = findViewById(R.id.et_nickname);
         rgGender = findViewById(R.id.rg_gender);
         rbMale = findViewById(R.id.rb_male);
         rbFemale = findViewById(R.id.rb_female);
@@ -149,9 +147,6 @@ public class EditProfileActivity extends AppCompatActivity {
             // 填充表单数据
             etUsername.setText(username);
             
-            if (currentUser.getNickname() != null) {
-                etNickname.setText(currentUser.getNickname());
-            }
 
             // 设置性别
             if ("男".equals(currentUser.getGender())) {
@@ -212,7 +207,6 @@ public class EditProfileActivity extends AppCompatActivity {
         }
 
         // 获取输入数据
-        String nickname = etNickname.getText().toString().trim();
         String gender = rbMale.isChecked() ? "男" : "女";
         String ageStr = etAge.getText().toString().trim();
         String heightStr = etHeight.getText().toString().trim();
@@ -221,15 +215,8 @@ public class EditProfileActivity extends AppCompatActivity {
         String email = etEmail.getText().toString().trim();
         String medicalRecord = etMedicalRecord.getText().toString().trim();
 
-        // 验证昵称
-        if (TextUtils.isEmpty(nickname)) {
-            Toast.makeText(this, "请输入昵称", Toast.LENGTH_SHORT).show();
-            etNickname.requestFocus();
-            return;
-        }
 
         // 更新用户数据
-        currentUser.setNickname(nickname);
         currentUser.setGender(gender);
         currentUser.setPhone(phone);
         currentUser.setEmail(email);

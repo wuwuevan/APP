@@ -134,27 +134,6 @@
                             android:textAppearance="@style/TextAppearance.MyApplication.Body1" />
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <!-- Nickname input (optional) -->
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/til_nickname"
-                        style="@style/Widget.MyApplication.TextInputLayout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:hint="@string/nickname"
-                        app:helperText="可选项，显示在个人资料中"
-                        app:helperTextEnabled="true"
-                        app:startIconDrawable="@drawable/ic_person"
-                        app:startIconTint="@color/colorPrimary">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/et_nickname"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:inputType="text"
-                            android:maxLines="1"
-                            android:textAppearance="@style/TextAppearance.MyApplication.Body1" />
-                    </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 

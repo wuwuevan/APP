@@ -30,7 +30,6 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText etUsername;
     private EditText etPassword;
     private EditText etConfirmPassword;
-    private EditText etNickname;
     private Button btnRegister;
     private TextView tvLogin;
     private Toolbar toolbar;
@@ -67,7 +66,6 @@ public class RegisterActivity extends AppCompatActivity {
         etUsername = findViewById(R.id.et_username);
         etPassword = findViewById(R.id.et_password);
         etConfirmPassword = findViewById(R.id.et_confirm_password);
-        etNickname = findViewById(R.id.et_nickname);
         btnRegister = findViewById(R.id.btn_register);
         tvLogin = findViewById(R.id.tv_login);
         toolbar = findViewById(R.id.toolbar);
@@ -111,7 +109,6 @@ public class RegisterActivity extends AppCompatActivity {
         String username = etUsername.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
         String confirmPassword = etConfirmPassword.getText().toString().trim();
-        String nickname = etNickname.getText().toString().trim();
 
         // 验证输入
         if (TextUtils.isEmpty(username)) {
@@ -132,11 +129,6 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
-        // 如果昵称为空，使用用户名作为昵称
-        if (TextUtils.isEmpty(nickname)) {
-            nickname = username;
-        }
-
         // 检查用户名是否已存在
         int userExists = userDao.checkUserExists(username);
         
@@ -150,7 +142,6 @@ public class RegisterActivity extends AppCompatActivity {
         // 创建新用户
         User newUser = new User(username);
         newUser.setPassword(password);
-        newUser.setNickname(nickname);
         newUser.setRegisterTimestamp(System.currentTimeMillis());
         
         try {

@@ -30,7 +30,6 @@ public class UserDao {
         ContentValues values = new ContentValues();
         values.put("username", user.getUsername());
         values.put("password", user.getPassword());
-        values.put("nickname", user.getNickname());
         values.put("avatar", user.getAvatar());
         values.put("gender", user.getGender());
         values.put("age", user.getAge());
@@ -53,7 +52,6 @@ public class UserDao {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("username", user.getUsername());
-        values.put("nickname", user.getNickname());
         values.put("avatar", user.getAvatar());
         values.put("gender", user.getGender());
         values.put("age", user.getAge());
@@ -142,7 +140,6 @@ public class UserDao {
         user.setId(cursor.getInt(cursor.getColumnIndexOrThrow("id")));
         user.setUsername(cursor.getString(cursor.getColumnIndexOrThrow("username")));
         user.setPassword(cursor.getString(cursor.getColumnIndexOrThrow("password")));
-        user.setNickname(cursor.getString(cursor.getColumnIndexOrThrow("nickname")));
         user.setAvatar(cursor.getString(cursor.getColumnIndexOrThrow("avatar")));
         user.setGender(cursor.getString(cursor.getColumnIndexOrThrow("gender")));
         user.setAge(cursor.getInt(cursor.getColumnIndexOrThrow("age")));

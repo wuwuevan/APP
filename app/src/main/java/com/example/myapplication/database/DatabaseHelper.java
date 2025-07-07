@@ -46,7 +46,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "username TEXT NOT NULL," +
                 "password TEXT NOT NULL," +
-                "nickname TEXT," +
                 "avatar TEXT," +
                 "gender TEXT," +
                 "age INTEGER," +

@@ -35,7 +35,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_USER_ID = "_id";
     public static final String COLUMN_USERNAME = "username";
     public static final String COLUMN_PASSWORD = "password";
-    public static final String COLUMN_NICKNAME = "nickname";
     public static final String COLUMN_AVATAR = "avatar";
     public static final String COLUMN_GENDER = "gender";
     public static final String COLUMN_AGE = "age";
@@ -68,7 +67,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + COLUMN_USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + COLUMN_USERNAME + " TEXT NOT NULL UNIQUE, "
             + COLUMN_PASSWORD + " TEXT NOT NULL, "
-            + COLUMN_NICKNAME + " TEXT, "
             + COLUMN_AVATAR + " TEXT, "
             + COLUMN_GENDER + " TEXT, "
             + COLUMN_AGE + " INTEGER, "

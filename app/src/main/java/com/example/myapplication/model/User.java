@@ -7,7 +7,6 @@ public class User {
     private long id;
     private String username;
     private String password;
-    private String nickname;
     private String avatar;
     private String gender;
     private int age;
@@ -28,13 +27,12 @@ public class User {
         this.password = password;
     }
 
-    public User(long id, String username, String password, String nickname, String avatar,
+    public User(long id, String username, String password, String avatar,
                 String gender, int age, float height, float weight, String phone, String email,
                 String medicalRecord, String registerTime, String lastLoginTime, boolean isLoggedIn) {
         this.id = id;
         this.username = username;
         this.password = password;
-        this.nickname = nickname;
         this.avatar = avatar;
         this.gender = gender;
         this.age = age;
@@ -72,13 +70,6 @@ public class User {
         this.password = password;
     }
 
-    public String getNickname() {
-        return nickname;
-    }
-
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
 
     public String getAvatar() {
         return avatar;
@@ -174,7 +165,6 @@ public class User {
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", nickname='" + nickname + '\'' +
                 ", registerTime='" + registerTime + '\'' +
                 '}';
     }
