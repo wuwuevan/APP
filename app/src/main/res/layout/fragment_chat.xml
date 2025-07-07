@@ -153,7 +153,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="专家协助"
+                android:text="智慧医护"
                 android:textAppearance="@style/TextAppearance.MyApplication.Body1"
                 android:textColor="@color/colorTextPrimary" />
 
@@ -162,7 +162,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:gravity="center"
-                android:text="需要时可联系医生"
+                android:text="AI助手随行守健康"
                 android:textAppearance="@style/TextAppearance.MyApplication.Caption"
                 android:textColor="@color/colorTextSecondary" />
         </LinearLayout>
