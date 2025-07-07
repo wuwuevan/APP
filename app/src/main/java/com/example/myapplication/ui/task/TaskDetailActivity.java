@@ -74,6 +74,13 @@ public class TaskDetailActivity extends AppCompatActivity {
         // 设置点击事件
         setClickListeners();
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // 重新加载任务数据以刷新进度和状态
+        loadTaskData();
+    }
     
     /**
      * 初始化视图
