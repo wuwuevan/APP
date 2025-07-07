@@ -1,14 +1,65 @@
-<?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="64dp"
     android:height="64dp"
     android:viewportWidth="24"
     android:viewportHeight="24">
-    <!-- cute male avatar: large head with short hair -->
+
+    <!-- 深蓝色背景圆 -->
+    <path
+        android:fillColor="#4A90E2"
+        android:pathData="M12,0.5
+                         a11.5,11.5 0 1,1 0,23
+                         a11.5,11.5 0 1,1 0,-23" />
+
+    <!-- 脸部 -->
     <path
         android:fillColor="#FFFFFF"
-        android:pathData="M12,3c-2.5,0 -4.5,2 -4.5,4.5s2,4.5 4.5,4.5 4.5,-2 4.5,-4.5S14.5,3 12,3z"/>
+        android:pathData="M12,5.5
+                         a4.5,4.5 0 1,1 0,9
+                         a4.5,4.5 0 1,1 0,-9" />
+
+    <!-- 更窄的黑色短发 -->
+    <path
+        android:fillColor="#2C2C2C"
+        android:pathData="M12,5.5
+                         c-2.7,0 -5,2 -5,4.7
+                         c0,0.8 0.2,1.5 0.4,2.1
+                         c0.4,-2.6 2.4,-4.3 4.6,-4.3
+                         s4.2,1.7 4.6,4.3
+                         c0.2,-0.6 0.4,-1.3 0.4,-2.1
+                         c0,-2.7 -2.3,-4.7 -5,-4.7z" />
+
+    <!-- 西装外套 -->
+    <path
+        android:fillColor="#2C3E50"
+        android:pathData="M6,16
+                         c0,-1.5 2.5,-2.5 6,-2.5
+                         s6,1 6,2.5v5
+                         c0,0.5 -0.5,1 -1,1H7
+                         c-0.5,0 -1,-0.5 -1,-1v-5z" />
+
+    <!-- 白衬衫 -->
     <path
         android:fillColor="#FFFFFF"
-        android:pathData="M6,15c0,-2.5 3,-3.5 6,-3.5s6,1 6,3.5v5H6v-5z"/>
+        android:pathData="M10.5,15
+                         c0.5,-0.3 1,-0.5 1.5,-0.5
+                         s1,0.2 1.5,0.5v3.5
+                         c-0.5,0.2 -1,0.3 -1.5,0.3
+                         s-1,-0.1 -1.5,-0.3V15z" />
+
+    <!-- 领带 -->
+    <path
+        android:fillColor="#C0392B"
+        android:pathData="M11.6,14.8
+                         c0.1,-0.1 0.2,-0.1 0.4,-0.1
+                         s0.3,0 0.4,0.1v4
+                         c-0.1,0.1 -0.2,0.1 -0.4,0.1
+                         s-0.3,0 -0.4,-0.1v-4z" />
+
+    <!-- 领带结 -->
+    <path
+        android:fillColor="#A93226"
+        android:pathData="M12,14.8
+                         a0.3,0.4 0 1,1 0,0.8
+                         a0.3,0.4 0 1,1 0,-0.8" />
 </vector>
