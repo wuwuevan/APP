@@ -449,47 +449,101 @@ public class HealthFragment extends Fragment {
     }
 
     private void loadChartData(String metric) {
-        String queryType = metric;
-        String label = metric;
+        ArrayList<ILineDataSet> dataSets = new ArrayList<>();
+
         if ("血压".equals(metric)) {
-            queryType = "收缩压";
-            label = "收缩压 (mmHg)";
-        } else if ("心率".equals(metric)) {
-            label = "心率 (BPM)";
-        } else if ("睡眠时长".equals(metric)) {
-            label = "睡眠时长 (h)";
-        }
+            List<HealthIndicator> sysList = healthIndicatorDao.getUserHealthIndicatorsByType(userId, "收缩压");
+            List<HealthIndicator> diaList = healthIndicatorDao.getUserHealthIndicatorsByType(userId, "舒张压");
+            Collections.reverse(sysList);
+            Collections.reverse(diaList);
 
-        List<HealthIndicator> dataList = healthIndicatorDao.getUserHealthIndicatorsByType(userId, queryType);
-        Collections.reverse(dataList);
-
-        if (dataList.isEmpty()) {
-            healthChart.clear();
-            healthChart.invalidate();
-            return;
-        }
-
-        ArrayList<Entry> values = new ArrayList<>();
-        for (HealthIndicator data : dataList) {
-            try {
-                Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).parse(data.getRecordTime());
-                if (date != null) {
-                    values.add(new Entry(date.getTime(), data.getIndicatorValue()));
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
+            if (sysList.isEmpty() && diaList.isEmpty()) {
+                healthChart.clear();
+                healthChart.invalidate();
+                return;
             }
-        }
 
-        LineDataSet set1;
-        if (healthChart.getData() != null && healthChart.getData().getDataSetCount() > 0) {
-            set1 = (LineDataSet) healthChart.getData().getDataSetByIndex(0);
-            set1.setValues(values);
-            set1.setLabel(label);
-            healthChart.getData().notifyDataChanged();
-            healthChart.notifyDataSetChanged();
+            ArrayList<Entry> sysValues = new ArrayList<>();
+            for (HealthIndicator data : sysList) {
+                try {
+                    Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).parse(data.getRecordTime());
+                    if (date != null) {
+                        sysValues.add(new Entry(date.getTime(), data.getIndicatorValue()));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            ArrayList<Entry> diaValues = new ArrayList<>();
+            for (HealthIndicator data : diaList) {
+                try {
+                    Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).parse(data.getRecordTime());
+                    if (date != null) {
+                        diaValues.add(new Entry(date.getTime(), data.getIndicatorValue()));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            LineDataSet sysSet = new LineDataSet(sysValues, "收缩压 (mmHg)");
+            sysSet.setColor(getResources().getColor(R.color.colorPrimary));
+            sysSet.setCircleColor(getResources().getColor(R.color.colorPrimary));
+            sysSet.setLineWidth(2f);
+            sysSet.setCircleRadius(3f);
+            sysSet.setDrawCircleHole(false);
+            sysSet.setValueTextSize(0f);
+            sysSet.setDrawFilled(false);
+            sysSet.setMode(LineDataSet.Mode.LINEAR);
+
+            LineDataSet diaSet = new LineDataSet(diaValues, "舒张压 (mmHg)");
+            diaSet.setColor(getResources().getColor(R.color.colorSuccess));
+            diaSet.setCircleColor(getResources().getColor(R.color.colorSuccess));
+            diaSet.setLineWidth(2f);
+            diaSet.setCircleRadius(3f);
+            diaSet.setDrawCircleHole(false);
+            diaSet.setValueTextSize(0f);
+            diaSet.setDrawFilled(false);
+            diaSet.setMode(LineDataSet.Mode.LINEAR);
+
+            if (!sysValues.isEmpty()) {
+                dataSets.add(sysSet);
+            }
+            if (!diaValues.isEmpty()) {
+                dataSets.add(diaSet);
+            }
         } else {
-            set1 = new LineDataSet(values, label);
+            String queryType = metric;
+            String label = metric;
+            if ("心率".equals(metric)) {
+                label = "心率 (BPM)";
+            } else if ("睡眠时长".equals(metric)) {
+                label = "睡眠时长 (h)";
+            }
+
+            List<HealthIndicator> dataList = healthIndicatorDao.getUserHealthIndicatorsByType(userId, queryType);
+            Collections.reverse(dataList);
+
+            if (dataList.isEmpty()) {
+                healthChart.clear();
+                healthChart.invalidate();
+                return;
+            }
+
+            ArrayList<Entry> values = new ArrayList<>();
+            for (HealthIndicator data : dataList) {
+                try {
+                    Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).parse(data.getRecordTime());
+                    if (date != null) {
+                        values.add(new Entry(date.getTime(), data.getIndicatorValue()));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            LineDataSet set1 = new LineDataSet(values, label);
             set1.setColor(getResources().getColor(R.color.colorPrimary));
             set1.setCircleColor(getResources().getColor(R.color.colorPrimary));
             set1.setLineWidth(2f);
@@ -498,13 +552,17 @@ public class HealthFragment extends Fragment {
             set1.setValueTextSize(0f);
             set1.setDrawFilled(false);
             set1.setMode(LineDataSet.Mode.LINEAR);
-
-            ArrayList<ILineDataSet> dataSets = new ArrayList<>();
             dataSets.add(set1);
-            LineData lineData = new LineData(dataSets);
-            healthChart.setData(lineData);
         }
 
+        if (dataSets.isEmpty()) {
+            healthChart.clear();
+            healthChart.invalidate();
+            return;
+        }
+
+        LineData lineData = new LineData(dataSets);
+        healthChart.setData(lineData);
         healthChart.animateX(1500);
         healthChart.invalidate();
     }
@@ -544,7 +602,9 @@ public class HealthFragment extends Fragment {
      */
     private void generateInitialDataIfNeeded() {
         List<HealthIndicator> existingData = healthIndicatorDao.getUserHealthIndicatorsByType(userId, "心率");
-        if (existingData.isEmpty()) {
+        List<HealthIndicator> bpData = healthIndicatorDao.getUserHealthIndicatorsByType(userId, "收缩压");
+
+        if (existingData.isEmpty() && bpData.isEmpty()) {
             Calendar calendar = Calendar.getInstance();
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
 
@@ -552,7 +612,7 @@ public class HealthFragment extends Fragment {
             for (int i = 4; i >= 0; i--) {
                 calendar.setTime(new Date());
                 calendar.add(Calendar.DAY_OF_YEAR, -i);
-                
+
                 // 设置为每天上午10点
                 calendar.set(Calendar.HOUR_OF_DAY, 10);
                 calendar.set(Calendar.MINUTE, 0);
@@ -562,7 +622,41 @@ public class HealthFragment extends Fragment {
                 int fakeHeartRate = 72 + (4 - i); // 产生 72, 73, 74, 75, 76 的序列
                 String fakeTimestamp = sdf.format(calendar.getTime());
                 healthIndicatorDao.addHealthIndicator(new HealthIndicator(userId, "心率", fakeHeartRate, fakeTimestamp));
+                int fakeSys = 120 + (4 - i); // 120,121,122,123,124
+                int fakeDia = 80 + (4 - i) / 2; // 80,80,81,81,82
+                healthIndicatorDao.addHealthIndicator(new HealthIndicator(userId, "收缩压", fakeSys, fakeTimestamp));
+                healthIndicatorDao.addHealthIndicator(new HealthIndicator(userId, "舒张压", fakeDia, fakeTimestamp));
+            }
+        } else if (existingData.isEmpty()) {
+            Calendar calendar = Calendar.getInstance();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+            for (int i = 4; i >= 0; i--) {
+                calendar.setTime(new Date());
+                calendar.add(Calendar.DAY_OF_YEAR, -i);
+                calendar.set(Calendar.HOUR_OF_DAY, 10);
+                calendar.set(Calendar.MINUTE, 0);
+                calendar.set(Calendar.SECOND, 0);
+
+                int fakeHeartRate = 72 + (4 - i);
+                String fakeTimestamp = sdf.format(calendar.getTime());
+                healthIndicatorDao.addHealthIndicator(new HealthIndicator(userId, "心率", fakeHeartRate, fakeTimestamp));
+            }
+        } else if (bpData.isEmpty()) {
+            Calendar calendar = Calendar.getInstance();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+            for (int i = 4; i >= 0; i--) {
+                calendar.setTime(new Date());
+                calendar.add(Calendar.DAY_OF_YEAR, -i);
+                calendar.set(Calendar.HOUR_OF_DAY, 10);
+                calendar.set(Calendar.MINUTE, 0);
+                calendar.set(Calendar.SECOND, 0);
+
+                String fakeTimestamp = sdf.format(calendar.getTime());
+                int fakeSys = 120 + (4 - i);
+                int fakeDia = 80 + (4 - i) / 2;
+                healthIndicatorDao.addHealthIndicator(new HealthIndicator(userId, "收缩压", fakeSys, fakeTimestamp));
+                healthIndicatorDao.addHealthIndicator(new HealthIndicator(userId, "舒张压", fakeDia, fakeTimestamp));
             }
         }
     }
-} 
+}
