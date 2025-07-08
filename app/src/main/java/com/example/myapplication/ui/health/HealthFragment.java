@@ -11,6 +11,9 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Spinner;
+import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -59,6 +62,8 @@ public class HealthFragment extends Fragment {
     private LinearLayout containerCustomIndicators;
     private TextView tvNoIndicators;
     private LineChart healthChart;
+    private Spinner spinnerMetric;
+    private String selectedMetric = "心率";
     
     // 当前健康数据
     private int heartRate;
@@ -95,6 +100,7 @@ public class HealthFragment extends Fragment {
         
         // 初始化图表
         setupHealthTrendChart();
+        setupMetricSpinner();
         
         // 设置点击事件
         setClickListeners();
@@ -102,7 +108,7 @@ public class HealthFragment extends Fragment {
         // 加载初始数据
         updateHealthData();
         loadCustomHealthIndicators();
-        loadChartData();
+        loadChartData(selectedMetric);
         
         return root;
     }
@@ -124,6 +130,7 @@ public class HealthFragment extends Fragment {
         containerCustomIndicators = root.findViewById(R.id.container_custom_indicators);
         tvNoIndicators = root.findViewById(R.id.tv_no_indicators);
         healthChart = root.findViewById(R.id.chart_health_trend);
+        spinnerMetric = root.findViewById(R.id.spinner_trend_metric);
     }
     
     /**
@@ -423,21 +430,47 @@ public class HealthFragment extends Fragment {
         });
     }
 
-    private void loadChartData() {
-        List<HealthIndicator> heartRateData = healthIndicatorDao.getUserHealthIndicatorsByType(userId, "心率");
-        List<HealthIndicator> stepData = healthIndicatorDao.getUserHealthIndicatorsByType(userId, "步数");
+    private void setupMetricSpinner() {
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
+                R.array.health_trend_metrics, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerMetric.setAdapter(adapter);
+        spinnerMetric.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedMetric = parent.getItemAtPosition(position).toString();
+                loadChartData(selectedMetric);
+            }
 
-        // 数据需要按时间升序排列
-        Collections.reverse(heartRateData);
-        
-        if (heartRateData.isEmpty() && stepData.isEmpty()) {
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+    }
+
+    private void loadChartData(String metric) {
+        String queryType = metric;
+        String label = metric;
+        if ("血压".equals(metric)) {
+            queryType = "收缩压";
+            label = "收缩压 (mmHg)";
+        } else if ("心率".equals(metric)) {
+            label = "心率 (BPM)";
+        } else if ("睡眠时长".equals(metric)) {
+            label = "睡眠时长 (h)";
+        }
+
+        List<HealthIndicator> dataList = healthIndicatorDao.getUserHealthIndicatorsByType(userId, queryType);
+        Collections.reverse(dataList);
+
+        if (dataList.isEmpty()) {
             healthChart.clear();
             healthChart.invalidate();
             return;
         }
 
         ArrayList<Entry> values = new ArrayList<>();
-        for (HealthIndicator data : heartRateData) {
+        for (HealthIndicator data : dataList) {
             try {
                 Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).parse(data.getRecordTime());
                 if (date != null) {
@@ -448,69 +481,32 @@ public class HealthFragment extends Fragment {
             }
         }
 
-        ArrayList<Entry> stepValues = new ArrayList<>();
-        for (HealthIndicator data : stepData) {
-            try {
-                Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).parse(data.getRecordTime());
-                if (date != null) {
-                    stepValues.add(new Entry(date.getTime(), data.getIndicatorValue()));
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        
-        if (values.isEmpty() && stepValues.isEmpty()) {
-            healthChart.clear();
-            healthChart.invalidate();
-            return;
-        }
-
         LineDataSet set1;
-        LineDataSet set2;
-
-        if (healthChart.getData() != null &&
-                healthChart.getData().getDataSetCount() > 0) {
+        if (healthChart.getData() != null && healthChart.getData().getDataSetCount() > 0) {
             set1 = (LineDataSet) healthChart.getData().getDataSetByIndex(0);
             set1.setValues(values);
-            if (healthChart.getData().getDataSetCount() > 1) {
-                set2 = (LineDataSet) healthChart.getData().getDataSetByIndex(1);
-                set2.setValues(stepValues);
-            }
+            set1.setLabel(label);
             healthChart.getData().notifyDataChanged();
             healthChart.notifyDataSetChanged();
         } else {
-            set1 = new LineDataSet(values, "心率 (BPM)");
+            set1 = new LineDataSet(values, label);
             set1.setColor(getResources().getColor(R.color.colorPrimary));
             set1.setCircleColor(getResources().getColor(R.color.colorPrimary));
             set1.setLineWidth(2f);
             set1.setCircleRadius(3f);
             set1.setDrawCircleHole(false);
-            set1.setValueTextSize(0f); // 不在点上显示数值
-            set1.setDrawFilled(false); // 不再填充线下方的区域，让线条更清晰
-            set1.setMode(LineDataSet.Mode.LINEAR); // 设置为线性模式，让线条穿过数据点
-
-            set2 = new LineDataSet(stepValues, "步数");
-            set2.setColor(getResources().getColor(R.color.colorAccent));
-            set2.setCircleColor(getResources().getColor(R.color.colorAccent));
-            set2.setLineWidth(2f);
-            set2.setCircleRadius(3f);
-            set2.setDrawCircleHole(false);
-            set2.setValueTextSize(0f);
-            set2.setDrawFilled(false);
-            set2.setMode(LineDataSet.Mode.LINEAR);
+            set1.setValueTextSize(0f);
+            set1.setDrawFilled(false);
+            set1.setMode(LineDataSet.Mode.LINEAR);
 
             ArrayList<ILineDataSet> dataSets = new ArrayList<>();
             dataSets.add(set1);
-            if (!stepValues.isEmpty()) {
-                dataSets.add(set2);
-            }
             LineData lineData = new LineData(dataSets);
             healthChart.setData(lineData);
         }
-        
-        healthChart.animateX(1500); // 添加X轴动画
-        healthChart.invalidate(); // refresh
+
+        healthChart.animateX(1500);
+        healthChart.invalidate();
     }
 
     @Override
@@ -521,7 +517,7 @@ public class HealthFragment extends Fragment {
         // 加载自定义健康指标
         loadCustomHealthIndicators();
         // 加载图表数据
-        loadChartData();
+        loadChartData(selectedMetric);
     }
     
     @Override

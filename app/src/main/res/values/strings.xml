@@ -126,4 +126,14 @@
     <string name="tag_important">重要</string>
     <string name="tag_optional">可选</string>
     <string name="fetch_from_device">读取</string>
+
+    <!-- 健康趋势指标 -->
+    <string-array name="health_trend_metrics">
+        <item>心率</item>
+        <item>血压</item>
+        <item>血糖</item>
+        <item>BMI</item>
+        <item>步数</item>
+        <item>睡眠时长</item>
+    </string-array>
 </resources>
