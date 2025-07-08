@@ -96,7 +96,7 @@
                     android:layout_marginTop="16dp"
                     app:columnCount="3"
                     app:layout_constraintTop_toBottomOf="@+id/tv_health_overview_title"
-                    app:rowCount="1">
+                    app:rowCount="2">
 
                     <!-- Heart Rate -->
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -252,6 +252,152 @@
                             android:textColor="@color/colorTextTertiary"
                             app:layout_constraintBaseline_toBaselineOf="@+id/tv_blood_sugar"
                             app:layout_constraintStart_toEndOf="@+id/tv_blood_sugar" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <!-- BMI -->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_card_rounded"
+                        android:padding="12dp"
+                        app:layout_columnWeight="1"
+                        android:layout_margin="4dp">
+
+                        <ImageView
+                            android:id="@+id/iv_bmi_icon"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_bmi"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:tint="@color/colorPrimary" />
+
+                        <TextView
+                            android:id="@+id/tv_bmi_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="BMI"
+                            android:textAppearance="@style/TextAppearance.MyApplication.Caption"
+                            android:textColor="@color/colorTextSecondary"
+                            app:layout_constraintBottom_toBottomOf="@id/iv_bmi_icon"
+                            app:layout_constraintStart_toEndOf="@id/iv_bmi_icon"
+                            app:layout_constraintTop_toTopOf="@id/iv_bmi_icon" />
+
+                        <TextView
+                            android:id="@+id/tv_bmi"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="22.5"
+                            android:textAppearance="@style/TextAppearance.MyApplication.Headline3"
+                            android:textColor="@color/colorTextPrimary"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/iv_bmi_icon" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <!-- Steps -->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_card_rounded"
+                        android:padding="12dp"
+                        app:layout_columnWeight="1"
+                        android:layout_margin="4dp">
+
+                        <ImageView
+                            android:id="@+id/iv_steps_icon"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_steps"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:tint="@color/colorAccent" />
+
+                        <TextView
+                            android:id="@+id/tv_steps_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="步数"
+                            android:textAppearance="@style/TextAppearance.MyApplication.Caption"
+                            android:textColor="@color/colorTextSecondary"
+                            app:layout_constraintBottom_toBottomOf="@id/iv_steps_icon"
+                            app:layout_constraintStart_toEndOf="@id/iv_steps_icon"
+                            app:layout_constraintTop_toTopOf="@id/iv_steps_icon" />
+
+                        <TextView
+                            android:id="@+id/tv_steps"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="0"
+                            android:textAppearance="@style/TextAppearance.MyApplication.Headline3"
+                            android:textColor="@color/colorTextPrimary"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/iv_steps_icon" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            android:text="步"
+                            android:textAppearance="@style/TextAppearance.MyApplication.Caption"
+                            android:textColor="@color/colorTextTertiary"
+                            app:layout_constraintBaseline_toBaselineOf="@id/tv_steps"
+                            app:layout_constraintStart_toEndOf="@id/tv_steps" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <!-- Sleep -->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_card_rounded"
+                        android:padding="12dp"
+                        app:layout_columnWeight="1"
+                        android:layout_margin="4dp">
+
+                        <ImageView
+                            android:id="@+id/iv_sleep_icon"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_sleep"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:tint="@color/colorInfo" />
+
+                        <TextView
+                            android:id="@+id/tv_sleep_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="睡眠"
+                            android:textAppearance="@style/TextAppearance.MyApplication.Caption"
+                            android:textColor="@color/colorTextSecondary"
+                            app:layout_constraintBottom_toBottomOf="@id/iv_sleep_icon"
+                            app:layout_constraintStart_toEndOf="@id/iv_sleep_icon"
+                            app:layout_constraintTop_toTopOf="@id/iv_sleep_icon" />
+
+                        <TextView
+                            android:id="@+id/tv_sleep"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="7"
+                            android:textAppearance="@style/TextAppearance.MyApplication.Headline3"
+                            android:textColor="@color/colorTextPrimary"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/iv_sleep_icon" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            android:text="h"
+                            android:textAppearance="@style/TextAppearance.MyApplication.Caption"
+                            android:textColor="@color/colorTextTertiary"
+                            app:layout_constraintBaseline_toBaselineOf="@id/tv_sleep"
+                            app:layout_constraintStart_toEndOf="@id/tv_sleep" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </androidx.gridlayout.widget.GridLayout>

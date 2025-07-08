@@ -49,6 +49,9 @@ public class HealthFragment extends Fragment {
     private TextView tvHeartRate;
     private TextView tvBloodPressure;
     private TextView tvBloodSugar;
+    private TextView tvBmi;
+    private TextView tvSteps;
+    private TextView tvSleep;
     private TextView tvHealthReport;
     private Button btnUpdateHealthData;
     private Button btnViewReport;
@@ -63,6 +66,7 @@ public class HealthFragment extends Fragment {
     private int diastolic;
     private float bmi = 22.5f; // 默认BMI值
     private float bloodSugar = 5.2f; // 默认血糖值
+    private int steps = 0; // 默认步数
     private int sleepHours = 7; // 默认睡眠时间
     
     private HealthIndicatorDao healthIndicatorDao;
@@ -110,6 +114,9 @@ public class HealthFragment extends Fragment {
         tvHeartRate = root.findViewById(R.id.tv_heart_rate);
         tvBloodPressure = root.findViewById(R.id.tv_blood_pressure);
         tvBloodSugar = root.findViewById(R.id.tv_blood_sugar);
+        tvBmi = root.findViewById(R.id.tv_bmi);
+        tvSteps = root.findViewById(R.id.tv_steps);
+        tvSleep = root.findViewById(R.id.tv_sleep);
         tvHealthReport = root.findViewById(R.id.tv_health_report);
         btnUpdateHealthData = root.findViewById(R.id.btn_update_health_data);
         btnViewReport = root.findViewById(R.id.btn_view_report);
@@ -159,6 +166,9 @@ public class HealthFragment extends Fragment {
         HealthIndicator sys = healthIndicatorDao.getLatestHealthIndicator(userId, "收缩压");
         HealthIndicator dia = healthIndicatorDao.getLatestHealthIndicator(userId, "舒张压");
         HealthIndicator sugar = healthIndicatorDao.getLatestHealthIndicator(userId, "血糖");
+        HealthIndicator bmiIndicator = healthIndicatorDao.getLatestHealthIndicator(userId, "BMI");
+        HealthIndicator stepIndicator = healthIndicatorDao.getLatestHealthIndicator(userId, "步数");
+        HealthIndicator sleepIndicator = healthIndicatorDao.getLatestHealthIndicator(userId, "睡眠时长");
 
         if (hr != null) {
             heartRate = (int) hr.getIndicatorValue();
@@ -172,10 +182,22 @@ public class HealthFragment extends Fragment {
         if (sugar != null) {
             bloodSugar = sugar.getIndicatorValue();
         }
+        if (bmiIndicator != null) {
+            bmi = bmiIndicator.getIndicatorValue();
+        }
+        if (stepIndicator != null) {
+            steps = (int) stepIndicator.getIndicatorValue();
+        }
+        if (sleepIndicator != null) {
+            sleepHours = (int) sleepIndicator.getIndicatorValue();
+        }
 
         tvHeartRate.setText(String.valueOf(heartRate));
         tvBloodPressure.setText(systolic + "/" + diastolic);
         tvBloodSugar.setText(String.format(Locale.getDefault(), "%.1f", bloodSugar));
+        tvBmi.setText(String.format(Locale.getDefault(), "%.1f", bmi));
+        tvSteps.setText(String.valueOf(steps));
+        tvSleep.setText(String.valueOf(sleepHours));
 
         updateHealthReport(heartRate, systolic, diastolic, bloodSugar);
     }
@@ -403,11 +425,12 @@ public class HealthFragment extends Fragment {
 
     private void loadChartData() {
         List<HealthIndicator> heartRateData = healthIndicatorDao.getUserHealthIndicatorsByType(userId, "心率");
+        List<HealthIndicator> stepData = healthIndicatorDao.getUserHealthIndicatorsByType(userId, "步数");
 
         // 数据需要按时间升序排列
         Collections.reverse(heartRateData);
         
-        if (heartRateData.isEmpty()) {
+        if (heartRateData.isEmpty() && stepData.isEmpty()) {
             healthChart.clear();
             healthChart.invalidate();
             return;
@@ -424,19 +447,36 @@ public class HealthFragment extends Fragment {
                 e.printStackTrace();
             }
         }
+
+        ArrayList<Entry> stepValues = new ArrayList<>();
+        for (HealthIndicator data : stepData) {
+            try {
+                Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).parse(data.getRecordTime());
+                if (date != null) {
+                    stepValues.add(new Entry(date.getTime(), data.getIndicatorValue()));
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         
-        if (values.isEmpty()) {
+        if (values.isEmpty() && stepValues.isEmpty()) {
             healthChart.clear();
             healthChart.invalidate();
             return;
         }
 
         LineDataSet set1;
+        LineDataSet set2;
 
         if (healthChart.getData() != null &&
                 healthChart.getData().getDataSetCount() > 0) {
             set1 = (LineDataSet) healthChart.getData().getDataSetByIndex(0);
             set1.setValues(values);
+            if (healthChart.getData().getDataSetCount() > 1) {
+                set2 = (LineDataSet) healthChart.getData().getDataSetByIndex(1);
+                set2.setValues(stepValues);
+            }
             healthChart.getData().notifyDataChanged();
             healthChart.notifyDataSetChanged();
         } else {
@@ -450,8 +490,21 @@ public class HealthFragment extends Fragment {
             set1.setDrawFilled(false); // 不再填充线下方的区域，让线条更清晰
             set1.setMode(LineDataSet.Mode.LINEAR); // 设置为线性模式，让线条穿过数据点
 
+            set2 = new LineDataSet(stepValues, "步数");
+            set2.setColor(getResources().getColor(R.color.colorAccent));
+            set2.setCircleColor(getResources().getColor(R.color.colorAccent));
+            set2.setLineWidth(2f);
+            set2.setCircleRadius(3f);
+            set2.setDrawCircleHole(false);
+            set2.setValueTextSize(0f);
+            set2.setDrawFilled(false);
+            set2.setMode(LineDataSet.Mode.LINEAR);
+
             ArrayList<ILineDataSet> dataSets = new ArrayList<>();
             dataSets.add(set1);
+            if (!stepValues.isEmpty()) {
+                dataSets.add(set2);
+            }
             LineData lineData = new LineData(dataSets);
             healthChart.setData(lineData);
         }
