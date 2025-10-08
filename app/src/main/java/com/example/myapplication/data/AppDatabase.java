@@ -9,7 +9,7 @@ import androidx.room.RoomDatabase;
 /**
  * 应用数据库类，使用Room持久化库
  */
-@Database(entities = {User.class, Feedback.class}, version = 6, exportSchema = false)
+@Database(entities = {User.class, Feedback.class}, version = 7, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     
     private static final String DATABASE_NAME = "rehabilitation_app.db";
