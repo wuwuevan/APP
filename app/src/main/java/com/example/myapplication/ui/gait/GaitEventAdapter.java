@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
@@ -33,7 +34,8 @@ public class GaitEventAdapter extends RecyclerView.Adapter<GaitEventAdapter.Gait
         holder.title.setText(event.title);
         holder.subtitle.setText(event.subtitle);
         holder.status.setText(event.statusLabel);
-        holder.status.setTextColor(holder.status.getResources().getColor(event.statusColorRes, holder.status.getContext().getTheme()));
+        int statusColor = ContextCompat.getColor(holder.status.getContext(), event.statusColorRes);
+        holder.status.setTextColor(statusColor);
     }
 
     @Override
