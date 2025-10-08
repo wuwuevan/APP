@@ -486,7 +486,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="6dp"
                             android:max="100"
-                            app:indeterminate="false"
+                            android:indeterminate="false"
                             app:indicatorColor="@color/colorAccent"
                             app:trackColor="@color/colorDivider" />
                     </LinearLayout>
@@ -572,7 +572,7 @@
                             android:layout_height="72dp"
                             android:layout_marginEnd="16dp"
                             android:max="100"
-                            app:indeterminate="false"
+                            android:indeterminate="false"
                             app:indicatorColor="@color/colorWarning"
                             app:trackColor="@color/colorDivider"
                             app:trackThickness="6dp" />
