@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,7 +17,6 @@ import com.example.myapplication.R;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
-import com.google.android.material.progressindicator.LinearProgressIndicator;
 
 import java.text.DecimalFormat;
 
@@ -34,8 +34,8 @@ public class GaitFragment extends Fragment {
     private TextView tvAnalysisSummary;
     private TextView tvFallStatus;
     private TextView tvLastUpdated;
-    private LinearProgressIndicator stabilityIndicator;
-    private LinearProgressIndicator fallRiskIndicator;
+    private ProgressBar stabilityIndicator;
+    private ProgressBar fallRiskIndicator;
     private ChipGroup chipGroupActivity;
     private Chip chipWalk;
     private Chip chipStairs;

@@ -239,16 +239,15 @@
                         android:text="@string/gait_activity_outdoor" />
                 </com.google.android.material.chip.ChipGroup>
 
-                <com.google.android.material.progressindicator.LinearProgressIndicator
+                <ProgressBar
                     android:id="@+id/indicator_stability"
-                    style="@style/Widget.MaterialComponents.LinearProgressIndicator"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:max="100"
                     android:progress="75"
-                    app:indicatorColor="@color/colorAccent"
-                    app:trackColor="@color/colorProgress75" />
+                    android:progressDrawable="@drawable/progress_bar_drawable"
+                    style="@style/Widget.MyApplication.ProgressBar.Horizontal" />
 
                 <TextView
                     android:id="@+id/tv_stability_level"
@@ -332,16 +331,15 @@
                     android:textAppearance="@style/TextAppearance.MyApplication.Body1"
                     android:textColor="@color/colorTextSecondary" />
 
-                <com.google.android.material.progressindicator.LinearProgressIndicator
+                <ProgressBar
                     android:id="@+id/indicator_fall_risk"
-                    style="@style/Widget.MaterialComponents.LinearProgressIndicator"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:max="100"
                     android:progress="35"
-                    app:indicatorColor="@color/colorWarning"
-                    app:trackColor="@color/colorWarningLight" />
+                    android:progressDrawable="@drawable/progress_bar_warning"
+                    style="@style/Widget.MyApplication.ProgressBar.Horizontal" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
