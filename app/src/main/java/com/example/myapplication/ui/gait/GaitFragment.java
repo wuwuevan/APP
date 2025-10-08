@@ -1,6 +1,5 @@
 package com.example.myapplication.ui.gait;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.FragmentGaitBinding;
 
-import java.text.DecimalFormat;
+import java.util.Locale;
 
 /**
  * 步态分析页面 Fragment，仅提供前端展示效果和模拟数据。
@@ -25,80 +24,81 @@ public class GaitFragment extends Fragment {
     private FragmentGaitBinding binding;
     private GaitEventAdapter eventAdapter;
 
-    private final DecimalFormat decimalFormat = new DecimalFormat("0.00");
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentGaitBinding.inflate(inflater, container, false);
+        return binding.getRoot();
+    }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         setupRecyclerView();
         setupChipInteractions();
         setupRefreshButton();
 
-        // 默认展示步行数据
         if (binding != null) {
-            binding.chipWalk.setChecked(true);
+            binding.chipGroupActivity.check(R.id.chip_walk);
         }
         loadGaitData(GaitDataGenerator.ActivityType.WALKING);
-
-        return binding != null ? binding.getRoot() : null;
     }
 
     private void setupRecyclerView() {
-        if (binding == null) {
+        FragmentGaitBinding currentBinding = binding;
+        if (currentBinding == null) {
             return;
         }
 
-        RecyclerView recyclerView = binding.recyclerRecentEvents;
-        Context context = recyclerView.getContext();
-        if (context != null) {
-            recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        }
+        RecyclerView recyclerView = currentBinding.recyclerRecentEvents;
+        recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
         recyclerView.setNestedScrollingEnabled(false);
         eventAdapter = new GaitEventAdapter();
         recyclerView.setAdapter(eventAdapter);
     }
 
     private void setupChipInteractions() {
-        if (binding == null) {
+        FragmentGaitBinding currentBinding = binding;
+        if (currentBinding == null) {
             return;
         }
 
-        binding.chipGroupActivity.setOnCheckedChangeListener((group, checkedId) -> {
-            if (checkedId == View.NO_ID) {
-                return;
-            }
-            if (checkedId == R.id.chip_walk) {
-                loadGaitData(GaitDataGenerator.ActivityType.WALKING);
-            } else if (checkedId == R.id.chip_stairs) {
-                loadGaitData(GaitDataGenerator.ActivityType.STAIR_CLIMBING);
-            } else if (checkedId == R.id.chip_outdoor) {
-                loadGaitData(GaitDataGenerator.ActivityType.OUTDOOR_ACTIVITY);
-            }
-        });
+        currentBinding.chipGroupActivity.setOnCheckedChangeListener((group, checkedId) -> handleChipSelection(checkedId));
     }
 
     private void setupRefreshButton() {
-        if (binding == null) {
+        FragmentGaitBinding currentBinding = binding;
+        if (currentBinding == null) {
             return;
         }
 
-        binding.btnRefreshGait.setOnClickListener(v -> {
-            if (binding == null) {
+        currentBinding.btnRefreshGait.setOnClickListener(v -> {
+            FragmentGaitBinding bindingSnapshot = binding;
+            if (bindingSnapshot == null) {
                 return;
             }
-
-            int checkedId = binding.chipGroupActivity.getCheckedChipId();
-            if (checkedId == R.id.chip_stairs) {
-                loadGaitData(GaitDataGenerator.ActivityType.STAIR_CLIMBING);
-            } else if (checkedId == R.id.chip_outdoor) {
-                loadGaitData(GaitDataGenerator.ActivityType.OUTDOOR_ACTIVITY);
-            } else {
-                binding.chipWalk.setChecked(true);
-                loadGaitData(GaitDataGenerator.ActivityType.WALKING);
-            }
+            handleChipSelection(bindingSnapshot.chipGroupActivity.getCheckedChipId());
         });
+    }
+
+    private void handleChipSelection(int checkedId) {
+        if (checkedId == View.NO_ID) {
+            checkedId = R.id.chip_walk;
+        }
+
+        GaitDataGenerator.ActivityType type;
+        if (checkedId == R.id.chip_stairs) {
+            type = GaitDataGenerator.ActivityType.STAIR_CLIMBING;
+        } else if (checkedId == R.id.chip_outdoor) {
+            type = GaitDataGenerator.ActivityType.OUTDOOR_ACTIVITY;
+        } else {
+            type = GaitDataGenerator.ActivityType.WALKING;
+        }
+
+        if (binding != null && binding.chipGroupActivity.getCheckedChipId() != checkedId) {
+            binding.chipGroupActivity.check(checkedId);
+        }
+        loadGaitData(type);
     }
 
     private void loadGaitData(GaitDataGenerator.ActivityType type) {
@@ -108,9 +108,9 @@ public class GaitFragment extends Fragment {
         }
 
         GaitDataGenerator.GaitSummary summary = GaitDataGenerator.generateSummary(type);
-        currentBinding.tvGaitSpeed.setText(decimalFormat.format(summary.gaitSpeed));
+        currentBinding.tvGaitSpeed.setText(formatDecimal(summary.gaitSpeed));
         currentBinding.tvCadence.setText(String.valueOf(summary.cadence));
-        currentBinding.tvStepLength.setText(decimalFormat.format(summary.stepLength));
+        currentBinding.tvStepLength.setText(formatDecimal(summary.stepLength));
         currentBinding.tvSymmetry.setText(getString(R.string.gait_symmetry_value, summary.symmetryScore));
         currentBinding.tvCurrentActivity.setText(summary.activityLabel);
         currentBinding.tvStabilityLevel.setText(summary.stabilityLevel);
@@ -125,9 +125,16 @@ public class GaitFragment extends Fragment {
         }
     }
 
+    private String formatDecimal(float value) {
+        return String.format(Locale.getDefault(), "%.2f", value);
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        if (binding != null) {
+            binding.recyclerRecentEvents.setAdapter(null);
+        }
         binding = null;
         eventAdapter = null;
     }

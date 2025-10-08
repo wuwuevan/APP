@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
     android:padding="16dp"
+    android:fillViewport="true"
     tools:context=".ui.gait.GaitFragment">
 
     <LinearLayout
@@ -239,15 +240,18 @@
                         android:text="@string/gait_activity_outdoor" />
                 </com.google.android.material.chip.ChipGroup>
 
-                <ProgressBar
+                <com.google.android.material.progressindicator.LinearProgressIndicator
                     android:id="@+id/indicator_stability"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:max="100"
                     android:progress="75"
-                    android:progressDrawable="@drawable/progress_bar_drawable"
-                    style="@style/Widget.MyApplication.ProgressBar.Horizontal" />
+                    app:indeterminate="false"
+                    app:indicatorColor="@color/colorPrimary"
+                    app:trackColor="@color/colorPrimaryLight"
+                    app:trackCornerRadius="8dp"
+                    app:trackThickness="12dp" />
 
                 <TextView
                     android:id="@+id/tv_stability_level"
@@ -331,15 +335,18 @@
                     android:textAppearance="@style/TextAppearance.MyApplication.Body1"
                     android:textColor="@color/colorTextSecondary" />
 
-                <ProgressBar
+                <com.google.android.material.progressindicator.LinearProgressIndicator
                     android:id="@+id/indicator_fall_risk"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:max="100"
                     android:progress="35"
-                    android:progressDrawable="@drawable/progress_bar_warning"
-                    style="@style/Widget.MyApplication.ProgressBar.Horizontal" />
+                    app:indeterminate="false"
+                    app:indicatorColor="@color/colorWarning"
+                    app:trackColor="@color/colorWarningLight"
+                    app:trackCornerRadius="8dp"
+                    app:trackThickness="12dp" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
