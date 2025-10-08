@@ -53,6 +53,7 @@
     <string name="title_profile">个人中心</string>
     
     <!-- 步态页面 -->
+    <string name="gait_screen_title">智能步态监测</string>
     <string name="gait_overview">步态概览</string>
     <string name="gait_speed">步速</string>
     <string name="gait_cadence">步频</string>
@@ -60,38 +61,31 @@
     <string name="gait_symmetry">步态对称性</string>
     <string name="gait_symmetry_value">对称性 %1$d%%</string>
     <string name="gait_symmetry_value_placeholder">对称性 82%</string>
-    <string name="gait_symmetry_short_value">%1$d%%</string>
-    <string name="gait_percent_format">%1$.0f%%</string>
     <string name="gait_current_activity">当前活动</string>
     <string name="gait_activity_walk">室内步行</string>
     <string name="gait_activity_stairs">爬楼梯</string>
     <string name="gait_activity_outdoor">户外步态</string>
     <string name="gait_analysis">步态分析</string>
     <string name="gait_analysis_placeholder">正在分析步态稳定性与对称性…</string>
-    <string name="gait_insights_title">智能分析</string>
-    <string name="gait_insight_placeholder">智能分析生成中…</string>
+    <string name="gait_stability_label">稳定性评分</string>
+    <string name="gait_focus_area_label">训练重点</string>
+    <string name="gait_recommendation_placeholder">我们将根据智能算法为您提供训练建议。</string>
     <string name="gait_fall_detection">摔倒检测</string>
     <string name="gait_fall_status_placeholder">系统正在实时监测跌倒风险。</string>
-    <string name="gait_fall_risk_placeholder">当前风险：--%</string>
+    <string name="gait_confidence_placeholder">预测可信度 --%</string>
     <string name="gait_recent_events">最近步态事件</string>
+    <string name="gait_recent_events_hint">以下记录展示了系统对近期活动的实时监测。</string>
     <string name="gait_refresh">刷新步态数据</string>
-    <string name="gait_view_all_events">查看全部</string>
-    <string name="gait_view_all_placeholder">敬请期待，事件详情即将上线</string>
     <string name="gait_last_updated_placeholder">最近更新 · --:--</string>
     <string name="gait_last_updated_format">最近更新 · %1$s</string>
-    <string name="gait_hero_title">智能步态中心</string>
-    <string name="gait_icon_description">步态图标</string>
-    <string name="gait_badge_stable">稳定状态 · 优</string>
-    <string name="gait_badge_fall_low">跌倒风险 · 低</string>
-    <string name="gait_section_metrics">时空参数</string>
-    <string name="gait_support_phase">支撑相位</string>
-    <string name="gait_support_phase_hint">系统正在测量支撑期稳定性…</string>
-    <string name="gait_swing_phase">摆动相位</string>
-    <string name="gait_swing_phase_hint">系统正在测量摆动期协调性…</string>
-    <string name="gait_variability">步频波动</string>
-    <string name="gait_variability_hint">系统正在评估步频稳定性…</string>
-    <string name="gait_activity_title">活动模式</string>
-    <string name="gait_stability_placeholder">稳定状况待更新</string>
+    <string name="gait_phase_label">步态阶段</string>
+    <string name="gait_session_duration_label">训练时长</string>
+    <string name="gait_session_duration_value">%1$d 分钟</string>
+    <string name="gait_step_count_label">步数</string>
+    <string name="gait_step_count_value">%1$d 步</string>
+    <string name="gait_stability_score_value">%1$d/100</string>
+    <string name="gait_fall_risk_value">跌倒风险 %1$d%%</string>
+    <string name="gait_confidence_value">预测可信度 %1$d%%</string>
 
     <!-- 社区 -->
     <string name="community">社区</string>
