@@ -133,154 +133,160 @@
                             app:chipStrokeWidth="0dp" />
                     </com.google.android.material.chip.ChipGroup>
 
-                    <androidx.gridlayout.widget.GridLayout
+                    <LinearLayout
                         android:id="@+id/layout_gait_metrics"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:columnCount="2"
-                        android:columnOrderPreserved="false"
-                        android:orientation="horizontal"
-                        android:rowCount="2"
+                        android:orientation="vertical"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/chip_group_activity">
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="12dp"
-                            android:layout_marginBottom="12dp"
-                            android:background="@drawable/bg_gait_metric_surface"
-                            android:orientation="vertical"
-                            android:padding="16dp"
-                            app:layout_columnWeight="1"
-                            app:layout_rowWeight="1">
+                            android:orientation="horizontal"
+                            android:weightSum="2">
 
-                            <TextView
-                                android:layout_width="wrap_content"
+                            <LinearLayout
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:text="@string/gait_speed"
-                                android:textColor="@color/colorWhite"
-                                android:textSize="12sp" />
+                                android:layout_marginEnd="8dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/bg_gait_metric_surface"
+                                android:orientation="vertical"
+                                android:padding="16dp">
 
-                            <TextView
-                                android:id="@+id/tv_gait_speed"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="6dp"
-                                android:fontFamily="sans-serif-medium"
-                                android:text="0.00"
-                                android:textColor="@color/colorWhite"
-                                android:textSize="24sp" />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/gait_speed"
+                                    android:textColor="@color/colorWhite"
+                                    android:textSize="12sp" />
 
-                            <TextView
-                                android:layout_width="wrap_content"
+                                <TextView
+                                    android:id="@+id/tv_gait_speed"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="6dp"
+                                    android:fontFamily="sans-serif-medium"
+                                    android:text="0.00"
+                                    android:textColor="@color/colorWhite"
+                                    android:textSize="24sp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="m/s"
+                                    android:textColor="@color/colorWhite"
+                                    android:textSize="12sp" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:text="m/s"
-                                android:textColor="@color/colorWhite"
-                                android:textSize="12sp" />
+                                android:layout_marginStart="8dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/bg_gait_metric_surface"
+                                android:orientation="vertical"
+                                android:padding="16dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/gait_cadence"
+                                    android:textColor="@color/colorWhite"
+                                    android:textSize="12sp" />
+
+                                <TextView
+                                    android:id="@+id/tv_cadence"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="6dp"
+                                    android:fontFamily="sans-serif-medium"
+                                    android:text="0"
+                                    android:textColor="@color/colorWhite"
+                                    android:textSize="24sp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="steps/min"
+                                    android:textColor="@color/colorWhite"
+                                    android:textSize="12sp" />
+                            </LinearLayout>
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="12dp"
-                            android:layout_marginBottom="12dp"
-                            android:background="@drawable/bg_gait_metric_surface"
-                            android:orientation="vertical"
-                            android:padding="16dp"
-                            app:layout_columnWeight="1"
-                            app:layout_rowWeight="1">
+                            android:layout_marginTop="16dp"
+                            android:orientation="horizontal"
+                            android:weightSum="2">
 
-                            <TextView
-                                android:layout_width="wrap_content"
+                            <LinearLayout
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:text="@string/gait_cadence"
-                                android:textColor="@color/colorWhite"
-                                android:textSize="12sp" />
+                                android:layout_marginEnd="8dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/bg_gait_metric_surface"
+                                android:orientation="vertical"
+                                android:padding="16dp">
 
-                            <TextView
-                                android:id="@+id/tv_cadence"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="6dp"
-                                android:fontFamily="sans-serif-medium"
-                                android:text="0"
-                                android:textColor="@color/colorWhite"
-                                android:textSize="24sp" />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/gait_step_length"
+                                    android:textColor="@color/colorWhite"
+                                    android:textSize="12sp" />
 
-                            <TextView
-                                android:layout_width="wrap_content"
+                                <TextView
+                                    android:id="@+id/tv_step_length"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="6dp"
+                                    android:fontFamily="sans-serif-medium"
+                                    android:text="0.00"
+                                    android:textColor="@color/colorWhite"
+                                    android:textSize="24sp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="m"
+                                    android:textColor="@color/colorWhite"
+                                    android:textSize="12sp" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:text="steps/min"
-                                android:textColor="@color/colorWhite"
-                                android:textSize="12sp" />
+                                android:layout_marginStart="8dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/bg_gait_metric_surface"
+                                android:orientation="vertical"
+                                android:padding="16dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/gait_symmetry"
+                                    android:textColor="@color/colorWhite"
+                                    android:textSize="12sp" />
+
+                                <TextView
+                                    android:id="@+id/tv_symmetry"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="6dp"
+                                    android:fontFamily="sans-serif-medium"
+                                    android:text="对称性 0%"
+                                    android:textColor="@color/colorWhite"
+                                    android:textSize="18sp" />
+                            </LinearLayout>
                         </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="12dp"
-                            android:background="@drawable/bg_gait_metric_surface"
-                            android:orientation="vertical"
-                            android:padding="16dp"
-                            app:layout_columnWeight="1"
-                            app:layout_rowWeight="1">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/gait_step_length"
-                                android:textColor="@color/colorWhite"
-                                android:textSize="12sp" />
-
-                            <TextView
-                                android:id="@+id/tv_step_length"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="6dp"
-                                android:fontFamily="sans-serif-medium"
-                                android:text="0.00"
-                                android:textColor="@color/colorWhite"
-                                android:textSize="24sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="m"
-                                android:textColor="@color/colorWhite"
-                                android:textSize="12sp" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="12dp"
-                            android:background="@drawable/bg_gait_metric_surface"
-                            android:orientation="vertical"
-                            android:padding="16dp"
-                            app:layout_columnWeight="1"
-                            app:layout_rowWeight="1">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/gait_symmetry"
-                                android:textColor="@color/colorWhite"
-                                android:textSize="12sp" />
-
-                            <TextView
-                                android:id="@+id/tv_symmetry"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="6dp"
-                                android:fontFamily="sans-serif-medium"
-                                android:text="对称性 0%"
-                                android:textColor="@color/colorWhite"
-                                android:textSize="18sp" />
-                        </LinearLayout>
-                    </androidx.gridlayout.widget.GridLayout>
+                    </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/layout_activity_overview"
