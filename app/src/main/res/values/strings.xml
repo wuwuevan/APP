@@ -39,24 +39,52 @@
     
     <!-- 主页面 -->
     <string name="home">首页</string>
-    <string name="exercise">训练</string>
+    <string name="gait">步态</string>
     <string name="health">健康</string>
     <string name="chat">咨询</string>
     <string name="notification">通知</string>
+    <string name="community">社区</string>
     <string name="profile">我的</string>
     
     <!-- Navigation titles -->
     <string name="title_home">首页</string>
-    <string name="title_exercise">训练计划</string>
+    <string name="title_gait">步态分析</string>
     <string name="title_health">健康监测</string>
     <string name="title_chat">智能健康助手</string>
+    <string name="title_community">社区互动</string>
     <string name="title_profile">个人中心</string>
-    
-    <!-- 训练页面 -->
-    <string name="exercise_plan">训练计划</string>
-    <string name="exercise_record">训练记录</string>
-    <string name="exercise_guide">训练指导</string>
-    <string name="exercise_reminder">训练提醒</string>
+
+    <!-- 步态页面 -->
+    <string name="gait_overview_title">步态概览</string>
+    <string name="gait_overview_description">实时洞察您的行走状态，动态掌握步态趋势</string>
+    <string name="gait_overview_score_label">综合评分</string>
+    <string name="gait_status_balanced">步态稳定</string>
+    <string name="gait_status_hint">保持呼吸节奏与落脚力度</string>
+    <string name="refresh_gait_data">刷新数据</string>
+    <string name="gait_metric_section">实时步态指标</string>
+    <string name="gait_metric_speed">步速</string>
+    <string name="gait_metric_cadence">步频</string>
+    <string name="gait_metric_stride">步幅</string>
+    <string name="gait_metric_symmetry">对称度</string>
+    <string name="gait_metric_stance">支撑相</string>
+    <string name="gait_metric_variability">稳定性</string>
+    <string name="gait_metric_trend_placeholder">保持稳定</string>
+    <string name="gait_activity_section">活动识别</string>
+    <string name="gait_activity_hint">系统自动识别当前活动类型及占比</string>
+    <string name="gait_analysis_section">步态分析</string>
+    <string name="gait_analysis_placeholder">• 数据加载中…</string>
+    <string name="gait_timeline_section">今日步态记录</string>
+    <string name="gait_timeline_empty">暂无步态记录</string>
+    <string name="gait_fall_section">跌倒风险监测</string>
+    <string name="gait_fall_status_stable">当前状态：稳定</string>
+    <string name="gait_fall_probability">跌倒概率：--</string>
+    <string name="gait_fall_last_event">最近 7 天未检测到异常</string>
+    <string name="gait_fall_recommendation">建议：保持规律作息，关注脚踝灵活性</string>
+
+    <!-- 社区页面 -->
+    <string name="community_title">社区功能即将上线</string>
+    <string name="community_description">这里将为您提供经验分享、同伴互助与专业导师交流，敬请期待。</string>
+    <string name="community_action">接收上线提醒</string>
     
     <!-- 健康页面 -->
     <string name="health_data">健康数据</string>

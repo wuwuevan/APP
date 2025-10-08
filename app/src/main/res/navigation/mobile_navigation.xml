@@ -12,10 +12,10 @@
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
-        android:id="@+id/navigation_exercise"
-        android:name="com.example.myapplication.ui.exercise.ExerciseFragment"
-        android:label="@string/exercise"
-        tools:layout="@layout/fragment_exercise" />
+        android:id="@+id/navigation_gait"
+        android:name="com.example.myapplication.ui.gait.GaitFragment"
+        android:label="@string/gait"
+        tools:layout="@layout/fragment_gait" />
 
     <fragment
         android:id="@+id/navigation_health"
@@ -28,6 +28,12 @@
         android:name="com.example.myapplication.ui.chat.ChatFragment"
         android:label="@string/chat"
         tools:layout="@layout/fragment_chat" />
+
+    <fragment
+        android:id="@+id/navigation_community"
+        android:name="com.example.myapplication.ui.community.CommunityFragment"
+        android:label="@string/community"
+        tools:layout="@layout/fragment_community" />
 
     <fragment
         android:id="@+id/navigation_profile"

@@ -6,9 +6,9 @@
         android:title="@string/home" />
         
     <item
-        android:id="@+id/navigation_exercise"
-        android:icon="@drawable/ic_exercise"
-        android:title="@string/exercise" />
+        android:id="@+id/navigation_gait"
+        android:icon="@drawable/ic_gait"
+        android:title="@string/gait" />
 
     <item
         android:id="@+id/navigation_health"
@@ -19,6 +19,11 @@
         android:id="@+id/navigation_chat"
         android:icon="@drawable/ic_chat"
         android:title="@string/chat" />
+
+    <item
+        android:id="@+id/navigation_community"
+        android:icon="@drawable/ic_community"
+        android:title="@string/community" />
 
     <item
         android:id="@+id/navigation_profile"

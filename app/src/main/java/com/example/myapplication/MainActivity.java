@@ -101,16 +101,16 @@ public class MainActivity extends AppCompatActivity {
                 .findFragmentById(R.id.nav_host_fragment);
         if (navHostFragment != null) {
             navController = navHostFragment.getNavController();
-        BottomNavigationView navView = findViewById(R.id.nav_view);
-        
-        // Setup navigation UI
-        NavigationUI.setupWithNavController(navView, navController);
-        
-        // Listen for navigation changes to update toolbar
-        navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
-            // Update toolbar based on destination
-            updateToolbarForDestination(destination.getId());
-        });
+            BottomNavigationView navView = findViewById(R.id.nav_view);
+
+            // Setup navigation UI
+            NavigationUI.setupWithNavController(navView, navController);
+
+            // Listen for navigation changes to update toolbar
+            navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
+                // Update toolbar based on destination
+                updateToolbarForDestination(destination.getId());
+            });
         }
     }
     
@@ -126,14 +126,16 @@ public class MainActivity extends AppCompatActivity {
             // Show title on other screens
             toolbarLogo.setVisibility(View.GONE);
             toolbarTitle.setVisibility(View.VISIBLE);
-            
+
             // Set title text based on destination
-            if (destinationId == R.id.navigation_exercise) {
-                toolbarTitle.setText(R.string.title_exercise);
+            if (destinationId == R.id.navigation_gait) {
+                toolbarTitle.setText(R.string.title_gait);
             } else if (destinationId == R.id.navigation_health) {
                 toolbarTitle.setText(R.string.title_health);
             } else if (destinationId == R.id.navigation_chat) {
                 toolbarTitle.setText(R.string.title_chat);
+            } else if (destinationId == R.id.navigation_community) {
+                toolbarTitle.setText(R.string.title_community);
             } else if (destinationId == R.id.navigation_profile) {
                 toolbarTitle.setText(R.string.title_profile);
             }
