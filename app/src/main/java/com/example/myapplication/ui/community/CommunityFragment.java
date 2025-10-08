@@ -31,6 +31,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.Locale;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * 社区页面，提供最基础的浏览、搜索、排序、发帖、回复与删除功能。
@@ -45,6 +48,11 @@ public class CommunityFragment extends Fragment {
 
     private CommunityPostAdapter postAdapter;
     private SharedPreferencesUtil sharedPreferencesUtil;
+
+    private static final String KEY_POSTS = "community_posts_json";
+    private static final String KEY_COMMENTS = "community_comments_json";
+    private static final String KEY_NEXT_POST_ID = "community_next_post_id";
+    private static final String KEY_NEXT_COMMENT_ID = "community_next_comment_id";
 
     private SortOption currentSortOption = SortOption.NEWEST;
     private String currentKeyword = "";
@@ -78,6 +86,7 @@ public class CommunityFragment extends Fragment {
         setupSearch();
         setupSortSpinner();
         setupFab();
+        restoreState();
         seedDataIfNeeded();
         loadPosts();
         return view;
@@ -217,6 +226,7 @@ public class CommunityFragment extends Fragment {
                 System.currentTimeMillis());
         post.setId(nextPostId++);
         posts.add(post);
+        persistState();
         showToast(R.string.community_post_published);
         loadPosts();
     }
@@ -267,6 +277,7 @@ public class CommunityFragment extends Fragment {
                 content, System.currentTimeMillis());
         comment.setId(nextCommentId++);
         comments.add(comment);
+        persistState();
         showToast(R.string.community_reply_success);
         loadPosts();
     }
@@ -305,6 +316,7 @@ public class CommunityFragment extends Fragment {
                 comments.remove(i);
             }
         }
+        persistState();
         return true;
     }
 
@@ -375,6 +387,133 @@ public class CommunityFragment extends Fragment {
         }
     }
 
+    private void persistState() {
+        if (sharedPreferencesUtil == null) {
+            return;
+        }
+        JSONArray postArray = new JSONArray();
+        for (CommunityPost post : posts) {
+            JSONObject object = new JSONObject();
+            try {
+                object.put("id", post.getId());
+                object.put("authorId", post.getAuthorId());
+                object.put("authorName", safeString(post.getAuthorName()));
+                object.put("title", safeString(post.getTitle()));
+                object.put("content", safeString(post.getContent()));
+                object.put("createdAt", post.getCreatedAt());
+                postArray.put(object);
+            } catch (JSONException ignored) {
+                // 忽略单条写入异常，继续保存其他数据
+            }
+        }
+
+        JSONArray commentArray = new JSONArray();
+        for (CommunityComment comment : comments) {
+            JSONObject object = new JSONObject();
+            try {
+                object.put("id", comment.getId());
+                object.put("postId", comment.getPostId());
+                object.put("authorId", comment.getAuthorId());
+                object.put("authorName", safeString(comment.getAuthorName()));
+                object.put("content", safeString(comment.getContent()));
+                object.put("createdAt", comment.getCreatedAt());
+                commentArray.put(object);
+            } catch (JSONException ignored) {
+                // 忽略单条写入异常，继续保存其他数据
+            }
+        }
+
+        sharedPreferencesUtil.putString(KEY_POSTS, postArray.toString());
+        sharedPreferencesUtil.putString(KEY_COMMENTS, commentArray.toString());
+        sharedPreferencesUtil.putInt(KEY_NEXT_POST_ID, nextPostId);
+        sharedPreferencesUtil.putInt(KEY_NEXT_COMMENT_ID, nextCommentId);
+    }
+
+    private void restoreState() {
+        if (sharedPreferencesUtil == null) {
+            return;
+        }
+        posts.clear();
+        comments.clear();
+
+        int maxPostId = 0;
+        int maxCommentId = 0;
+
+        String postJson = sharedPreferencesUtil.getString(KEY_POSTS, "");
+        if (!postJson.isEmpty()) {
+            try {
+                JSONArray postArray = new JSONArray(postJson);
+                for (int i = 0; i < postArray.length(); i++) {
+                    JSONObject object = postArray.optJSONObject(i);
+                    if (object == null) {
+                        continue;
+                    }
+                    CommunityPost post = new CommunityPost(
+                            object.optLong("authorId", -1L),
+                            safeString(object.optString("authorName", "")),
+                            safeString(object.optString("title", "")),
+                            safeString(object.optString("content", "")),
+                            object.optLong("createdAt", System.currentTimeMillis())
+                    );
+                    int id = object.optInt("id", 0);
+                    if (id <= 0) {
+                        id = maxPostId + 1;
+                    }
+                    post.setId(id);
+                    maxPostId = Math.max(maxPostId, id);
+                    posts.add(post);
+                }
+            } catch (JSONException ignored) {
+                posts.clear();
+            }
+        }
+
+        String commentJson = sharedPreferencesUtil.getString(KEY_COMMENTS, "");
+        if (!commentJson.isEmpty()) {
+            try {
+                JSONArray commentArray = new JSONArray(commentJson);
+                for (int i = 0; i < commentArray.length(); i++) {
+                    JSONObject object = commentArray.optJSONObject(i);
+                    if (object == null) {
+                        continue;
+                    }
+                    CommunityComment comment = new CommunityComment(
+                            object.optInt("postId", 0),
+                            object.optLong("authorId", -1L),
+                            safeString(object.optString("authorName", "")),
+                            safeString(object.optString("content", "")),
+                            object.optLong("createdAt", System.currentTimeMillis())
+                    );
+                    int id = object.optInt("id", 0);
+                    if (id <= 0) {
+                        id = maxCommentId + 1;
+                    }
+                    comment.setId(id);
+                    maxCommentId = Math.max(maxCommentId, id);
+                    comments.add(comment);
+                }
+            } catch (JSONException ignored) {
+                comments.clear();
+            }
+        }
+
+        int storedNextPostId = sharedPreferencesUtil.getInt(KEY_NEXT_POST_ID, -1);
+        int storedNextCommentId = sharedPreferencesUtil.getInt(KEY_NEXT_COMMENT_ID, -1);
+        if (storedNextPostId <= 0) {
+            storedNextPostId = maxPostId + 1;
+        }
+        if (storedNextCommentId <= 0) {
+            storedNextCommentId = maxCommentId + 1;
+        }
+        nextPostId = Math.max(storedNextPostId, maxPostId + 1);
+        nextCommentId = Math.max(storedNextCommentId, maxCommentId + 1);
+        seeded = !posts.isEmpty();
+    }
+
+    private String safeString(String value) {
+        return value == null ? "" : value;
+    }
+
     private void seedDataIfNeeded() {
         if (seeded && !posts.isEmpty()) {
             return;
@@ -405,6 +544,7 @@ public class CommunityFragment extends Fragment {
                 "一次15-20分钟即可，记得间隔至少40分钟再进行下一次。", now - 28 * 60 * 60 * 1000L);
         addSeedComment(successStory.getId(), "刘先生",
                 "太棒了！我也在努力，希望能像您一样。", now - 18 * 60 * 60 * 1000L);
+        persistState();
     }
 
     private CommunityPost addSeedPost(@NonNull String author, @NonNull String title,
