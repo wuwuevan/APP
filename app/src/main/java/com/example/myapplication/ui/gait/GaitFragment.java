@@ -83,7 +83,8 @@ public class GaitFragment extends Fragment {
 
     private void setupRecyclerView(View root) {
         RecyclerView recyclerView = root.findViewById(R.id.recycler_recent_events);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        recyclerView.setNestedScrollingEnabled(false);
         eventAdapter = new GaitEventAdapter();
         recyclerView.setAdapter(eventAdapter);
     }
