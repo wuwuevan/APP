@@ -114,8 +114,8 @@ public class GaitFragment extends Fragment {
         currentBinding.tvSymmetry.setText(getString(R.string.gait_symmetry_value, summary.symmetryScore));
         currentBinding.tvCurrentActivity.setText(summary.activityLabel);
         currentBinding.tvStabilityLevel.setText(summary.stabilityLevel);
-        currentBinding.indicatorStability.setProgress(summary.stabilityScore);
-        currentBinding.indicatorFallRisk.setProgress(summary.fallRiskPercent);
+        currentBinding.indicatorStability.setProgress(clampProgress(summary.stabilityScore));
+        currentBinding.indicatorFallRisk.setProgress(clampProgress(summary.fallRiskPercent));
         currentBinding.tvAnalysisSummary.setText(summary.analysisSummary);
         currentBinding.tvFallStatus.setText(summary.fallDetectionMessage);
         currentBinding.tvLastUpdated.setText(getString(R.string.gait_last_updated_format, summary.lastUpdatedTime));
@@ -127,6 +127,10 @@ public class GaitFragment extends Fragment {
 
     private String formatDecimal(float value) {
         return String.format(Locale.getDefault(), "%.2f", value);
+    }
+
+    private int clampProgress(int value) {
+        return Math.max(0, Math.min(100, value));
     }
 
     @Override

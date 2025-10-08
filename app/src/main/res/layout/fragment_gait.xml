@@ -249,7 +249,7 @@
                     android:progress="75"
                     app:indicatorColor="@color/colorPrimary"
                     app:trackColor="@color/colorPrimaryLight"
-                    app:trackCornerRadius="8dp"
+                    app:trackCornerRadius="6dp"
                     app:trackThickness="12dp" />
 
                 <TextView
@@ -343,7 +343,7 @@
                     android:progress="35"
                     app:indicatorColor="@color/colorWarning"
                     app:trackColor="@color/colorWarningLight"
-                    app:trackCornerRadius="8dp"
+                    app:trackCornerRadius="6dp"
                     app:trackThickness="12dp" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
