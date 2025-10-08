@@ -1,23 +1,11 @@
 package com.example.myapplication.data;
 
 import androidx.annotation.NonNull;
-import androidx.room.Entity;
-import androidx.room.ForeignKey;
-import androidx.room.Index;
-import androidx.room.PrimaryKey;
-
 /**
  * 社区回复实体。
  */
-@Entity(tableName = "community_comments",
-        foreignKeys = @ForeignKey(entity = CommunityPost.class,
-                parentColumns = "id",
-                childColumns = "postId",
-                onDelete = ForeignKey.CASCADE),
-        indices = {@Index("postId")})
 public class CommunityComment {
 
-    @PrimaryKey(autoGenerate = true)
     private int id;
 
     private int postId;

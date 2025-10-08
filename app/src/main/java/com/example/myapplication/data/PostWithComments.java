@@ -1,9 +1,9 @@
 package com.example.myapplication.data;
 
-import androidx.room.Embedded;
-import androidx.room.Relation;
+import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -11,32 +11,21 @@ import java.util.List;
  */
 public class PostWithComments {
 
-    @Embedded
-    private CommunityPost post;
+    private final CommunityPost post;
+    private final List<CommunityComment> comments;
 
-    @Relation(parentColumn = "id", entityColumn = "postId")
-    private List<CommunityComment> comments;
-
-    public PostWithComments() {
-        comments = new ArrayList<>();
+    public PostWithComments(@NonNull CommunityPost post, @NonNull List<CommunityComment> comments) {
+        this.post = post;
+        this.comments = new ArrayList<>(comments);
     }
 
+    @NonNull
     public CommunityPost getPost() {
         return post;
     }
 
-    public void setPost(CommunityPost post) {
-        this.post = post;
-    }
-
+    @NonNull
     public List<CommunityComment> getComments() {
-        if (comments == null) {
-            comments = new ArrayList<>();
-        }
-        return comments;
-    }
-
-    public void setComments(List<CommunityComment> comments) {
-        this.comments = comments;
+        return Collections.unmodifiableList(comments);
     }
 }

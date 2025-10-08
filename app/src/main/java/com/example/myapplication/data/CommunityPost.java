@@ -1,16 +1,11 @@
 package com.example.myapplication.data;
 
 import androidx.annotation.NonNull;
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
-
 /**
  * 社区帖子实体。
  */
-@Entity(tableName = "community_posts")
 public class CommunityPost {
 
-    @PrimaryKey(autoGenerate = true)
     private int id;
 
     private long authorId;
