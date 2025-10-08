@@ -3,6 +3,7 @@ package com.example.myapplication.ui.gait;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 用于展示最近步态事件的适配器。
+ * 用于展示最近步态事件的适配器，采用模拟数据。 
  */
 public class GaitEventAdapter extends RecyclerView.Adapter<GaitEventAdapter.GaitEventViewHolder> {
 
@@ -33,9 +34,18 @@ public class GaitEventAdapter extends RecyclerView.Adapter<GaitEventAdapter.Gait
         GaitDataGenerator.GaitEvent event = events.get(position);
         holder.title.setText(event.title);
         holder.subtitle.setText(event.subtitle);
+
+        if (event.detail != null && !event.detail.isEmpty()) {
+            holder.detail.setText(event.detail);
+            holder.detail.setVisibility(View.VISIBLE);
+        } else {
+            holder.detail.setVisibility(View.GONE);
+        }
+
         holder.status.setText(event.statusLabel);
-        int statusColor = ContextCompat.getColor(holder.status.getContext(), event.statusColorRes);
-        holder.status.setTextColor(statusColor);
+        holder.status.setTextColor(ContextCompat.getColor(holder.status.getContext(), event.statusColorRes));
+        holder.status.setBackgroundResource(event.statusBackgroundRes);
+        holder.icon.setImageResource(event.iconRes);
     }
 
     @Override
@@ -52,14 +62,18 @@ public class GaitEventAdapter extends RecyclerView.Adapter<GaitEventAdapter.Gait
     }
 
     static class GaitEventViewHolder extends RecyclerView.ViewHolder {
+        final ImageView icon;
         final TextView title;
         final TextView subtitle;
+        final TextView detail;
         final TextView status;
 
         GaitEventViewHolder(@NonNull View itemView) {
             super(itemView);
+            icon = itemView.findViewById(R.id.img_event_icon);
             title = itemView.findViewById(R.id.tv_event_title);
             subtitle = itemView.findViewById(R.id.tv_event_subtitle);
+            detail = itemView.findViewById(R.id.tv_event_detail);
             status = itemView.findViewById(R.id.tv_event_status);
         }
     }
