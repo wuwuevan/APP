@@ -1,6 +1,7 @@
 package com.example.myapplication.ui.gait;
 
 import androidx.annotation.ColorRes;
+import androidx.annotation.DrawableRes;
 
 import com.example.myapplication.R;
 
@@ -50,8 +51,8 @@ public final class GaitDataGenerator {
         int cadence = cadenceBase + RANDOM.nextInt(11) - 5;
         float stepLength = round(stepLengthBase + randomOffset(0.08f));
         int symmetryScore = clamp(78 + RANDOM.nextInt(15), 60, 100);
-        int stabilityScore = clamp(70 + RANDOM.nextInt(20), 50, 100);
-        int fallRiskPercent = clamp(100 - stabilityScore + RANDOM.nextInt(10), 5, 60);
+        int stabilityScore = clamp(72 + RANDOM.nextInt(18), 50, 100);
+        int fallRiskPercent = clamp(100 - stabilityScore + RANDOM.nextInt(8), 5, 55);
 
         String activityLabel;
         switch (type) {
@@ -67,13 +68,20 @@ public final class GaitDataGenerator {
                 break;
         }
 
-        String stabilityLevel = stabilityScore >= 85 ? "稳定" : stabilityScore >= 70 ? "轻度波动" : "需关注";
+        String stabilityLevel = stabilityScore >= 88 ? "表现稳定" : stabilityScore >= 75 ? "轻度波动" : "需重点关注";
         String analysisSummary = buildAnalysisSummary(gaitSpeed, symmetryScore, fallRiskPercent);
-        String fallDetectionMessage = fallRiskPercent < 30 ? "未检测到跌倒风险" : "存在轻度跌倒风险，建议使用辅助工具";
+        String fallDetectionMessage = fallRiskPercent < 28 ? "未检测到跌倒风险" : fallRiskPercent < 45 ? "存在轻度跌倒风险，注意放慢节奏" : "检测到较高跌倒风险，请使用辅助工具";
         String lastUpdatedTime = TIME_FORMAT.format(new Date());
+        String gaitPhase = determineGaitPhase(gaitSpeed, type);
+        String focusArea = determineFocusArea(symmetryScore, stabilityScore, type);
+        String trainingRecommendation = buildTrainingRecommendation(focusArea, fallRiskPercent);
+        int sessionDurationMinutes = 12 + RANDOM.nextInt(18);
+        int stepCount = 600 + RANDOM.nextInt(1500);
+        int confidenceScore = clamp(82 + RANDOM.nextInt(12), 70, 98);
 
         return new GaitSummary(gaitSpeed, cadence, stepLength, symmetryScore, stabilityScore, fallRiskPercent,
-                activityLabel, stabilityLevel, analysisSummary, fallDetectionMessage, lastUpdatedTime);
+                activityLabel, stabilityLevel, analysisSummary, fallDetectionMessage, lastUpdatedTime,
+                gaitPhase, focusArea, trainingRecommendation, sessionDurationMinutes, stepCount, confidenceScore);
     }
 
     public static List<GaitEvent> generateRecentEvents(ActivityType type) {
@@ -85,8 +93,10 @@ public final class GaitDataGenerator {
             String title = isAlert ? "姿态偏移预警" : "步态记录";
             String subtitle = buildEventSubtitle(type, timeStamp);
             String statusLabel = isAlert ? "异常" : "正常";
+            String description = buildEventDescription(isAlert, type);
             @ColorRes int statusColor = isAlert ? R.color.colorWarning : R.color.colorSuccess;
-            events.add(new GaitEvent(title, subtitle, statusLabel, statusColor));
+            @DrawableRes int iconRes = isAlert ? R.drawable.ic_warning : R.drawable.ic_gait;
+            events.add(new GaitEvent(title, subtitle, description, statusLabel, statusColor, iconRes));
         }
         return events;
     }
@@ -105,6 +115,42 @@ public final class GaitDataGenerator {
         return builder.toString();
     }
 
+    private static String determineGaitPhase(float speed, ActivityType type) {
+        if (type == ActivityType.STAIR_CLIMBING) {
+            return speed > 0.75f ? "上楼推进" : "缓步爬升";
+        }
+        if (type == ActivityType.OUTDOOR_ACTIVITY) {
+            return speed > 1.2f ? "快速行进" : "平稳巡航";
+        }
+        return speed > 1.05f ? "快速步行" : speed > 0.85f ? "标准步态" : "热身调整";
+    }
+
+    private static String determineFocusArea(int symmetryScore, int stabilityScore, ActivityType type) {
+        if (symmetryScore < 80) {
+            return "侧向平衡与核心稳定";
+        }
+        if (stabilityScore < 78) {
+            return "下肢力量与支撑";
+        }
+        if (type == ActivityType.STAIR_CLIMBING) {
+            return "膝踝协调与力量";
+        }
+        return "维持当前训练节奏";
+    }
+
+    private static String buildTrainingRecommendation(String focusArea, int fallRisk) {
+        StringBuilder recommendation = new StringBuilder();
+        recommendation.append("今日建议关注：").append(focusArea).append("。");
+        if (fallRisk < 25) {
+            recommendation.append("可加入轻量速度训练，保持节奏。");
+        } else if (fallRisk < 40) {
+            recommendation.append("建议搭配核心力量训练并在转身时减速。");
+        } else {
+            recommendation.append("请使用辅助器具并与康复师沟通调整训练计划。");
+        }
+        return recommendation.toString();
+    }
+
     private static String buildEventSubtitle(ActivityType type, String timeStamp) {
         switch (type) {
             case STAIR_CLIMBING:
@@ -115,6 +161,19 @@ public final class GaitDataGenerator {
             default:
                 return timeStamp + " · 室内步行";
         }
+    }
+
+    private static String buildEventDescription(boolean isAlert, ActivityType type) {
+        if (isAlert) {
+            if (type == ActivityType.STAIR_CLIMBING) {
+                return "检测到踏步不稳定，建议扶手辅助并放慢节奏。";
+            }
+            return "重心偏移增大，请注意调整步幅并保持核心收紧。";
+        }
+        if (type == ActivityType.OUTDOOR_ACTIVITY) {
+            return "户外步态平稳，心率与步速处于安全范围。";
+        }
+        return "步态稳定，未检测到异常波动。";
     }
 
     private static float randomOffset(float maxOffset) {
@@ -150,10 +209,17 @@ public final class GaitDataGenerator {
         public final String analysisSummary;
         public final String fallDetectionMessage;
         public final String lastUpdatedTime;
+        public final String gaitPhase;
+        public final String focusArea;
+        public final String trainingRecommendation;
+        public final int sessionDurationMinutes;
+        public final int stepCount;
+        public final int confidenceScore;
 
         GaitSummary(float gaitSpeed, int cadence, float stepLength, int symmetryScore, int stabilityScore,
                     int fallRiskPercent, String activityLabel, String stabilityLevel, String analysisSummary,
-                    String fallDetectionMessage, String lastUpdatedTime) {
+                    String fallDetectionMessage, String lastUpdatedTime, String gaitPhase, String focusArea,
+                    String trainingRecommendation, int sessionDurationMinutes, int stepCount, int confidenceScore) {
             this.gaitSpeed = gaitSpeed;
             this.cadence = cadence;
             this.stepLength = stepLength;
@@ -165,6 +231,12 @@ public final class GaitDataGenerator {
             this.analysisSummary = analysisSummary;
             this.fallDetectionMessage = fallDetectionMessage;
             this.lastUpdatedTime = lastUpdatedTime;
+            this.gaitPhase = gaitPhase;
+            this.focusArea = focusArea;
+            this.trainingRecommendation = trainingRecommendation;
+            this.sessionDurationMinutes = sessionDurationMinutes;
+            this.stepCount = stepCount;
+            this.confidenceScore = confidenceScore;
         }
     }
 
@@ -174,15 +246,21 @@ public final class GaitDataGenerator {
     public static class GaitEvent {
         public final String title;
         public final String subtitle;
+        public final String description;
         public final String statusLabel;
         @ColorRes
         public final int statusColorRes;
+        @DrawableRes
+        public final int iconRes;
 
-        GaitEvent(String title, String subtitle, String statusLabel, @ColorRes int statusColorRes) {
+        GaitEvent(String title, String subtitle, String description, String statusLabel,
+                  @ColorRes int statusColorRes, @DrawableRes int iconRes) {
             this.title = title;
             this.subtitle = subtitle;
+            this.description = description;
             this.statusLabel = statusLabel;
             this.statusColorRes = statusColorRes;
+            this.iconRes = iconRes;
         }
     }
 }

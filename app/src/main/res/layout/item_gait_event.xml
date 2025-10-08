@@ -4,41 +4,75 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="12dp"
-    app:cardCornerRadius="16dp"
-    app:cardElevation="2dp">
+    app:cardCornerRadius="18dp"
+    app:cardElevation="1dp"
+    app:strokeColor="@color/colorDivider"
+    app:strokeWidth="1dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
         android:padding="16dp">
 
-        <TextView
-            android:id="@+id/tv_event_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="步态记录"
-            android:textAppearance="@style/TextAppearance.MyApplication.Headline3"
-            android:textColor="@color/colorTextPrimary" />
+        <ImageView
+            android:id="@+id/iv_event_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/bg_card_rounded"
+            android:padding="8dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_steps" />
 
-        <TextView
-            android:id="@+id/tv_event_subtitle"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="10:05 · 室内步行"
-            android:textAppearance="@style/TextAppearance.MyApplication.Body1"
-            android:textColor="@color/colorTextSecondary" />
+            android:layout_marginStart="16dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_event_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="步态记录"
+                android:textColor="@color/colorText"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_event_subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="10:05 · 室内步行"
+                android:textColor="@color/colorTextSecondary"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/tv_event_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="步态稳定，未检测到跌倒风险。"
+                android:textColor="@color/colorTextSecondary"
+                android:textSize="13sp" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/tv_event_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/bg_status_normal"
-            android:padding="4dp"
+            android:layout_marginStart="12dp"
+            android:background="@drawable/bg_chip"
+            android:paddingStart="10dp"
+            android:paddingTop="6dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="6dp"
             android:text="正常"
-            android:textAppearance="@style/TextAppearance.MyApplication.Caption"
-            android:textColor="@color/colorSuccess" />
+            android:textColor="@color/colorSuccess"
+            android:textSize="12sp"
+            android:textStyle="bold" />
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

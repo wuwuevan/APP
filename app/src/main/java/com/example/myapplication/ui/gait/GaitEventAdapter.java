@@ -1,12 +1,16 @@
 package com.example.myapplication.ui.gait;
 
+import android.content.res.ColorStateList;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.ColorUtils;
+import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
@@ -33,9 +37,13 @@ public class GaitEventAdapter extends RecyclerView.Adapter<GaitEventAdapter.Gait
         GaitDataGenerator.GaitEvent event = events.get(position);
         holder.title.setText(event.title);
         holder.subtitle.setText(event.subtitle);
+        holder.description.setText(event.description);
+        holder.icon.setImageResource(event.iconRes);
         holder.status.setText(event.statusLabel);
         int statusColor = ContextCompat.getColor(holder.status.getContext(), event.statusColorRes);
         holder.status.setTextColor(statusColor);
+        ColorStateList tint = ColorStateList.valueOf(ColorUtils.setAlphaComponent(statusColor, 56));
+        ViewCompat.setBackgroundTintList(holder.status, tint);
     }
 
     @Override
@@ -52,14 +60,18 @@ public class GaitEventAdapter extends RecyclerView.Adapter<GaitEventAdapter.Gait
     }
 
     static class GaitEventViewHolder extends RecyclerView.ViewHolder {
+        final ImageView icon;
         final TextView title;
         final TextView subtitle;
+        final TextView description;
         final TextView status;
 
         GaitEventViewHolder(@NonNull View itemView) {
             super(itemView);
+            icon = itemView.findViewById(R.id.iv_event_icon);
             title = itemView.findViewById(R.id.tv_event_title);
             subtitle = itemView.findViewById(R.id.tv_event_subtitle);
+            description = itemView.findViewById(R.id.tv_event_description);
             status = itemView.findViewById(R.id.tv_event_status);
         }
     }

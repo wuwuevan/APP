@@ -98,6 +98,7 @@ public class GaitFragment extends Fragment {
                 binding.chipWalk.setChecked(true);
                 loadGaitData(GaitDataGenerator.ActivityType.WALKING);
             }
+            binding.gaitScroll.smoothScrollTo(0, 0);
         });
     }
 
@@ -114,11 +115,19 @@ public class GaitFragment extends Fragment {
         currentBinding.tvSymmetry.setText(getString(R.string.gait_symmetry_value, summary.symmetryScore));
         currentBinding.tvCurrentActivity.setText(summary.activityLabel);
         currentBinding.tvStabilityLevel.setText(summary.stabilityLevel);
+        currentBinding.tvStabilityScore.setText(getString(R.string.gait_stability_score_value, summary.stabilityScore));
         currentBinding.indicatorStability.setProgress(summary.stabilityScore);
         currentBinding.indicatorFallRisk.setProgress(summary.fallRiskPercent);
         currentBinding.tvAnalysisSummary.setText(summary.analysisSummary);
         currentBinding.tvFallStatus.setText(summary.fallDetectionMessage);
         currentBinding.tvLastUpdated.setText(getString(R.string.gait_last_updated_format, summary.lastUpdatedTime));
+        currentBinding.tvGaitPhase.setText(summary.gaitPhase);
+        currentBinding.tvSessionDuration.setText(getString(R.string.gait_session_duration_value, summary.sessionDurationMinutes));
+        currentBinding.tvStepCount.setText(getString(R.string.gait_step_count_value, summary.stepCount));
+        currentBinding.tvFocusArea.setText(summary.focusArea);
+        currentBinding.tvTrainingRecommendation.setText(summary.trainingRecommendation);
+        currentBinding.tvFallRiskValue.setText(getString(R.string.gait_fall_risk_value, summary.fallRiskPercent));
+        currentBinding.tvConfidence.setText(getString(R.string.gait_confidence_value, summary.confidenceScore));
 
         if (eventAdapter != null) {
             eventAdapter.updateEvents(GaitDataGenerator.generateRecentEvents(type));
