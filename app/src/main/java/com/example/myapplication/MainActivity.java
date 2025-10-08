@@ -128,14 +128,16 @@ public class MainActivity extends AppCompatActivity {
             toolbarTitle.setVisibility(View.VISIBLE);
             
             // Set title text based on destination
-            if (destinationId == R.id.navigation_exercise) {
-                toolbarTitle.setText(R.string.title_exercise);
+            if (destinationId == R.id.navigation_gait) {
+                toolbarTitle.setText(R.string.title_gait);
             } else if (destinationId == R.id.navigation_health) {
                 toolbarTitle.setText(R.string.title_health);
             } else if (destinationId == R.id.navigation_chat) {
                 toolbarTitle.setText(R.string.title_chat);
             } else if (destinationId == R.id.navigation_profile) {
                 toolbarTitle.setText(R.string.title_profile);
+            } else if (destinationId == R.id.navigation_community) {
+                toolbarTitle.setText(R.string.title_community);
             }
         }
     }

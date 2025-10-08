@@ -272,7 +272,7 @@
                         android:background="@drawable/circle_bg_lee"
                         android:padding="12dp"
                         android:contentDescription="@string/step_count"
-                        android:src="@drawable/ic_exercise"
+                        android:src="@drawable/ic_gait"
                         app:tint="@color/colorPrimary" />
 
                     <TextView

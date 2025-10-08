@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    android:padding="16dp"
+    tools:context=".ui.gait.GaitFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="24dp">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_gait_overview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:foreground="?attr/selectableItemBackground"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="0dp"
+            app:strokeColor="@color/colorPrimary"
+            app:strokeWidth="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_gait_header"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:id="@+id/tv_gait_overview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/gait_overview"
+                    android:textAppearance="@style/TextAppearance.MyApplication.Headline2"
+                    android:textColor="@color/colorWhite" />
+
+                <TextView
+                    android:id="@+id/tv_last_updated"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/gait_last_updated_placeholder"
+                    android:textAppearance="@style/TextAppearance.MyApplication.Caption"
+                    android:textColor="@color/colorWhite" />
+
+                <androidx.gridlayout.widget.GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:columnCount="2"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="12dp"
+                        android:orientation="vertical"
+                        android:padding="12dp"
+                        app:layout_columnWeight="1"
+                        android:background="@drawable/bg_gait_metric">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/gait_speed"
+                            android:textAppearance="@style/TextAppearance.MyApplication.Caption"
+                            android:textColor="@color/colorWhite" />
+
+                        <TextView
+                            android:id="@+id/tv_gait_speed"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:text="0.98"
+                            android:textAppearance="@style/TextAppearance.MyApplication.Headline1"
+                            android:textColor="@color/colorWhite" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="m/s"
+                            android:textAppearance="@style/TextAppearance.MyApplication.Caption"
+                            android:textColor="@color/colorWhite" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:orientation="vertical"
+                        android:padding="12dp"
+                        android:background="@drawable/bg_gait_metric"
+                        app:layout_columnWeight="1">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/gait_cadence"
+                            android:textAppearance="@style/TextAppearance.MyApplication.Caption"
+                            android:textColor="@color/colorWhite" />
+
+                        <TextView
+                            android:id="@+id/tv_cadence"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:text="108"
+                            android:textAppearance="@style/TextAppearance.MyApplication.Headline1"
+                            android:textColor="@color/colorWhite" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="steps/min"
+                            android:textAppearance="@style/TextAppearance.MyApplication.Caption"
+                            android:textColor="@color/colorWhite" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginEnd="12dp"
+                        android:orientation="vertical"
+                        android:padding="12dp"
+                        android:background="@drawable/bg_gait_metric"
+                        app:layout_columnWeight="1">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/gait_step_length"
+                            android:textAppearance="@style/TextAppearance.MyApplication.Caption"
+                            android:textColor="@color/colorWhite" />
+
+                        <TextView
+                            android:id="@+id/tv_step_length"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:text="0.58"
+                            android:textAppearance="@style/TextAppearance.MyApplication.Headline1"
+                            android:textColor="@color/colorWhite" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="m"
+                            android:textAppearance="@style/TextAppearance.MyApplication.Caption"
+                            android:textColor="@color/colorWhite" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginStart="12dp"
+                        android:orientation="vertical"
+                        android:padding="12dp"
+                        android:background="@drawable/bg_gait_metric"
+                        app:layout_columnWeight="1">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/gait_symmetry"
+                            android:textAppearance="@style/TextAppearance.MyApplication.Caption"
+                            android:textColor="@color/colorWhite" />
+
+                        <TextView
+                            android:id="@+id/tv_symmetry"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:text="@string/gait_symmetry_value_placeholder"
+                            android:textAppearance="@style/TextAppearance.MyApplication.Headline1"
+                            android:textColor="@color/colorWhite" />
+                    </LinearLayout>
+                </androidx.gridlayout.widget.GridLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="4dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/gait_current_activity"
+                    android:textAppearance="@style/TextAppearance.MyApplication.Headline3"
+                    android:textColor="@color/colorTextPrimary" />
+
+                <TextView
+                    android:id="@+id/tv_current_activity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="室内步行"
+                    android:textAppearance="@style/TextAppearance.MyApplication.Body1"
+                    android:textColor="@color/colorTextSecondary" />
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chip_group_activity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    app:singleSelection="true">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_walk"
+                        style="@style/Widget.MyApplication.Chip.Filter"
+                        android:text="@string/gait_activity_walk" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_stairs"
+                        style="@style/Widget.MyApplication.Chip.Filter"
+                        android:text="@string/gait_activity_stairs" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_outdoor"
+                        style="@style/Widget.MyApplication.Chip.Filter"
+                        android:text="@string/gait_activity_outdoor" />
+                </com.google.android.material.chip.ChipGroup>
+
+                <com.google.android.material.progressindicator.LinearProgressIndicator
+                    android:id="@+id/indicator_stability"
+                    style="@style/Widget.MaterialComponents.LinearProgressIndicator"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:max="100"
+                    android:progress="75"
+                    app:indicatorColor="@color/colorAccent"
+                    app:trackColor="@color/colorProgress75" />
+
+                <TextView
+                    android:id="@+id/tv_stability_level"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="稳定"
+                    android:textAppearance="@style/TextAppearance.MyApplication.Body2"
+                    android:textColor="@color/colorAccentDark" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_refresh_gait"
+                    style="@style/Widget.MyApplication.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/gait_refresh"
+                    app:icon="@drawable/ic_refresh"
+                    app:iconGravity="textStart"
+                    app:iconTint="@color/colorPrimary" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="4dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/gait_analysis"
+                    android:textAppearance="@style/TextAppearance.MyApplication.Headline3"
+                    android:textColor="@color/colorTextPrimary" />
+
+                <TextView
+                    android:id="@+id/tv_analysis_summary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/gait_analysis_placeholder"
+                    android:textAppearance="@style/TextAppearance.MyApplication.Body1"
+                    android:textColor="@color/colorTextSecondary" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="4dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/gait_fall_detection"
+                    android:textAppearance="@style/TextAppearance.MyApplication.Headline3"
+                    android:textColor="@color/colorTextPrimary" />
+
+                <TextView
+                    android:id="@+id/tv_fall_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="@string/gait_fall_status_placeholder"
+                    android:textAppearance="@style/TextAppearance.MyApplication.Body1"
+                    android:textColor="@color/colorTextSecondary" />
+
+                <com.google.android.material.progressindicator.LinearProgressIndicator
+                    android:id="@+id/indicator_fall_risk"
+                    style="@style/Widget.MaterialComponents.LinearProgressIndicator"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:max="100"
+                    android:progress="35"
+                    app:indicatorColor="@color/colorWarning"
+                    app:trackColor="@color/colorWarningLight" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:text="@string/gait_recent_events"
+            android:textAppearance="@style/TextAppearance.MyApplication.Headline3"
+            android:textColor="@color/colorTextPrimary" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_recent_events"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/item_gait_event" />
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

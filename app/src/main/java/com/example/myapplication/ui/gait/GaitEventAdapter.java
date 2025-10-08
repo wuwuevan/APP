@@ -1,0 +1,64 @@
+package com.example.myapplication.ui.gait;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.myapplication.R;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * 用于展示最近步态事件的适配器。
+ */
+public class GaitEventAdapter extends RecyclerView.Adapter<GaitEventAdapter.GaitEventViewHolder> {
+
+    private final List<GaitDataGenerator.GaitEvent> events = new ArrayList<>();
+
+    @NonNull
+    @Override
+    public GaitEventViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_gait_event, parent, false);
+        return new GaitEventViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull GaitEventViewHolder holder, int position) {
+        GaitDataGenerator.GaitEvent event = events.get(position);
+        holder.title.setText(event.title);
+        holder.subtitle.setText(event.subtitle);
+        holder.status.setText(event.statusLabel);
+        holder.status.setTextColor(holder.status.getResources().getColor(event.statusColorRes, holder.status.getContext().getTheme()));
+    }
+
+    @Override
+    public int getItemCount() {
+        return events.size();
+    }
+
+    public void updateEvents(List<GaitDataGenerator.GaitEvent> newEvents) {
+        events.clear();
+        if (newEvents != null) {
+            events.addAll(newEvents);
+        }
+        notifyDataSetChanged();
+    }
+
+    static class GaitEventViewHolder extends RecyclerView.ViewHolder {
+        final TextView title;
+        final TextView subtitle;
+        final TextView status;
+
+        GaitEventViewHolder(@NonNull View itemView) {
+            super(itemView);
+            title = itemView.findViewById(R.id.tv_event_title);
+            subtitle = itemView.findViewById(R.id.tv_event_subtitle);
+            status = itemView.findViewById(R.id.tv_event_status);
+        }
+    }
+}

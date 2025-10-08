@@ -96,16 +96,6 @@
             android:name=".ui.health.HealthReportActivity"
             android:label="健康报告" />
             
-        <!-- 训练详情页面 -->
-        <activity
-            android:name=".ui.exercise.ExerciseDetailActivity"
-            android:label="训练详情" />
-            
-        <!-- 添加训练计划页面 -->
-        <activity
-            android:name=".ui.exercise.AddExerciseActivity"
-            android:label="添加训练计划" />
-            
         <!-- 任务详情页面 -->
         <activity
             android:name=".ui.task.TaskDetailActivity"

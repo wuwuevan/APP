@@ -9,9 +9,9 @@
         android:icon="@drawable/ic_task"
         android:title="任务" />
     <item
-        android:id="@+id/nav_exercise"
-        android:icon="@drawable/ic_exercise"
-        android:title="训练" />
+        android:id="@+id/nav_gait"
+        android:icon="@drawable/ic_gait"
+        android:title="@string/gait" />
     <item
         android:id="@+id/nav_health"
         android:icon="@drawable/ic_health"
@@ -24,4 +24,8 @@
         android:id="@+id/nav_notification"
         android:icon="@drawable/ic_notification"
         android:title="通知" />
-</menu> 
+    <item
+        android:id="@+id/nav_community"
+        android:icon="@drawable/ic_community"
+        android:title="@string/community" />
+</menu>

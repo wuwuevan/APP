@@ -39,7 +39,7 @@
     
     <!-- 主页面 -->
     <string name="home">首页</string>
-    <string name="exercise">训练</string>
+    <string name="gait">步态</string>
     <string name="health">健康</string>
     <string name="chat">咨询</string>
     <string name="notification">通知</string>
@@ -47,16 +47,36 @@
     
     <!-- Navigation titles -->
     <string name="title_home">首页</string>
-    <string name="title_exercise">训练计划</string>
+    <string name="title_gait">步态分析</string>
     <string name="title_health">健康监测</string>
     <string name="title_chat">智能健康助手</string>
     <string name="title_profile">个人中心</string>
     
-    <!-- 训练页面 -->
-    <string name="exercise_plan">训练计划</string>
-    <string name="exercise_record">训练记录</string>
-    <string name="exercise_guide">训练指导</string>
-    <string name="exercise_reminder">训练提醒</string>
+    <!-- 步态页面 -->
+    <string name="gait_overview">步态概览</string>
+    <string name="gait_speed">步速</string>
+    <string name="gait_cadence">步频</string>
+    <string name="gait_step_length">步幅</string>
+    <string name="gait_symmetry">步态对称性</string>
+    <string name="gait_symmetry_value">对称性 %1$d%%</string>
+    <string name="gait_symmetry_value_placeholder">对称性 82%</string>
+    <string name="gait_current_activity">当前活动</string>
+    <string name="gait_activity_walk">室内步行</string>
+    <string name="gait_activity_stairs">爬楼梯</string>
+    <string name="gait_activity_outdoor">户外步态</string>
+    <string name="gait_analysis">步态分析</string>
+    <string name="gait_analysis_placeholder">正在分析步态稳定性与对称性…</string>
+    <string name="gait_fall_detection">摔倒检测</string>
+    <string name="gait_fall_status_placeholder">系统正在实时监测跌倒风险。</string>
+    <string name="gait_recent_events">最近步态事件</string>
+    <string name="gait_refresh">刷新步态数据</string>
+    <string name="gait_last_updated_placeholder">最近更新 · --:--</string>
+    <string name="gait_last_updated_format">最近更新 · %1$s</string>
+
+    <!-- 社区 -->
+    <string name="community">社区</string>
+    <string name="title_community">社区</string>
+    <string name="community_placeholder">社区功能正在建设中，敬请期待！</string>
     
     <!-- 健康页面 -->
     <string name="health_data">健康数据</string>
