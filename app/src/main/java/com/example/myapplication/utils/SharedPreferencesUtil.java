@@ -13,22 +13,25 @@ public class SharedPreferencesUtil {
     private static final String KEY_USERNAME = "username";
     private static final String KEY_CURRENT_USERNAME = "current_username";
     
-    private SharedPreferences sharedPreferences;
-    private SharedPreferences.Editor editor;
-    
+    private final SharedPreferences sharedPreferences;
+
     public SharedPreferencesUtil(Context context) {
-        sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
-        editor = sharedPreferences.edit();
+        Context appContext = context.getApplicationContext();
+        if (appContext == null) {
+            appContext = context;
+        }
+        sharedPreferences = appContext.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
     }
     
     /**
      * 保存登录信息
      */
     public void saveLoginInfo(long userId, String username) {
-        editor.putLong(KEY_USER_ID, userId);
-        editor.putString(KEY_USERNAME, username);
-        editor.putString(KEY_CURRENT_USERNAME, username);
-        editor.apply();
+        sharedPreferences.edit()
+                .putLong(KEY_USER_ID, userId)
+                .putString(KEY_USERNAME, username)
+                .putString(KEY_CURRENT_USERNAME, username)
+                .apply();
     }
     
     /**
@@ -49,10 +52,11 @@ public class SharedPreferencesUtil {
      * 清除登录信息
      */
     public void clearLoginInfo() {
-        editor.remove(KEY_USER_ID);
-        editor.remove(KEY_USERNAME);
-        editor.remove(KEY_CURRENT_USERNAME);
-        editor.apply();
+        sharedPreferences.edit()
+                .remove(KEY_USER_ID)
+                .remove(KEY_USERNAME)
+                .remove(KEY_CURRENT_USERNAME)
+                .apply();
     }
     
     /**
@@ -66,8 +70,9 @@ public class SharedPreferencesUtil {
      * 保存字符串值
      */
     public void putString(String key, String value) {
-        editor.putString(key, value);
-        editor.apply();
+        sharedPreferences.edit()
+                .putString(key, value)
+                .apply();
     }
     
     /**
@@ -81,8 +86,9 @@ public class SharedPreferencesUtil {
      * 保存整数值
      */
     public void putInt(String key, int value) {
-        editor.putInt(key, value);
-        editor.apply();
+        sharedPreferences.edit()
+                .putInt(key, value)
+                .apply();
     }
     
     /**
@@ -98,13 +104,14 @@ public class SharedPreferencesUtil {
     public void saveInt(String key, int value) {
         putInt(key, value);
     }
-    
+
     /**
      * 保存布尔值
      */
     public void putBoolean(String key, boolean value) {
-        editor.putBoolean(key, value);
-        editor.apply();
+        sharedPreferences.edit()
+                .putBoolean(key, value)
+                .apply();
     }
     
     /**

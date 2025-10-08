@@ -1,5 +1,6 @@
 package com.example.myapplication.ui.community;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -36,6 +37,9 @@ import java.util.List;
  */
 public class CommunityFragment extends Fragment {
 
+    @Nullable
+    private Context appContext;
+
     private TextInputEditText etSearch;
     private ChipGroup chipGroupSort;
     private RecyclerView rvPosts;
@@ -48,13 +52,23 @@ public class CommunityFragment extends Fragment {
 
     private SortOption currentSortOption = SortOption.NEWEST;
     private String currentKeyword = "";
+    private TextWatcher searchWatcher;
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        appContext = context.getApplicationContext();
+        initDependencies(context);
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_community, container, false);
-        initDependencies(view.getContext());
+        if (repository == null || sharedPreferencesUtil == null) {
+            initDependencies(view.getContext());
+        }
         initViews(view);
         setupRecyclerView();
         setupSearch();
@@ -64,9 +78,11 @@ public class CommunityFragment extends Fragment {
         return view;
     }
 
-    private void initDependencies(@NonNull android.content.Context context) {
-        sharedPreferencesUtil = new SharedPreferencesUtil(context);
-        repository = new CommunityRepository(context);
+    private void initDependencies(@NonNull Context context) {
+        Context safeContext = context.getApplicationContext() != null
+                ? context.getApplicationContext() : context;
+        sharedPreferencesUtil = new SharedPreferencesUtil(safeContext);
+        repository = new CommunityRepository(safeContext);
         repository.ensureSeedData();
     }
 
@@ -79,7 +95,7 @@ public class CommunityFragment extends Fragment {
     }
 
     private void setupRecyclerView() {
-        rvPosts.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvPosts.setLayoutManager(new LinearLayoutManager(requireContext()));
         rvPosts.setHasFixedSize(true);
         postAdapter = new CommunityPostAdapter(new CommunityPostAdapter.OnPostActionListener() {
             @Override
@@ -92,13 +108,14 @@ public class CommunityFragment extends Fragment {
                 showDeleteDialog(post);
             }
         });
-        long userId = sharedPreferencesUtil.getCurrentUserId();
+        long userId = sharedPreferencesUtil != null
+                ? sharedPreferencesUtil.getCurrentUserId() : -1;
         postAdapter.setCurrentUser(userId);
         rvPosts.setAdapter(postAdapter);
     }
 
     private void setupSearch() {
-        etSearch.addTextChangedListener(new TextWatcher() {
+        searchWatcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -112,7 +129,8 @@ public class CommunityFragment extends Fragment {
                 currentKeyword = s != null ? s.toString().trim() : "";
                 loadPosts();
             }
-        });
+        };
+        etSearch.addTextChangedListener(searchWatcher);
     }
 
     private void setupSortChips() {
@@ -137,7 +155,11 @@ public class CommunityFragment extends Fragment {
     }
 
     private void showCreatePostDialog() {
-        View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.view_dialog_create_post, null, false);
+        if (!isAdded()) {
+            return;
+        }
+        View dialogView = LayoutInflater.from(requireContext())
+                .inflate(R.layout.view_dialog_create_post, null, false);
         TextInputLayout tilTitle = dialogView.findViewById(R.id.til_post_title);
         TextInputLayout tilContent = dialogView.findViewById(R.id.til_post_content);
         TextInputEditText etTitle = dialogView.findViewById(R.id.et_post_title);
@@ -168,14 +190,14 @@ public class CommunityFragment extends Fragment {
                         if (tilTitle != null) {
                             tilTitle.setError(getString(R.string.community_title_required));
                         }
-                        Toast.makeText(getContext(), R.string.community_title_required, Toast.LENGTH_SHORT).show();
+                        showToast(R.string.community_title_required);
                         return;
                     }
                     if (content.isEmpty()) {
                         if (tilContent != null) {
                             tilContent.setError(getString(R.string.community_content_required));
                         }
-                        Toast.makeText(getContext(), R.string.community_content_required, Toast.LENGTH_SHORT).show();
+                        showToast(R.string.community_content_required);
                         return;
                     }
                     publishPost(title, content);
@@ -188,18 +210,29 @@ public class CommunityFragment extends Fragment {
     }
 
     private void publishPost(@NonNull String title, @NonNull String content) {
+        if (sharedPreferencesUtil == null || repository == null) {
+            return;
+        }
+        Context context = getSafeContext();
+        if (context == null) {
+            return;
+        }
         long userId = sharedPreferencesUtil.getCurrentUserId();
         String username = sharedPreferencesUtil.getCurrentUsername();
         if (username == null || username.isEmpty()) {
-            username = getString(R.string.community_anonymous_user);
+            username = context.getString(R.string.community_anonymous_user);
         }
         repository.createPost(userId, username, title, content);
-        Toast.makeText(getContext(), R.string.community_post_published, Toast.LENGTH_SHORT).show();
+        showToast(R.string.community_post_published);
         loadPosts();
     }
 
     private void showReplyDialog(@NonNull CommunityPost post) {
-        View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.view_dialog_reply_post, null, false);
+        if (!isAdded()) {
+            return;
+        }
+        View dialogView = LayoutInflater.from(requireContext())
+                .inflate(R.layout.view_dialog_reply_post, null, false);
         TextInputLayout tilReply = dialogView.findViewById(R.id.til_reply_content);
         TextInputEditText etReply = dialogView.findViewById(R.id.et_reply_content);
 
@@ -223,7 +256,7 @@ public class CommunityFragment extends Fragment {
                         if (tilReply != null) {
                             tilReply.setError(getString(R.string.community_reply_required));
                         }
-                        Toast.makeText(getContext(), R.string.community_reply_required, Toast.LENGTH_SHORT).show();
+                        showToast(R.string.community_reply_required);
                         return;
                     }
                     sendReply(post, content);
@@ -236,32 +269,47 @@ public class CommunityFragment extends Fragment {
     }
 
     private void sendReply(@NonNull CommunityPost post, @NonNull String content) {
+        if (sharedPreferencesUtil == null || repository == null) {
+            return;
+        }
+        Context context = getSafeContext();
+        if (context == null) {
+            return;
+        }
         long userId = sharedPreferencesUtil.getCurrentUserId();
         String username = sharedPreferencesUtil.getCurrentUsername();
         if (username == null || username.isEmpty()) {
-            username = getString(R.string.community_anonymous_user);
+            username = context.getString(R.string.community_anonymous_user);
         }
         CommunityComment comment = repository.addComment(post.getId(), userId, username, content);
         if (comment != null) {
-            Toast.makeText(getContext(), R.string.community_reply_success, Toast.LENGTH_SHORT).show();
+            showToast(R.string.community_reply_success);
             loadPosts();
         }
     }
 
     private void showDeleteDialog(@NonNull CommunityPost post) {
+        if (!isAdded()) {
+            return;
+        }
         new MaterialAlertDialogBuilder(requireContext())
                 .setTitle(R.string.delete)
                 .setMessage(R.string.community_delete_confirm)
                 .setNegativeButton(R.string.cancel, null)
                 .setPositiveButton(R.string.delete, (dialog, which) -> {
-                    repository.deletePost(post);
-                    Toast.makeText(getContext(), R.string.community_post_deleted, Toast.LENGTH_SHORT).show();
+                    if (repository != null) {
+                        repository.deletePost(post);
+                    }
+                    showToast(R.string.community_post_deleted);
                     loadPosts();
                 })
                 .show();
     }
 
     private void loadPosts() {
+        if (repository == null || postAdapter == null || rvPosts == null || layoutEmptyState == null) {
+            return;
+        }
         List<PostWithComments> posts = repository.getPosts(currentKeyword, currentSortOption);
         if (posts == null) {
             posts = new ArrayList<>();
@@ -269,5 +317,46 @@ public class CommunityFragment extends Fragment {
         postAdapter.submitList(posts);
         layoutEmptyState.setVisibility(posts.isEmpty() ? View.VISIBLE : View.GONE);
         rvPosts.setVisibility(posts.isEmpty() ? View.GONE : View.VISIBLE);
+    }
+
+    @Nullable
+    private Context getSafeContext() {
+        if (isAdded()) {
+            return requireContext();
+        }
+        return appContext;
+    }
+
+    private void showToast(int messageResId) {
+        Context context = getSafeContext();
+        if (context == null) {
+            return;
+        }
+        Toast.makeText(context, context.getString(messageResId), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (etSearch != null && searchWatcher != null) {
+            etSearch.removeTextChangedListener(searchWatcher);
+        }
+        if (rvPosts != null) {
+            rvPosts.setAdapter(null);
+        }
+        searchWatcher = null;
+        etSearch = null;
+        chipGroupSort = null;
+        rvPosts = null;
+        layoutEmptyState = null;
+        fabCreatePost = null;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        repository = null;
+        sharedPreferencesUtil = null;
+        appContext = null;
     }
 }
