@@ -72,27 +72,161 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:defaultNavHost="true"
-        app:layout_constraintBottom_toTopOf="@+id/nav_view"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_nav_container"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         app:navGraph="@navigation/mobile_navigation" />
 
-    <!-- Modern Bottom Navigation -->
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/nav_view"
+    <!-- Custom Bottom Navigation supporting six destinations -->
+    <LinearLayout
+        android:id="@+id/bottom_nav_container"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="0dp"
-        android:layout_marginEnd="0dp"
         android:background="@color/colorSurface"
-        app:itemIconTint="@color/bottom_nav_item_color"
-        app:itemTextColor="@color/bottom_nav_item_color"
-        app:itemIconSize="24dp"
-        app:labelVisibilityMode="labeled"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="6"
+        android:paddingStart="4dp"
+        android:paddingEnd="4dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:menu="@menu/bottom_nav_menu" />
+        app:layout_constraintRight_toRightOf="parent">
+
+        <LinearLayout
+            android:id="@+id/nav_item_home"
+            style="@style/Widget.MyApplication.BottomNavItem">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="@string/home"
+                android:duplicateParentState="true"
+                android:src="@drawable/ic_home"
+                android:tint="@color/bottom_nav_item_color" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:duplicateParentState="true"
+                android:fontFamily="@font/open_sans_semibold"
+                android:text="@string/home"
+                android:textColor="@color/bottom_nav_item_color"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/nav_item_gait"
+            style="@style/Widget.MyApplication.BottomNavItem">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="@string/title_gait"
+                android:duplicateParentState="true"
+                android:src="@drawable/ic_gait"
+                android:tint="@color/bottom_nav_item_color" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:duplicateParentState="true"
+                android:fontFamily="@font/open_sans_semibold"
+                android:text="@string/gait"
+                android:textColor="@color/bottom_nav_item_color"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/nav_item_health"
+            style="@style/Widget.MyApplication.BottomNavItem">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="@string/title_health"
+                android:duplicateParentState="true"
+                android:src="@drawable/ic_health"
+                android:tint="@color/bottom_nav_item_color" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:duplicateParentState="true"
+                android:fontFamily="@font/open_sans_semibold"
+                android:text="@string/health"
+                android:textColor="@color/bottom_nav_item_color"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/nav_item_chat"
+            style="@style/Widget.MyApplication.BottomNavItem">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="@string/title_chat"
+                android:duplicateParentState="true"
+                android:src="@drawable/ic_chat"
+                android:tint="@color/bottom_nav_item_color" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:duplicateParentState="true"
+                android:fontFamily="@font/open_sans_semibold"
+                android:text="@string/chat"
+                android:textColor="@color/bottom_nav_item_color"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/nav_item_profile"
+            style="@style/Widget.MyApplication.BottomNavItem">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="@string/title_profile"
+                android:duplicateParentState="true"
+                android:src="@drawable/ic_person"
+                android:tint="@color/bottom_nav_item_color" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:duplicateParentState="true"
+                android:fontFamily="@font/open_sans_semibold"
+                android:text="@string/profile"
+                android:textColor="@color/bottom_nav_item_color"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/nav_item_community"
+            style="@style/Widget.MyApplication.BottomNavItem">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="@string/title_community"
+                android:duplicateParentState="true"
+                android:src="@drawable/ic_community"
+                android:tint="@color/bottom_nav_item_color" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:duplicateParentState="true"
+                android:fontFamily="@font/open_sans_semibold"
+                android:text="@string/community"
+                android:textColor="@color/bottom_nav_item_color"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
