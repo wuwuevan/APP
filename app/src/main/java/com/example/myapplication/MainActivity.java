@@ -2,6 +2,8 @@ package com.example.myapplication;
 
 import android.animation.ValueAnimator;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
@@ -11,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView toolbarTitle;
     private ImageView toolbarLogo;
     private View statusBarScrim;
+    private BottomNavigationView navView;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
      * Setup bottom navigation with animation
      */
     private void setupBottomNavigation() {
-        BottomNavigationView navView = findViewById(R.id.nav_view);
+        navView = findViewById(R.id.nav_view);
         
         // Apply surface color to bottom navigation for Material You look
         navView.setBackgroundColor(SurfaceColors.SURFACE_2.getColor(this));
@@ -101,8 +103,6 @@ public class MainActivity extends AppCompatActivity {
                 .findFragmentById(R.id.nav_host_fragment);
         if (navHostFragment != null) {
             navController = navHostFragment.getNavController();
-            BottomNavigationView navView = findViewById(R.id.nav_view);
-
             // Setup navigation UI
             NavigationUI.setupWithNavController(navView, navController);
 
@@ -110,8 +110,40 @@ public class MainActivity extends AppCompatActivity {
             navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
                 // Update toolbar based on destination
                 updateToolbarForDestination(destination.getId());
+                invalidateOptionsMenu();
             });
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_toolbar_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        MenuItem chatItem = menu.findItem(R.id.action_chat);
+        if (chatItem != null) {
+            boolean isChatDestination = navController != null
+                    && navController.getCurrentDestination() != null
+                    && navController.getCurrentDestination().getId() == R.id.navigation_chat;
+            chatItem.setVisible(!isChatDestination);
+        }
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_chat) {
+            if (navController != null
+                    && (navController.getCurrentDestination() == null
+                    || navController.getCurrentDestination().getId() != R.id.navigation_chat)) {
+                navController.navigate(R.id.navigation_chat);
+            }
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
     
     /**

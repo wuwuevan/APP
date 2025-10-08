@@ -16,11 +16,6 @@
         android:title="@string/health" />
 
     <item
-        android:id="@+id/navigation_chat"
-        android:icon="@drawable/ic_chat"
-        android:title="@string/chat" />
-
-    <item
         android:id="@+id/navigation_community"
         android:icon="@drawable/ic_community"
         android:title="@string/community" />
