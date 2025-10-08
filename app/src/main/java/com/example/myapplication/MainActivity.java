@@ -2,21 +2,18 @@ package com.example.myapplication;
 
 import android.animation.ValueAnimator;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.IdRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
-import androidx.navigation.ui.NavigationUI;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.elevation.SurfaceColors;
 
 /**
@@ -28,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView toolbarTitle;
     private ImageView toolbarLogo;
     private View statusBarScrim;
-    private BottomNavigationView navView;
+    private MaterialButtonToggleGroup navToggleGroup;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,29 +68,50 @@ public class MainActivity extends AppCompatActivity {
      * Setup bottom navigation with animation
      */
     private void setupBottomNavigation() {
-        navView = findViewById(R.id.nav_view);
-        
-        // Apply surface color to bottom navigation for Material You look
-        navView.setBackgroundColor(SurfaceColors.SURFACE_2.getColor(this));
-        
-        // Add bottom navigation elevation animation
-        navView.post(() -> {
-            // Start with no elevation
-            navView.setElevation(0f);
-            
-            // Animate to final elevation
-            ValueAnimator elevationAnimator = ValueAnimator.ofFloat(0f, 8f);
-            elevationAnimator.setDuration(500);
-            elevationAnimator.setStartDelay(300);
-            elevationAnimator.setInterpolator(new DecelerateInterpolator());
-            elevationAnimator.addUpdateListener(animation -> {
-                float value = (float) animation.getAnimatedValue();
-                navView.setElevation(value);
+        navToggleGroup = findViewById(R.id.nav_toggle_group);
+
+        if (navToggleGroup != null) {
+            // Apply surface color to bottom navigation for Material You look
+            navToggleGroup.setBackgroundColor(SurfaceColors.SURFACE_2.getColor(this));
+
+            // Pre-select home tab
+            navToggleGroup.check(R.id.navigation_home);
+
+            // Handle user navigation actions
+            navToggleGroup.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
+                if (!isChecked || navController == null) {
+                    return;
+                }
+
+                int destinationId = mapButtonToDestination(checkedId);
+                if (destinationId != 0
+                        && navController.getCurrentDestination() != null
+                        && navController.getCurrentDestination().getId() == destinationId) {
+                    return;
+                }
+
+                if (destinationId != 0) {
+                    navController.navigate(destinationId);
+                }
             });
-            elevationAnimator.start();
-        });
+
+            // Add bottom navigation elevation animation
+            navToggleGroup.post(() -> {
+                navToggleGroup.setElevation(0f);
+
+                ValueAnimator elevationAnimator = ValueAnimator.ofFloat(0f, 8f);
+                elevationAnimator.setDuration(500);
+                elevationAnimator.setStartDelay(300);
+                elevationAnimator.setInterpolator(new DecelerateInterpolator());
+                elevationAnimator.addUpdateListener(animation -> {
+                    float value = (float) animation.getAnimatedValue();
+                    navToggleGroup.setElevation(value);
+                });
+                elevationAnimator.start();
+            });
+        }
     }
-    
+
     /**
      * Setup navigation components
      */
@@ -103,49 +121,19 @@ public class MainActivity extends AppCompatActivity {
                 .findFragmentById(R.id.nav_host_fragment);
         if (navHostFragment != null) {
             navController = navHostFragment.getNavController();
-            // Setup navigation UI
-            NavigationUI.setupWithNavController(navView, navController);
-
             // Listen for navigation changes to update toolbar
             navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
                 // Update toolbar based on destination
                 updateToolbarForDestination(destination.getId());
-                invalidateOptionsMenu();
+                updateBottomNavigationSelection(destination.getId());
             });
-        }
-    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_toolbar_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        MenuItem chatItem = menu.findItem(R.id.action_chat);
-        if (chatItem != null) {
-            boolean isChatDestination = navController != null
-                    && navController.getCurrentDestination() != null
-                    && navController.getCurrentDestination().getId() == R.id.navigation_chat;
-            chatItem.setVisible(!isChatDestination);
-        }
-        return super.onPrepareOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_chat) {
-            if (navController != null
-                    && (navController.getCurrentDestination() == null
-                    || navController.getCurrentDestination().getId() != R.id.navigation_chat)) {
-                navController.navigate(R.id.navigation_chat);
+            if (navController.getCurrentDestination() != null) {
+                updateBottomNavigationSelection(navController.getCurrentDestination().getId());
             }
-            return true;
         }
-        return super.onOptionsItemSelected(item);
     }
-    
+
     /**
      * Update toolbar appearance based on current destination
      */
@@ -177,5 +165,50 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onSupportNavigateUp() {
         return navController.navigateUp() || super.onSupportNavigateUp();
+    }
+
+    private void updateBottomNavigationSelection(@IdRes int destinationId) {
+        if (navToggleGroup == null) {
+            return;
+        }
+
+        int buttonId = mapDestinationToButton(destinationId);
+        if (buttonId != 0 && navToggleGroup.getCheckedButtonId() != buttonId) {
+            navToggleGroup.check(buttonId);
+        }
+    }
+
+    private int mapButtonToDestination(@IdRes int buttonId) {
+        if (buttonId == R.id.navigation_home) {
+            return R.id.navigation_home;
+        } else if (buttonId == R.id.navigation_gait) {
+            return R.id.navigation_gait;
+        } else if (buttonId == R.id.navigation_health) {
+            return R.id.navigation_health;
+        } else if (buttonId == R.id.navigation_chat) {
+            return R.id.navigation_chat;
+        } else if (buttonId == R.id.navigation_community) {
+            return R.id.navigation_community;
+        } else if (buttonId == R.id.navigation_profile) {
+            return R.id.navigation_profile;
+        }
+        return 0;
+    }
+
+    private int mapDestinationToButton(@IdRes int destinationId) {
+        if (destinationId == R.id.navigation_home) {
+            return R.id.navigation_home;
+        } else if (destinationId == R.id.navigation_gait) {
+            return R.id.navigation_gait;
+        } else if (destinationId == R.id.navigation_health) {
+            return R.id.navigation_health;
+        } else if (destinationId == R.id.navigation_chat) {
+            return R.id.navigation_chat;
+        } else if (destinationId == R.id.navigation_community) {
+            return R.id.navigation_community;
+        } else if (destinationId == R.id.navigation_profile) {
+            return R.id.navigation_profile;
+        }
+        return 0;
     }
 }
