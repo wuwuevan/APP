@@ -44,15 +44,18 @@ public class MainActivity extends AppCompatActivity {
      */
     private void setupToolbar() {
         Toolbar toolbar = findViewById(R.id.toolbar);
+        if (toolbar == null) {
+            return;
+        }
         setSupportActionBar(toolbar);
-        
+
         // Hide default title and show custom title
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
-        
-        toolbarTitle = findViewById(R.id.toolbar_title);
-        toolbarLogo = findViewById(R.id.toolbar_logo);
+
+        toolbarTitle = toolbar.findViewById(R.id.toolbar_title);
+        toolbarLogo = toolbar.findViewById(R.id.toolbar_logo);
     }
     
     /**
@@ -62,7 +65,9 @@ public class MainActivity extends AppCompatActivity {
         statusBarScrim = findViewById(R.id.status_bar_scrim);
         int statusBarColor = SurfaceColors.SURFACE_2.getColor(this);
         getWindow().setStatusBarColor(statusBarColor);
-        statusBarScrim.setBackgroundColor(statusBarColor);
+        if (statusBarScrim != null) {
+            statusBarScrim.setBackgroundColor(statusBarColor);
+        }
     }
     
     /**
@@ -99,25 +104,32 @@ public class MainActivity extends AppCompatActivity {
         // 使用NavHostFragment方式获取NavController，这样更可靠
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.nav_host_fragment);
-        if (navHostFragment != null) {
-            navController = navHostFragment.getNavController();
         BottomNavigationView navView = findViewById(R.id.nav_view);
-        
+
+        if (navHostFragment == null || navView == null) {
+            return;
+        }
+
+        navController = navHostFragment.getNavController();
+
         // Setup navigation UI
         NavigationUI.setupWithNavController(navView, navController);
-        
+
         // Listen for navigation changes to update toolbar
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
             // Update toolbar based on destination
             updateToolbarForDestination(destination.getId());
         });
-        }
     }
     
     /**
      * Update toolbar appearance based on current destination
      */
     private void updateToolbarForDestination(int destinationId) {
+        if (toolbarLogo == null || toolbarTitle == null) {
+            return;
+        }
+
         if (destinationId == R.id.navigation_home) {
             // Show logo on home screen
             toolbarLogo.setVisibility(View.VISIBLE);
@@ -144,6 +156,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
-        return navController.navigateUp() || super.onSupportNavigateUp();
+        if (navController != null && navController.navigateUp()) {
+            return true;
+        }
+        return super.onSupportNavigateUp();
     }
 }
