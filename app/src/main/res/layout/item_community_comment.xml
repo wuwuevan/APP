@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="12dp"
+    android:layout_marginTop="8dp"
     android:background="@drawable/bg_comment_bubble"
     android:orientation="vertical"
     android:padding="12dp">
@@ -16,8 +16,9 @@
 
         <TextView
             android:id="@+id/tv_comment_author"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:textColor="@color/colorTextPrimary"
             android:textStyle="bold"
             android:textSize="14sp"
@@ -27,7 +28,6 @@
             android:id="@+id/tv_comment_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
             android:textColor="@color/colorTextSecondary"
             android:textSize="12sp"
             tools:text="1 小时前" />

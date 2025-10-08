@@ -7,11 +7,16 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,28 +27,21 @@ import com.example.myapplication.data.CommunityComment;
 import com.example.myapplication.data.CommunityPost;
 import com.example.myapplication.data.PostWithComments;
 import com.example.myapplication.utils.SharedPreferencesUtil;
-import com.google.android.material.chip.ChipGroup;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.Locale;
 
 /**
- * 社区页面，实现帖子浏览、搜索、排序、回复等基础功能。
+ * 社区页面，提供最基础的浏览、搜索、排序、发帖、回复与删除功能。
  */
 public class CommunityFragment extends Fragment {
 
-    @Nullable
-    private Context appContext;
-
-    private TextInputEditText etSearch;
-    private ChipGroup chipGroupSort;
+    private EditText etSearch;
+    private Spinner spinnerSort;
     private RecyclerView rvPosts;
-    private LinearLayout layoutEmptyState;
-    private ExtendedFloatingActionButton fabCreatePost;
+    private TextView tvEmptyState;
+    private FloatingActionButton fabCreatePost;
 
     private CommunityPostAdapter postAdapter;
     private SharedPreferencesUtil sharedPreferencesUtil;
@@ -54,11 +52,11 @@ public class CommunityFragment extends Fragment {
 
     private final ArrayList<CommunityPost> posts = new ArrayList<>();
     private final ArrayList<CommunityComment> comments = new ArrayList<>();
+    private boolean seeded = false;
     private int nextPostId = 1;
     private int nextCommentId = 1;
-    private boolean seeded = false;
 
-    enum SortOption {
+    private enum SortOption {
         NEWEST,
         OLDEST,
         MOST_REPLIED
@@ -67,8 +65,7 @@ public class CommunityFragment extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        appContext = context.getApplicationContext();
-        initDependencies(context);
+        sharedPreferencesUtil = new SharedPreferencesUtil(context);
     }
 
     @Nullable
@@ -76,35 +73,26 @@ public class CommunityFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_community, container, false);
-        if (sharedPreferencesUtil == null) {
-            initDependencies(view.getContext());
-        }
-        seedDataIfNeeded();
         initViews(view);
-        setupRecyclerView();
+        setupRecyclerView(view.getContext());
         setupSearch();
-        setupSortChips();
+        setupSortSpinner();
         setupFab();
+        seedDataIfNeeded();
         loadPosts();
         return view;
     }
 
-    private void initDependencies(@NonNull Context context) {
-        Context safeContext = context.getApplicationContext() != null
-                ? context.getApplicationContext() : context;
-        sharedPreferencesUtil = new SharedPreferencesUtil(safeContext);
-    }
-
     private void initViews(@NonNull View view) {
         etSearch = view.findViewById(R.id.et_search_post);
-        chipGroupSort = view.findViewById(R.id.chip_group_sort);
+        spinnerSort = view.findViewById(R.id.spinner_sort);
         rvPosts = view.findViewById(R.id.recycler_posts);
-        layoutEmptyState = view.findViewById(R.id.layout_empty_state);
+        tvEmptyState = view.findViewById(R.id.tv_empty_state);
         fabCreatePost = view.findViewById(R.id.fab_create_post);
     }
 
-    private void setupRecyclerView() {
-        rvPosts.setLayoutManager(new LinearLayoutManager(requireContext()));
+    private void setupRecyclerView(@NonNull Context context) {
+        rvPosts.setLayoutManager(new LinearLayoutManager(context));
         rvPosts.setHasFixedSize(true);
         postAdapter = new CommunityPostAdapter(new CommunityPostAdapter.OnPostActionListener() {
             @Override
@@ -125,10 +113,12 @@ public class CommunityFragment extends Fragment {
         searchWatcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // no-op
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // no-op
             }
 
             @Override
@@ -140,21 +130,34 @@ public class CommunityFragment extends Fragment {
         etSearch.addTextChangedListener(searchWatcher);
     }
 
-    private void setupSortChips() {
-        chipGroupSort.setOnCheckedStateChangeListener((group, checkedIds) -> {
-            if (checkedIds == null || checkedIds.isEmpty()) {
-                return;
+    private void setupSortSpinner() {
+        Context context = requireContext();
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(context,
+                android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter.add(getString(R.string.community_sort_newest));
+        adapter.add(getString(R.string.community_sort_oldest));
+        adapter.add(getString(R.string.community_sort_most_replied));
+        spinnerSort.setAdapter(adapter);
+        spinnerSort.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position == 0) {
+                    currentSortOption = SortOption.NEWEST;
+                } else if (position == 1) {
+                    currentSortOption = SortOption.OLDEST;
+                } else {
+                    currentSortOption = SortOption.MOST_REPLIED;
+                }
+                loadPosts();
             }
-            int checkedId = checkedIds.get(0);
-            if (checkedId == R.id.chip_sort_newest) {
-                currentSortOption = SortOption.NEWEST;
-            } else if (checkedId == R.id.chip_sort_oldest) {
-                currentSortOption = SortOption.OLDEST;
-            } else if (checkedId == R.id.chip_sort_most_replied) {
-                currentSortOption = SortOption.MOST_REPLIED;
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // no-op
             }
-            loadPosts();
         });
+        spinnerSort.setSelection(0);
     }
 
     private void setupFab() {
@@ -167,12 +170,10 @@ public class CommunityFragment extends Fragment {
         }
         View dialogView = LayoutInflater.from(requireContext())
                 .inflate(R.layout.view_dialog_create_post, null, false);
-        TextInputLayout tilTitle = dialogView.findViewById(R.id.til_post_title);
-        TextInputLayout tilContent = dialogView.findViewById(R.id.til_post_content);
-        TextInputEditText etTitle = dialogView.findViewById(R.id.et_post_title);
-        TextInputEditText etContent = dialogView.findViewById(R.id.et_post_content);
+        EditText inputTitle = dialogView.findViewById(R.id.input_post_title);
+        EditText inputContent = dialogView.findViewById(R.id.input_post_content);
 
-        androidx.appcompat.app.AlertDialog dialog = new MaterialAlertDialogBuilder(requireContext())
+        AlertDialog dialog = new AlertDialog.Builder(requireContext())
                 .setTitle(R.string.community_create_post)
                 .setView(dialogView)
                 .setNegativeButton(R.string.cancel, null)
@@ -180,30 +181,18 @@ public class CommunityFragment extends Fragment {
                 .create();
 
         dialog.setOnShowListener(d -> {
-            View positive = dialog.getButton(androidx.appcompat.app.AlertDialog.BUTTON_POSITIVE);
+            View positive = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
             if (positive != null) {
                 positive.setOnClickListener(v -> {
-                    String title = etTitle != null && etTitle.getText() != null
-                            ? etTitle.getText().toString().trim() : "";
-                    String content = etContent != null && etContent.getText() != null
-                            ? etContent.getText().toString().trim() : "";
-                    if (tilTitle != null) {
-                        tilTitle.setError(null);
-                    }
-                    if (tilContent != null) {
-                        tilContent.setError(null);
-                    }
+                    String title = inputTitle != null && inputTitle.getText() != null
+                            ? inputTitle.getText().toString().trim() : "";
+                    String content = inputContent != null && inputContent.getText() != null
+                            ? inputContent.getText().toString().trim() : "";
                     if (title.isEmpty()) {
-                        if (tilTitle != null) {
-                            tilTitle.setError(getString(R.string.community_title_required));
-                        }
                         showToast(R.string.community_title_required);
                         return;
                     }
                     if (content.isEmpty()) {
-                        if (tilContent != null) {
-                            tilContent.setError(getString(R.string.community_content_required));
-                        }
                         showToast(R.string.community_content_required);
                         return;
                     }
@@ -217,17 +206,12 @@ public class CommunityFragment extends Fragment {
     }
 
     private void publishPost(@NonNull String title, @NonNull String content) {
-        if (sharedPreferencesUtil == null) {
-            return;
-        }
-        Context context = getSafeContext();
-        if (context == null) {
-            return;
-        }
-        long userId = sharedPreferencesUtil.getCurrentUserId();
-        String username = sharedPreferencesUtil.getCurrentUsername();
+        long userId = sharedPreferencesUtil != null
+                ? sharedPreferencesUtil.getCurrentUserId() : -1;
+        String username = sharedPreferencesUtil != null
+                ? sharedPreferencesUtil.getCurrentUsername() : "";
         if (username == null || username.isEmpty()) {
-            username = context.getString(R.string.community_anonymous_user);
+            username = getString(R.string.community_anonymous_user);
         }
         CommunityPost post = new CommunityPost(userId, username, title, content,
                 System.currentTimeMillis());
@@ -243,10 +227,9 @@ public class CommunityFragment extends Fragment {
         }
         View dialogView = LayoutInflater.from(requireContext())
                 .inflate(R.layout.view_dialog_reply_post, null, false);
-        TextInputLayout tilReply = dialogView.findViewById(R.id.til_reply_content);
-        TextInputEditText etReply = dialogView.findViewById(R.id.et_reply_content);
+        EditText inputReply = dialogView.findViewById(R.id.input_reply_content);
 
-        androidx.appcompat.app.AlertDialog dialog = new MaterialAlertDialogBuilder(requireContext())
+        AlertDialog dialog = new AlertDialog.Builder(requireContext())
                 .setTitle(R.string.community_reply_title)
                 .setView(dialogView)
                 .setNegativeButton(R.string.cancel, null)
@@ -254,18 +237,12 @@ public class CommunityFragment extends Fragment {
                 .create();
 
         dialog.setOnShowListener(d -> {
-            View positive = dialog.getButton(androidx.appcompat.app.AlertDialog.BUTTON_POSITIVE);
+            View positive = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
             if (positive != null) {
                 positive.setOnClickListener(v -> {
-                    String content = etReply != null && etReply.getText() != null
-                            ? etReply.getText().toString().trim() : "";
-                    if (tilReply != null) {
-                        tilReply.setError(null);
-                    }
+                    String content = inputReply != null && inputReply.getText() != null
+                            ? inputReply.getText().toString().trim() : "";
                     if (content.isEmpty()) {
-                        if (tilReply != null) {
-                            tilReply.setError(getString(R.string.community_reply_required));
-                        }
                         showToast(R.string.community_reply_required);
                         return;
                     }
@@ -279,17 +256,12 @@ public class CommunityFragment extends Fragment {
     }
 
     private void sendReply(@NonNull CommunityPost post, @NonNull String content) {
-        if (sharedPreferencesUtil == null) {
-            return;
-        }
-        Context context = getSafeContext();
-        if (context == null) {
-            return;
-        }
-        long userId = sharedPreferencesUtil.getCurrentUserId();
-        String username = sharedPreferencesUtil.getCurrentUsername();
+        long userId = sharedPreferencesUtil != null
+                ? sharedPreferencesUtil.getCurrentUserId() : -1;
+        String username = sharedPreferencesUtil != null
+                ? sharedPreferencesUtil.getCurrentUsername() : "";
         if (username == null || username.isEmpty()) {
-            username = context.getString(R.string.community_anonymous_user);
+            username = getString(R.string.community_anonymous_user);
         }
         CommunityComment comment = new CommunityComment(post.getId(), userId, username,
                 content, System.currentTimeMillis());
@@ -303,7 +275,7 @@ public class CommunityFragment extends Fragment {
         if (!isAdded()) {
             return;
         }
-        new MaterialAlertDialogBuilder(requireContext())
+        new AlertDialog.Builder(requireContext())
                 .setTitle(R.string.delete)
                 .setMessage(R.string.community_delete_confirm)
                 .setNegativeButton(R.string.cancel, null)
@@ -320,6 +292,22 @@ public class CommunityFragment extends Fragment {
                 .show();
     }
 
+    private boolean deletePost(@NonNull CommunityPost post, long requesterId) {
+        if (post.getAuthorId() != requesterId) {
+            return false;
+        }
+        boolean removed = posts.removeIf(p -> p.getId() == post.getId());
+        if (!removed) {
+            return false;
+        }
+        for (int i = comments.size() - 1; i >= 0; i--) {
+            if (comments.get(i).getPostId() == post.getId()) {
+                comments.remove(i);
+            }
+        }
+        return true;
+    }
+
     private void loadPosts() {
         ArrayList<PostWithComments> snapshot = new ArrayList<>();
         for (CommunityPost post : posts) {
@@ -332,91 +320,59 @@ public class CommunityFragment extends Fragment {
             postAdapter.submitList(snapshot);
         }
         boolean isEmpty = snapshot.isEmpty();
-        if (layoutEmptyState != null) {
-            layoutEmptyState.setVisibility(isEmpty ? View.VISIBLE : View.GONE);
-        }
-        if (rvPosts != null) {
-            rvPosts.setVisibility(isEmpty ? View.GONE : View.VISIBLE);
-        }
+        rvPosts.setVisibility(isEmpty ? View.GONE : View.VISIBLE);
+        tvEmptyState.setVisibility(isEmpty ? View.VISIBLE : View.GONE);
     }
 
-    @Nullable
-    private Context getSafeContext() {
-        if (isAdded()) {
-            return requireContext();
+    private ArrayList<CommunityComment> collectComments(int postId) {
+        ArrayList<CommunityComment> result = new ArrayList<>();
+        for (CommunityComment comment : comments) {
+            if (comment.getPostId() == postId) {
+                result.add(comment);
+            }
         }
-        return appContext;
+        result.sort((c1, c2) -> Long.compare(c1.getCreatedAt(), c2.getCreatedAt()));
+        return result;
     }
 
-    private void showToast(int messageResId) {
-        Context context = getSafeContext();
-        if (context == null) {
-            return;
+    private boolean matchesKeyword(@NonNull CommunityPost post, @NonNull String keyword) {
+        if (keyword.isEmpty()) {
+            return true;
         }
-        Toast.makeText(context, context.getString(messageResId), Toast.LENGTH_SHORT).show();
+        String lowerKeyword = keyword.toLowerCase(Locale.getDefault());
+        return containsIgnoreCase(post.getTitle(), lowerKeyword)
+                || containsIgnoreCase(post.getContent(), lowerKeyword)
+                || containsIgnoreCase(post.getAuthorName(), lowerKeyword);
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        if (etSearch != null && searchWatcher != null) {
-            etSearch.removeTextChangedListener(searchWatcher);
-        }
-        if (rvPosts != null) {
-            rvPosts.setAdapter(null);
-        }
-        searchWatcher = null;
-        etSearch = null;
-        chipGroupSort = null;
-        rvPosts = null;
-        layoutEmptyState = null;
-        fabCreatePost = null;
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        sharedPreferencesUtil = null;
-        appContext = null;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        updateAdapterUser();
-        loadPosts();
-    }
-
-    private void updateAdapterUser() {
-        if (postAdapter == null) {
-            return;
-        }
-        long userId = sharedPreferencesUtil != null
-                ? sharedPreferencesUtil.getCurrentUserId() : -1;
-        postAdapter.setCurrentUser(userId);
-    }
-
-    private boolean deletePost(@NonNull CommunityPost post, long requesterId) {
-        if (post.getAuthorId() != requesterId) {
+    private boolean containsIgnoreCase(String source, String lowerKeyword) {
+        if (source == null || source.isEmpty()) {
             return false;
         }
-        boolean removed = false;
-        for (int i = 0; i < posts.size(); i++) {
-            if (posts.get(i).getId() == post.getId()) {
-                posts.remove(i);
-                removed = true;
+        return source.toLowerCase(Locale.getDefault()).contains(lowerKeyword);
+    }
+
+    private void sortPosts(@NonNull ArrayList<PostWithComments> data, SortOption option) {
+        switch (option) {
+            case OLDEST:
+                data.sort((p1, p2) -> Long.compare(p1.getPost().getCreatedAt(),
+                        p2.getPost().getCreatedAt()));
                 break;
-            }
+            case MOST_REPLIED:
+                data.sort((p1, p2) -> {
+                    int diff = p2.getComments().size() - p1.getComments().size();
+                    if (diff != 0) {
+                        return diff;
+                    }
+                    return Long.compare(p2.getPost().getCreatedAt(), p1.getPost().getCreatedAt());
+                });
+                break;
+            case NEWEST:
+            default:
+                data.sort((p1, p2) -> Long.compare(p2.getPost().getCreatedAt(),
+                        p1.getPost().getCreatedAt()));
+                break;
         }
-        if (!removed) {
-            return false;
-        }
-        for (int i = comments.size() - 1; i >= 0; i--) {
-            if (comments.get(i).getPostId() == post.getId()) {
-                comments.remove(i);
-            }
-        }
-        return true;
     }
 
     private void seedDataIfNeeded() {
@@ -466,55 +422,41 @@ public class CommunityFragment extends Fragment {
         comments.add(comment);
     }
 
-    private ArrayList<CommunityComment> collectComments(int postId) {
-        ArrayList<CommunityComment> result = new ArrayList<>();
-        for (CommunityComment comment : comments) {
-            if (comment.getPostId() == postId) {
-                result.add(comment);
-            }
+    private void showToast(int messageResId) {
+        if (!isAdded()) {
+            return;
         }
-        result.sort((c1, c2) -> Long.compare(c1.getCreatedAt(), c2.getCreatedAt()));
-        return result;
+        Toast.makeText(requireContext(), messageResId, Toast.LENGTH_SHORT).show();
     }
 
-    private boolean matchesKeyword(@NonNull CommunityPost post, @NonNull String keyword) {
-        if (keyword.isEmpty()) {
-            return true;
+    private void updateAdapterUser() {
+        if (postAdapter == null) {
+            return;
         }
-        String lowerKeyword = keyword.toLowerCase(Locale.getDefault());
-        return containsIgnoreCase(post.getTitle(), lowerKeyword)
-                || containsIgnoreCase(post.getContent(), lowerKeyword)
-                || containsIgnoreCase(post.getAuthorName(), lowerKeyword);
+        long userId = sharedPreferencesUtil != null
+                ? sharedPreferencesUtil.getCurrentUserId() : -1;
+        postAdapter.setCurrentUser(userId);
     }
 
-    private boolean containsIgnoreCase(String source, String targetLower) {
-        if (source == null || source.isEmpty()) {
-            return false;
-        }
-        return source.toLowerCase(Locale.getDefault()).contains(targetLower);
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateAdapterUser();
+        loadPosts();
     }
 
-    private void sortPosts(@NonNull ArrayList<PostWithComments> data, SortOption sortOption) {
-        switch (sortOption) {
-            case OLDEST:
-                data.sort((p1, p2) -> Long.compare(p1.getPost().getCreatedAt(),
-                        p2.getPost().getCreatedAt()));
-                break;
-            case MOST_REPLIED:
-                data.sort((p1, p2) -> {
-                    int diff = p2.getComments().size() - p1.getComments().size();
-                    if (diff != 0) {
-                        return diff;
-                    }
-                    return Long.compare(p2.getPost().getCreatedAt(),
-                            p1.getPost().getCreatedAt());
-                });
-                break;
-            case NEWEST:
-            default:
-                data.sort((p1, p2) -> Long.compare(p2.getPost().getCreatedAt(),
-                        p1.getPost().getCreatedAt()));
-                break;
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (etSearch != null && searchWatcher != null) {
+            etSearch.removeTextChangedListener(searchWatcher);
         }
+        rvPosts.setAdapter(null);
+        searchWatcher = null;
+        etSearch = null;
+        spinnerSort = null;
+        rvPosts = null;
+        tvEmptyState = null;
+        fabCreatePost = null;
     }
 }
