@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="步态记录"
-            android:textAppearance="@style/TextAppearance.MyApplication.Headline4"
+            android:textAppearance="@style/TextAppearance.MyApplication.Headline3"
             android:textColor="@color/colorTextPrimary" />
 
         <TextView
