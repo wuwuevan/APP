@@ -111,6 +111,7 @@
     <string name="community_delete_confirm">删除后无法恢复，确定要删除该帖子吗？</string>
     <string name="community_reply_success">回复成功</string>
     <string name="community_anonymous_user">匿名用户</string>
+    <string name="community_delete_not_allowed">只能删除自己发布的帖子</string>
     <plurals name="community_comment_count">
         <item quantity="one">%d 条回复</item>
         <item quantity="other">%d 条回复</item>

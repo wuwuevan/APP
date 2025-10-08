@@ -15,13 +15,13 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.myapplication.R;
 import com.example.myapplication.adapter.CommunityPostAdapter;
 import com.example.myapplication.data.CommunityComment;
 import com.example.myapplication.data.CommunityPost;
-import com.example.myapplication.data.PostWithComments;
-import com.example.myapplication.ui.community.CommunityRepository.SortOption;
+import com.example.myapplication.ui.community.CommunityViewModel.SortOption;
 import com.example.myapplication.utils.SharedPreferencesUtil;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -30,7 +30,6 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 社区页面，实现帖子浏览、搜索、排序、回复等基础功能。
@@ -47,8 +46,8 @@ public class CommunityFragment extends Fragment {
     private ExtendedFloatingActionButton fabCreatePost;
 
     private CommunityPostAdapter postAdapter;
-    private CommunityRepository repository;
     private SharedPreferencesUtil sharedPreferencesUtil;
+    private CommunityViewModel viewModel;
 
     private SortOption currentSortOption = SortOption.NEWEST;
     private String currentKeyword = "";
@@ -66,14 +65,16 @@ public class CommunityFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_community, container, false);
-        if (repository == null || sharedPreferencesUtil == null) {
+        if (sharedPreferencesUtil == null) {
             initDependencies(view.getContext());
         }
+        viewModel = new ViewModelProvider(this).get(CommunityViewModel.class);
         initViews(view);
         setupRecyclerView();
         setupSearch();
         setupSortChips();
         setupFab();
+        observePosts();
         loadPosts();
         return view;
     }
@@ -82,8 +83,6 @@ public class CommunityFragment extends Fragment {
         Context safeContext = context.getApplicationContext() != null
                 ? context.getApplicationContext() : context;
         sharedPreferencesUtil = new SharedPreferencesUtil(safeContext);
-        repository = new CommunityRepository(safeContext);
-        repository.ensureSeedData();
     }
 
     private void initViews(@NonNull View view) {
@@ -108,10 +107,26 @@ public class CommunityFragment extends Fragment {
                 showDeleteDialog(post);
             }
         });
-        long userId = sharedPreferencesUtil != null
-                ? sharedPreferencesUtil.getCurrentUserId() : -1;
-        postAdapter.setCurrentUser(userId);
+        updateAdapterUser();
         rvPosts.setAdapter(postAdapter);
+    }
+
+    private void observePosts() {
+        if (viewModel == null) {
+            return;
+        }
+        viewModel.getPostsLiveData().observe(getViewLifecycleOwner(), posts -> {
+            if (postAdapter != null) {
+                postAdapter.submitList(posts != null ? posts : new ArrayList<>());
+            }
+            boolean isEmpty = posts == null || posts.isEmpty();
+            if (layoutEmptyState != null) {
+                layoutEmptyState.setVisibility(isEmpty ? View.VISIBLE : View.GONE);
+            }
+            if (rvPosts != null) {
+                rvPosts.setVisibility(isEmpty ? View.GONE : View.VISIBLE);
+            }
+        });
     }
 
     private void setupSearch() {
@@ -210,7 +225,7 @@ public class CommunityFragment extends Fragment {
     }
 
     private void publishPost(@NonNull String title, @NonNull String content) {
-        if (sharedPreferencesUtil == null || repository == null) {
+        if (sharedPreferencesUtil == null || viewModel == null) {
             return;
         }
         Context context = getSafeContext();
@@ -222,7 +237,7 @@ public class CommunityFragment extends Fragment {
         if (username == null || username.isEmpty()) {
             username = context.getString(R.string.community_anonymous_user);
         }
-        repository.createPost(userId, username, title, content);
+        viewModel.createPost(userId, username, title, content);
         showToast(R.string.community_post_published);
         loadPosts();
     }
@@ -269,7 +284,7 @@ public class CommunityFragment extends Fragment {
     }
 
     private void sendReply(@NonNull CommunityPost post, @NonNull String content) {
-        if (sharedPreferencesUtil == null || repository == null) {
+        if (sharedPreferencesUtil == null || viewModel == null) {
             return;
         }
         Context context = getSafeContext();
@@ -281,7 +296,7 @@ public class CommunityFragment extends Fragment {
         if (username == null || username.isEmpty()) {
             username = context.getString(R.string.community_anonymous_user);
         }
-        CommunityComment comment = repository.addComment(post.getId(), userId, username, content);
+        CommunityComment comment = viewModel.addComment(post.getId(), userId, username, content);
         if (comment != null) {
             showToast(R.string.community_reply_success);
             loadPosts();
@@ -297,26 +312,24 @@ public class CommunityFragment extends Fragment {
                 .setMessage(R.string.community_delete_confirm)
                 .setNegativeButton(R.string.cancel, null)
                 .setPositiveButton(R.string.delete, (dialog, which) -> {
-                    if (repository != null) {
-                        repository.deletePost(post);
+                    long userId = sharedPreferencesUtil != null
+                            ? sharedPreferencesUtil.getCurrentUserId() : -1;
+                    if (viewModel != null && userId != -1
+                            && viewModel.deletePost(post, userId)) {
+                        showToast(R.string.community_post_deleted);
+                        loadPosts();
+                    } else {
+                        showToast(R.string.community_delete_not_allowed);
                     }
-                    showToast(R.string.community_post_deleted);
-                    loadPosts();
                 })
                 .show();
     }
 
     private void loadPosts() {
-        if (repository == null || postAdapter == null || rvPosts == null || layoutEmptyState == null) {
+        if (viewModel == null) {
             return;
         }
-        List<PostWithComments> posts = repository.getPosts(currentKeyword, currentSortOption);
-        if (posts == null) {
-            posts = new ArrayList<>();
-        }
-        postAdapter.submitList(posts);
-        layoutEmptyState.setVisibility(posts.isEmpty() ? View.VISIBLE : View.GONE);
-        rvPosts.setVisibility(posts.isEmpty() ? View.GONE : View.VISIBLE);
+        viewModel.loadPosts(currentKeyword, currentSortOption);
     }
 
     @Nullable
@@ -355,8 +368,23 @@ public class CommunityFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        repository = null;
         sharedPreferencesUtil = null;
         appContext = null;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateAdapterUser();
+        loadPosts();
+    }
+
+    private void updateAdapterUser() {
+        if (postAdapter == null) {
+            return;
+        }
+        long userId = sharedPreferencesUtil != null
+                ? sharedPreferencesUtil.getCurrentUserId() : -1;
+        postAdapter.setCurrentUser(userId);
     }
 }
