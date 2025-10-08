@@ -90,7 +90,31 @@
     <!-- 社区 -->
     <string name="community">社区</string>
     <string name="title_community">社区</string>
-    <string name="community_placeholder">社区功能正在建设中，敬请期待！</string>
+    <string name="community_search_hint">搜索社区内容</string>
+    <string name="community_sort_newest">最新</string>
+    <string name="community_sort_oldest">最早</string>
+    <string name="community_sort_most_replied">热度</string>
+    <string name="community_empty_title">暂时没有帖子</string>
+    <string name="community_empty_subtitle">快来发布第一条动态，和大家一起交流吧</string>
+    <string name="community_empty_desc">暂无帖子</string>
+    <string name="community_create_post">发布帖子</string>
+    <string name="community_post_title_hint">请输入帖子标题</string>
+    <string name="community_post_content_hint">分享你的康复经验或遇到的问题…</string>
+    <string name="community_reply">回复</string>
+    <string name="community_reply_hint">友善地发表你的看法</string>
+    <string name="community_reply_title">回复帖子</string>
+    <string name="community_reply_required">回复内容不能为空</string>
+    <string name="community_title_required">请填写帖子标题</string>
+    <string name="community_content_required">请填写帖子内容</string>
+    <string name="community_post_published">帖子已发布</string>
+    <string name="community_post_deleted">帖子已删除</string>
+    <string name="community_delete_confirm">删除后无法恢复，确定要删除该帖子吗？</string>
+    <string name="community_reply_success">回复成功</string>
+    <string name="community_anonymous_user">匿名用户</string>
+    <plurals name="community_comment_count">
+        <item quantity="one">%d 条回复</item>
+        <item quantity="other">%d 条回复</item>
+    </plurals>
     
     <!-- 健康页面 -->
     <string name="health_data">健康数据</string>
@@ -117,6 +141,8 @@
     <string name="help_feedback">帮助与反馈</string>
     <string name="about_us">关于我们</string>
     <string name="logout">退出登录</string>
+    <string name="publish">发布</string>
+    <string name="send">发送</string>
     
     <!-- 难度级别 -->
     <string-array name="difficulty_levels">

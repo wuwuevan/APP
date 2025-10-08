@@ -9,7 +9,7 @@ import androidx.room.RoomDatabase;
 /**
  * 应用数据库类，使用Room持久化库
  */
-@Database(entities = {User.class, Feedback.class}, version = 5, exportSchema = false)
+@Database(entities = {User.class, Feedback.class, CommunityPost.class, CommunityComment.class}, version = 6, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     
     private static final String DATABASE_NAME = "rehabilitation_app.db";
@@ -26,6 +26,16 @@ public abstract class AppDatabase extends RoomDatabase {
      * @return FeedbackDao实例
      */
     public abstract FeedbackDao feedbackDao();
+
+    /**
+     * 获取社区帖子 DAO
+     */
+    public abstract CommunityPostDao communityPostDao();
+
+    /**
+     * 获取社区回复 DAO
+     */
+    public abstract CommunityCommentDao communityCommentDao();
     
     /**
      * 获取数据库实例（单例模式）
