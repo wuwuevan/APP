@@ -111,7 +111,7 @@ public class ChatActivity extends AppCompatActivity {
 
         // Add a welcome message only if there is no history
         if (history.isEmpty()) {
-            addBotMessage("您好，这里是我们开发的智能医疗咨询助手DeepSeek AI，有任何健康问题都可以告诉我，我会尽力为您提供参考建议。", true);
+            addBotMessage("您好，我是智能健康AI咨询助手，有任何健康问题都可以告诉我，我会尽力为您提供参考建议。", true);
         }
     }
 
@@ -128,7 +128,7 @@ public class ChatActivity extends AppCompatActivity {
         // Save to database
         messageDao.saveMessage(new Message(messageText, timestamp, true, doctorName));
 
-        int placeholderPosition = addBotMessage("DeepSeek 助手机器人正在思考，请稍候……", false);
+        int placeholderPosition = addBotMessage("智能健康助手正在思考，请稍候……", false);
         requestDeepSeekResponse(messageText, placeholderPosition);
     }
 
