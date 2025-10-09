@@ -194,6 +194,8 @@ public class ChatActivity extends AppCompatActivity {
             return;
         }
 
+        final int messagePosition = placeholderPosition;
+
         RequestBody body = RequestBody.create(requestBodyJson.toString(), JSON_MEDIA_TYPE);
         Request request = new Request.Builder()
                 .url(DEEPSEEK_API_URL)
@@ -206,7 +208,7 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
                 Log.e(TAG, "DeepSeek request failed", e);
-                handleDeepSeekError(placeholderPosition, "DeepSeek 请求失败：" + e.getMessage());
+                handleDeepSeekError(messagePosition, "DeepSeek 请求失败：" + e.getMessage());
             }
 
             @Override
@@ -216,7 +218,7 @@ public class ChatActivity extends AppCompatActivity {
                 if (!response.isSuccessful()) {
                     String errorBody = responseBody != null ? responseBody.string() : "";
                     Log.e(TAG, "DeepSeek API error: " + response.code() + " " + errorBody);
-                    handleDeepSeekError(placeholderPosition,
+                    handleDeepSeekError(messagePosition,
                             "DeepSeek 响应失败(" + response.code() + ")：" + errorBody);
                     return;
                 }
@@ -228,13 +230,13 @@ public class ChatActivity extends AppCompatActivity {
                     if (jsonResponse.has("error")) {
                         JSONObject error = jsonResponse.getJSONObject("error");
                         String errorMessage = error.optString("message", "未知错误");
-                        handleDeepSeekError(placeholderPosition, "DeepSeek 返回错误：" + errorMessage);
+                        handleDeepSeekError(messagePosition, "DeepSeek 返回错误：" + errorMessage);
                         return;
                     }
 
                     JSONArray choices = jsonResponse.optJSONArray("choices");
                     if (choices == null || choices.length() == 0) {
-                        handleDeepSeekError(placeholderPosition, "DeepSeek 未返回任何结果，请稍后重试。");
+                        handleDeepSeekError(messagePosition, "DeepSeek 未返回任何结果，请稍后重试。");
                         return;
                     }
 
@@ -250,14 +252,14 @@ public class ChatActivity extends AppCompatActivity {
                     }
 
                     if (TextUtils.isEmpty(content)) {
-                        handleDeepSeekError(placeholderPosition, "DeepSeek 返回内容为空。");
+                        handleDeepSeekError(messagePosition, "DeepSeek 返回内容为空。");
                         return;
                     }
 
-                    runOnUiThread(() -> updateBotMessage(placeholderPosition, content.trim(), true));
+                    runOnUiThread(() -> updateBotMessage(messagePosition, content.trim(), true));
                 } catch (JSONException e) {
                     Log.e(TAG, "Failed to parse DeepSeek response", e);
-                    handleDeepSeekError(placeholderPosition, "解析 DeepSeek 响应失败：" + e.getMessage());
+                    handleDeepSeekError(messagePosition, "解析 DeepSeek 响应失败：" + e.getMessage());
                 }
             }
         });
