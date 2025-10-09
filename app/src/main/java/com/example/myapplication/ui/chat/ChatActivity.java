@@ -256,7 +256,8 @@ public class ChatActivity extends AppCompatActivity {
                         return;
                     }
 
-                    runOnUiThread(() -> updateBotMessage(messagePosition, content.trim(), true));
+                    final String botReply = content.trim();
+                    runOnUiThread(() -> updateBotMessage(messagePosition, botReply, true));
                 } catch (JSONException e) {
                     Log.e(TAG, "Failed to parse DeepSeek response", e);
                     handleDeepSeekError(messagePosition, "解析 DeepSeek 响应失败：" + e.getMessage());
@@ -266,7 +267,9 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void handleDeepSeekError(int placeholderPosition, String errorMessage) {
-        runOnUiThread(() -> updateBotMessage(placeholderPosition, errorMessage, true));
+        final int messagePosition = placeholderPosition;
+        final String botReply = errorMessage;
+        runOnUiThread(() -> updateBotMessage(messagePosition, botReply, true));
     }
 
     private String formatTimestamp(long timestamp) {
