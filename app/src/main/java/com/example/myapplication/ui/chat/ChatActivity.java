@@ -23,26 +23,27 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
+import javax.net.ssl.HttpsURLConnection;
 
 public class ChatActivity extends AppCompatActivity {
 
     private static final String TAG = "ChatActivity";
-    private static final MediaType JSON_MEDIA_TYPE = MediaType.get("application/json; charset=utf-8");
     private static final String DEEPSEEK_API_URL = "https://api.deepseek.com/v1/chat/completions";
     private static final String DEEPSEEK_MODEL = "deepseek-chat";
     private static final String DEEPSEEK_SYSTEM_PROMPT =
@@ -51,7 +52,7 @@ public class ChatActivity extends AppCompatActivity {
             "for diagnoses or emergencies, and keep responses concise and easy to understand.";
     private static final String DEEPSEEK_API_KEY = "sk-ea93f13ea85f42c8b5e81f8105385794";
 
-    private final OkHttpClient httpClient = new OkHttpClient();
+    private final ExecutorService networkExecutor = Executors.newSingleThreadExecutor();
 
     private RecyclerView recyclerView;
     private EditText etMessage;
@@ -195,38 +196,55 @@ public class ChatActivity extends AppCompatActivity {
         }
 
         final int messagePosition = placeholderPosition;
+        final String requestBodyString = requestBodyJson.toString();
 
-        RequestBody body = RequestBody.create(requestBodyJson.toString(), JSON_MEDIA_TYPE);
-        Request request = new Request.Builder()
-                .url(DEEPSEEK_API_URL)
-                .header("Authorization", "Bearer " + DEEPSEEK_API_KEY)
-                .header("Content-Type", "application/json")
-                .post(body)
-                .build();
+        networkExecutor.execute(() -> {
+            HttpsURLConnection connection = null;
+            try {
+                URL url = new URL(DEEPSEEK_API_URL);
+                connection = (HttpsURLConnection) url.openConnection();
+                connection.setRequestMethod("POST");
+                connection.setRequestProperty("Authorization", "Bearer " + DEEPSEEK_API_KEY);
+                connection.setRequestProperty("Content-Type", "application/json; charset=utf-8");
+                connection.setRequestProperty("Accept", "application/json");
+                connection.setConnectTimeout(15000);
+                connection.setReadTimeout(20000);
+                connection.setDoOutput(true);
 
-        httpClient.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                Log.e(TAG, "DeepSeek request failed", e);
-                handleDeepSeekError(messagePosition, "DeepSeek 请求失败：" + e.getMessage());
-            }
+                try (OutputStream os = connection.getOutputStream();
+                     OutputStreamWriter writer = new OutputStreamWriter(os, StandardCharsets.UTF_8)) {
+                    writer.write(requestBodyString);
+                    writer.flush();
+                }
 
-            @Override
-            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                ResponseBody responseBody = response.body();
+                int responseCode = connection.getResponseCode();
+                InputStream inputStream = responseCode >= 200 && responseCode < 300
+                        ? connection.getInputStream()
+                        : connection.getErrorStream();
 
-                if (!response.isSuccessful()) {
-                    String errorBody = responseBody != null ? responseBody.string() : "";
-                    Log.e(TAG, "DeepSeek API error: " + response.code() + " " + errorBody);
-                    handleDeepSeekError(messagePosition,
-                            "DeepSeek 响应失败(" + response.code() + ")：" + errorBody);
+                StringBuilder responseBuilder = new StringBuilder();
+                if (inputStream != null) {
+                    try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
+                        String line;
+                        while ((line = reader.readLine()) != null) {
+                            responseBuilder.append(line);
+                        }
+                    }
+                }
+
+                String responseBody = responseBuilder.toString();
+
+                if (responseCode < 200 || responseCode >= 300) {
+                    Log.e(TAG, "DeepSeek API error: " + responseCode + " " + responseBody);
+                    String errorMessage = TextUtils.isEmpty(responseBody)
+                            ? "DeepSeek 响应失败(" + responseCode + ")"
+                            : "DeepSeek 响应失败(" + responseCode + ")：" + responseBody;
+                    handleDeepSeekError(messagePosition, errorMessage);
                     return;
                 }
 
-                String bodyString = responseBody != null ? responseBody.string() : "";
-
                 try {
-                    JSONObject jsonResponse = new JSONObject(bodyString);
+                    JSONObject jsonResponse = new JSONObject(responseBody);
                     if (jsonResponse.has("error")) {
                         JSONObject error = jsonResponse.getJSONObject("error");
                         String errorMessage = error.optString("message", "未知错误");
@@ -262,6 +280,13 @@ public class ChatActivity extends AppCompatActivity {
                     Log.e(TAG, "Failed to parse DeepSeek response", e);
                     handleDeepSeekError(messagePosition, "解析 DeepSeek 响应失败：" + e.getMessage());
                 }
+            } catch (IOException e) {
+                Log.e(TAG, "DeepSeek request failed", e);
+                handleDeepSeekError(messagePosition, "DeepSeek 请求失败：" + e.getMessage());
+            } finally {
+                if (connection != null) {
+                    connection.disconnect();
+                }
             }
         });
     }
@@ -283,5 +308,11 @@ public class ChatActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        networkExecutor.shutdownNow();
     }
 }

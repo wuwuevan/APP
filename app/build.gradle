@@ -66,9 +66,6 @@ dependencies {
     implementation 'androidx.gridlayout:gridlayout:1.0.0'
     implementation 'androidx.core:core-splashscreen:1.0.1'
 
-    // Networking
-    implementation 'com.squareup.okhttp3:okhttp:4.11.0'
-    
     // Navigation Component
     implementation 'androidx.navigation:navigation-fragment:2.6.0'
     implementation 'androidx.navigation:navigation-ui:2.6.0'
