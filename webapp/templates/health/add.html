@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}新增健康指标{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-12 col-lg-6">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h1 class="h4 mb-3">新增健康指标</h1>
+                <form method="post" class="vstack gap-3">
+                    <div>
+                        <label class="form-label" for="indicator_type">指标名称</label>
+                        <input class="form-control" id="indicator_type" name="indicator_type" placeholder="例如：血压" required>
+                    </div>
+                    <div>
+                        <label class="form-label" for="indicator_value">指标数值</label>
+                        <input class="form-control" id="indicator_value" name="indicator_value" type="number" step="0.1" required>
+                    </div>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label" for="unit">单位</label>
+                            <input class="form-control" id="unit" name="unit" placeholder="mmHg / bpm / ℃ 等">
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label" for="normal_min">正常下限</label>
+                            <input class="form-control" id="normal_min" name="normal_min" type="number" step="0.1">
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label" for="normal_max">正常上限</label>
+                            <input class="form-control" id="normal_max" name="normal_max" type="number" step="0.1">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="form-label" for="notes">备注</label>
+                        <textarea class="form-control" id="notes" name="notes" rows="2" placeholder="可记录测量方式或注意事项"></textarea>
+                    </div>
+                    <div class="d-grid">
+                        <button class="btn btn-primary" type="submit">保存</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

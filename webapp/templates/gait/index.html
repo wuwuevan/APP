@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block title %}步态监测{% endblock %}
+{% block content %}
+<div class="card shadow-sm">
+    <div class="card-body">
+        <div class="d-flex justify-content-between flex-wrap gap-3 mb-3">
+            <div>
+                <h1 class="h4 mb-1">步态事件记录</h1>
+                <p class="text-muted mb-0">结合步数、步频、速度，辅助评估恢复质量</p>
+            </div>
+            <span class="badge bg-light text-dark">共 {{ events|length }} 条</span>
+        </div>
+        <div class="table-responsive">
+            <table class="table align-middle">
+                <thead>
+                    <tr>
+                        <th>记录时间</th>
+                        <th>步数</th>
+                        <th>步频</th>
+                        <th>速度</th>
+                        <th>风险提示</th>
+                        <th>备注</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for event in events %}
+                    <tr class="{% if event.risk_flag %}table-danger{% endif %}">
+                        <td>{{ event.event_time.strftime('%Y-%m-%d %H:%M') }}</td>
+                        <td>{{ event.step_count }}</td>
+                        <td>{{ event.cadence }} 次/分</td>
+                        <td>{{ event.speed }} m/s</td>
+                        <td>
+                            {% if event.risk_flag %}
+                                <span class="badge bg-danger">存在风险</span>
+                            {% else %}
+                                <span class="badge bg-success">正常</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ event.note }}</td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="6" class="text-center text-muted py-4">暂无步态数据</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

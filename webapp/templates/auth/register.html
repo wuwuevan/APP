@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}注册 - 康复伴侣 Web{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-12 col-md-6 col-lg-5">
+        <div class="card shadow-sm">
+            <div class="card-body p-4">
+                <h1 class="h4 mb-4 text-center">创建新账户</h1>
+                <form method="post">
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <label class="form-label" for="username">用户名</label>
+                            <input type="text" class="form-control" id="username" name="username" placeholder="设置一个好记的用户名" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label" for="password">密码</label>
+                            <input type="password" class="form-control" id="password" name="password" minlength="6" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label" for="confirm">确认密码</label>
+                            <input type="password" class="form-control" id="confirm" name="confirm" minlength="6" required>
+                        </div>
+                    </div>
+                    <div class="d-grid mt-4">
+                        <button type="submit" class="btn btn-primary">注册并开始康复旅程</button>
+                    </div>
+                </form>
+                <p class="text-center mt-3 mb-0"><a href="{{ url_for('login') }}">已有账号？立即登录</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block extra_head %}
+<style>
+    body { background: linear-gradient(135deg, #ecfdf5, #dbeafe); }
+</style>
+{% endblock %}

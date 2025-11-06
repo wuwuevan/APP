@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block title %}个人中心{% endblock %}
+{% block content %}
+<div class="row g-4">
+    <div class="col-12 col-lg-5">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h1 class="h4 mb-3">个人信息</h1>
+                <form method="post" class="vstack gap-3">
+                    <div>
+                        <label class="form-label">用户名</label>
+                        <input class="form-control" value="{{ user.username }}" disabled>
+                    </div>
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <label class="form-label" for="gender">性别</label>
+                            <select class="form-select" id="gender" name="gender">
+                                <option value="">未选择</option>
+                                <option value="男" {% if user.gender == '男' %}selected{% endif %}>男</option>
+                                <option value="女" {% if user.gender == '女' %}selected{% endif %}>女</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label" for="age">年龄</label>
+                            <input class="form-control" id="age" name="age" type="number" value="{{ user.age }}">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label" for="phone">联系电话</label>
+                            <input class="form-control" id="phone" name="phone" value="{{ user.phone }}">
+                        </div>
+                    </div>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label" for="height">身高(cm)</label>
+                            <input class="form-control" id="height" name="height" type="number" step="0.1" value="{{ user.height }}">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label" for="weight">体重(kg)</label>
+                            <input class="form-control" id="weight" name="weight" type="number" step="0.1" value="{{ user.weight }}">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="form-label" for="email">电子邮箱</label>
+                        <input class="form-control" id="email" name="email" type="email" value="{{ user.email }}">
+                    </div>
+                    <div>
+                        <label class="form-label" for="medical_record">病历摘要</label>
+                        <textarea class="form-control" id="medical_record" name="medical_record" rows="3">{{ user.medical_record }}</textarea>
+                    </div>
+                    <div class="d-grid">
+                        <button class="btn btn-primary" type="submit">保存信息</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="card shadow-sm mt-4">
+            <div class="card-body">
+                <h2 class="h5">应用支持</h2>
+                <p class="text-muted">如需帮助，可通过反馈告诉我们。</p>
+                <a class="btn btn-outline-primary" href="{{ url_for('feedback') }}">意见反馈</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-lg-7">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h2 class="h5">康复历程</h2>
+                <ul class="timeline">
+                    <li><span>注册时间</span><strong>{{ user.register_time.strftime('%Y-%m-%d') if user.register_time else '未知' }}</strong></li>
+                    <li><span>已完成任务</span><strong>{{ user.tasks|selectattr('status', 'equalto', '已完成')|list|length }}</strong></li>
+                    <li><span>社区发帖数</span><strong>{{ user.posts|length }}</strong></li>
+                    <li><span>健康指标数量</span><strong>{{ user.health_indicators|length }}</strong></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

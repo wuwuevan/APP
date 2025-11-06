@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}健康报告{% endblock %}
+{% block content %}
+<div class="card shadow-sm">
+    <div class="card-body">
+        <div class="d-flex justify-content-between flex-wrap gap-3 mb-3">
+            <div>
+                <h1 class="h4 mb-1">健康报告</h1>
+                <p class="text-muted mb-0">根据最近一次记录生成</p>
+            </div>
+            <a class="btn btn-outline-secondary" href="{{ url_for('health') }}">返回健康中心</a>
+        </div>
+        {% if latest %}
+        <div class="row g-4">
+            {% for indicator, item in latest.items() %}
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="report-tile">
+                    <div class="tile-label">{{ indicator }}</div>
+                    <div class="tile-value">{{ item.indicator_value }}</div>
+                    <div class="tile-time text-muted">{{ item.record_time.strftime('%Y-%m-%d %H:%M') }}</div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="text-muted">暂无数据，先前往健康中心新增一条记录吧。</p>
+        {% endif %}
+        <div class="mt-4">
+            <h2 class="h5">康复建议</h2>
+            <ul class="text-muted small">
+                <li>保持规律记录健康指标，方便医生评估康复进展。</li>
+                <li>如发现指标异常，可通过康复助手咨询或及时就医。</li>
+                <li>搭配康复训练和良好作息，能更快恢复日常生活能力。</li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

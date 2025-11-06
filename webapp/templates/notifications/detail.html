@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}通知详情{% endblock %}
+{% block content %}
+<div class="card shadow-sm">
+    <div class="card-body">
+        <div class="d-flex justify-content-between align-items-start flex-wrap gap-3 mb-3">
+            <div>
+                <h1 class="h4 mb-1">{{ notification.title }}</h1>
+                <div class="text-muted small">{{ notification.create_time.strftime('%Y-%m-%d %H:%M') }} · {{ notification.notification_type or '系统通知' }}</div>
+            </div>
+            <a class="btn btn-outline-secondary" href="{{ url_for('notification_list') }}">返回列表</a>
+        </div>
+        <p class="fs-5">{{ notification.content }}</p>
+        {% if notification.is_read %}
+        <span class="badge bg-success">已读</span>
+        {% else %}
+        <span class="badge bg-danger">未读</span>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

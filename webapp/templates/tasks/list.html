@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block title %}任务中心 - 康复伴侣 Web{% endblock %}
+{% block content %}
+<div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between mb-4 gap-3">
+    <div>
+        <h1 class="h4 mb-1">任务中心</h1>
+        <p class="text-muted mb-0">查看所有康复任务，及时更新状态</p>
+    </div>
+    <a class="btn btn-primary" href="{{ url_for('dashboard') }}">返回首页</a>
+</div>
+<div class="card shadow-sm">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table align-middle">
+                <thead>
+                    <tr>
+                        <th>任务名称</th>
+                        <th>类型</th>
+                        <th>周期</th>
+                        <th>状态</th>
+                        <th>完成率</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for task in tasks %}
+                    <tr class="task-row {% if task.status == '已完成' %}table-success{% elif task.status == '已跳过' %}table-warning{% endif %}">
+                        <td>
+                            <div class="fw-semibold">{{ task.task_name }}</div>
+                            <div class="text-muted small">{{ task.task_desc }}</div>
+                        </td>
+                        <td><span class="badge bg-light text-dark">{{ task.task_type }}</span></td>
+                        <td>{{ task.schedule_label() }}</td>
+                        <td>{{ task.status }}</td>
+                        <td>{{ (task.completion_rate * 100)|round(0) }}%</td>
+                        <td class="text-end">
+                            <a class="btn btn-outline-primary btn-sm" href="{{ url_for('task_detail', task_id=task.id) }}">详情</a>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="6" class="text-center text-muted py-4">暂无任务记录</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

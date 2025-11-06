@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block title %}健康数据 - 康复伴侣 Web{% endblock %}
+{% block content %}
+<div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between mb-4 gap-3">
+    <div>
+        <h1 class="h4 mb-1">健康监测</h1>
+        <p class="text-muted mb-0">查看关键指标趋势，及时掌握身体变化</p>
+    </div>
+    <div class="d-flex gap-2">
+        <a class="btn btn-outline-primary" href="{{ url_for('health_report') }}">生成健康报告</a>
+        <a class="btn btn-primary" href="{{ url_for('health_add') }}">新增指标</a>
+    </div>
+</div>
+{% for indicator_type, items in grouped.items() %}
+<div class="card shadow-sm mb-4">
+    <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+            <h2 class="h5 mb-0">{{ indicator_type }}</h2>
+            <span class="badge bg-light text-dark">最近 {{ items|length }} 条记录</span>
+        </div>
+        <div class="table-responsive mt-3">
+            <table class="table align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th>数值</th>
+                        <th>记录时间</th>
+                        <th>备注</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in items %}
+                    <tr>
+                        <td class="fw-semibold">{{ item.indicator_value }}</td>
+                        <td>{{ item.record_time.strftime('%Y-%m-%d %H:%M') }}</td>
+                        <td>
+                            {% if item.custom_info %}
+                                <div class="small text-muted">
+                                    {% if item.custom_info.unit %}单位：{{ item.custom_info.unit }}{% endif %}
+                                    {% if item.custom_info.normal_min is not none and item.custom_info.normal_max is not none %}<br>正常范围：{{ item.custom_info.normal_min }} - {{ item.custom_info.normal_max }}{% endif %}
+                                    {% if item.custom_info.notes %}<br>{{ item.custom_info.notes }}{% endif %}
+                                </div>
+                            {% else %}
+                                <span class="text-muted">-</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="card shadow-sm">
+    <div class="card-body text-center py-5 text-muted">
+        暂无健康指标数据，点击右上角新增吧。
+    </div>
+</div>
+{% endfor %}
+{% endblock %}

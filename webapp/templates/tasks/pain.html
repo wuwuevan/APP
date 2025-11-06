@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block title %}疼痛评分 - {{ task.task_name }}{% endblock %}
+{% block content %}
+<div class="row g-4">
+    <div class="col-12 col-lg-6">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h1 class="h4 mb-3">记录今日疼痛</h1>
+                <form method="post" class="vstack gap-3">
+                    <div>
+                        <label class="form-label" for="score">疼痛评分（0~10分）</label>
+                        <input class="form-range" type="range" id="score" name="score" min="0" max="10" step="1" oninput="scoreValue.textContent = this.value" value="5">
+                        <div>当前分值：<span id="scoreValue">5</span></div>
+                    </div>
+                    <div>
+                        <label class="form-label" for="location">疼痛部位</label>
+                        <input class="form-control" type="text" id="location" name="location" placeholder="例如：膝盖外侧">
+                    </div>
+                    <div>
+                        <label class="form-label" for="description">疼痛描述</label>
+                        <textarea class="form-control" id="description" name="description" rows="3" placeholder="记录疼痛特点或诱因"></textarea>
+                    </div>
+                    <div class="d-grid">
+                        <button class="btn btn-primary" type="submit">保存记录</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-lg-6">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h2 class="h5">历史记录</h2>
+                {% if history %}
+                <div class="list-group list-group-flush">
+                    {% for item in history %}
+                    <div class="list-group-item">
+                        <div class="d-flex justify-content-between">
+                            <strong>{{ item.record_time.strftime('%Y-%m-%d %H:%M') }}</strong>
+                            <span class="badge bg-danger">{{ item.score }} 分</span>
+                        </div>
+                        <div class="small text-muted">部位：{{ item.location or '未填写' }}</div>
+                        <div class="small">{{ item.description or '无更多描述' }}</div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <p class="text-muted mb-0">还没有疼痛记录，先填写一条吧。</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

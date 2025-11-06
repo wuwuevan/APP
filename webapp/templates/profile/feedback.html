@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}意见反馈{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-12 col-lg-6">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h1 class="h4 mb-3">意见反馈</h1>
+                <p class="text-muted">欢迎将使用过程中遇到的问题或建议告诉我们，我们会尽快处理。</p>
+                <form method="post" class="vstack gap-3">
+                    <div>
+                        <label class="form-label" for="message">反馈内容</label>
+                        <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    <div class="d-grid">
+                        <button class="btn btn-primary" type="submit">提交</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

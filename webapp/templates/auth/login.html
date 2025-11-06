@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}登录 - 康复伴侣 Web{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-12 col-md-6 col-lg-4">
+        <div class="card shadow-sm">
+            <div class="card-body p-4">
+                <h1 class="h4 mb-4 text-center">欢迎登录</h1>
+                <form method="post">
+                    <div class="mb-3">
+                        <label class="form-label" for="username">用户名</label>
+                        <input type="text" class="form-control" id="username" name="username" placeholder="请输入用户名" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="password">密码</label>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="请输入密码" required>
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">登录</button>
+                    </div>
+                </form>
+                <p class="text-center mt-3 mb-0"><a href="{{ url_for('register') }}">还没有账号？立即注册</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block extra_head %}
+<style>
+    body { background: linear-gradient(135deg, #eef2ff, #fef3c7); }
+</style>
+{% endblock %}
