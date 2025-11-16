@@ -38,48 +38,48 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="24dp">
+            android:padding="@dimen/_24sdp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="健康信息"
-            android:textSize="28sp"
+            android:textSize="@dimen/_28ssp"
             android:textStyle="bold"
             android:textColor="@color/colorPrimary"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginBottom="@dimen/_16sdp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="为了给您提供更精准的康复建议，请输入以下基本健康信息。"
-            android:textSize="16sp"
+            android:textSize="@dimen/_16ssp"
             android:textAlignment="center"
             android:layout_gravity="center_horizontal"
             android:textColor="@color/colorTextSecondary"
-            android:layout_marginBottom="32dp"/>
+            android:layout_marginBottom="@dimen/_32sdp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="性别"
             android:textColor="@color/colorText"
-            android:textSize="16sp" />
+            android:textSize="@dimen/_16ssp" />
 
         <RadioGroup
             android:id="@+id/rg_gender"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="16dp">
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginBottom="@dimen/_16sdp">
 
             <RadioButton
                 android:id="@+id/rb_male"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="@dimen/_16sdp"
                 android:text="@string/male" />
 
             <RadioButton
@@ -94,7 +94,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="身高 (cm)"
-            android:layout_marginBottom="16dp">
+            android:layout_marginBottom="@dimen/_16sdp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_height"
@@ -108,7 +108,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="体重 (kg)"
-            android:layout_marginBottom="16dp">
+            android:layout_marginBottom="@dimen/_16sdp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_weight"
@@ -122,7 +122,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="静息心率 (bpm)"
-            android:layout_marginBottom="16dp">
+            android:layout_marginBottom="@dimen/_16sdp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_heart_rate"
@@ -135,7 +135,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="16dp">
+            android:layout_marginBottom="@dimen/_16sdp">
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -143,7 +143,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="收缩压 (mmHg)"
-                android:layout_marginEnd="8dp">
+                android:layout_marginEnd="@dimen/_8sdp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_systolic"
@@ -158,7 +158,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="舒张压 (mmHg)"
-                android:layout_marginStart="8dp">
+                android:layout_marginStart="@dimen/_8sdp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_diastolic"
@@ -173,7 +173,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="血糖 (mmol/L)"
-            android:layout_marginBottom="16dp">
+            android:layout_marginBottom="@dimen/_16sdp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_blood_sugar"
@@ -186,7 +186,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="16dp">
+            android:layout_marginBottom="@dimen/_16sdp">
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -215,7 +215,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="16dp">
+            android:layout_marginBottom="@dimen/_16sdp">
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -245,9 +245,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="生成健康报告"
-            android:layout_marginTop="32dp"
-            android:padding="12dp"
-            android:textSize="16sp"/>
+            android:layout_marginTop="@dimen/_32sdp"
+            android:padding="@dimen/_12sdp"
+            android:textSize="@dimen/_16ssp"/>
 
     </LinearLayout>
     </ScrollView>

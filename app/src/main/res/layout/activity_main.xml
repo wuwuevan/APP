@@ -16,7 +16,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:background="@color/colorPrimary"
-        android:elevation="4dp"
+        android:elevation="@dimen/_4sdp"
         app:layout_constraintHeight_percent="0" />
 
     <!-- Custom Toolbar -->
@@ -25,7 +25,7 @@
         android:layout_width="0dp"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorSurface"
-        android:elevation="4dp"
+        android:elevation="@dimen/_4sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/status_bar_scrim">
@@ -37,8 +37,8 @@
             <!-- App Logo for Home Screen -->
             <ImageView
                 android:id="@+id/toolbar_logo"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_width="@dimen/_32sdp"
+                android:layout_height="@dimen/_32sdp"
                 android:src="@drawable/ic_health"
                 android:contentDescription="@string/app_name"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -53,7 +53,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/open_sans_semibold"
                 android:textColor="@color/colorTextPrimary"
-                android:textSize="18sp"
+                android:textSize="@dimen/_18ssp"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -87,10 +87,10 @@
         android:gravity="center"
         android:orientation="horizontal"
         android:weightSum="6"
-        android:paddingStart="4dp"
-        android:paddingEnd="4dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
+        android:paddingStart="@dimen/_4sdp"
+        android:paddingEnd="@dimen/_4sdp"
+        android:paddingTop="@dimen/_8sdp"
+        android:paddingBottom="@dimen/_8sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent">
@@ -100,8 +100,8 @@
             style="@style/Widget.MyApplication.BottomNavItem">
 
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="@dimen/_24sdp"
                 android:contentDescription="@string/home"
                 android:duplicateParentState="true"
                 android:src="@drawable/ic_home"
@@ -114,7 +114,7 @@
                 android:fontFamily="@font/open_sans_semibold"
                 android:text="@string/home"
                 android:textColor="@color/bottom_nav_item_color"
-                android:textSize="12sp" />
+                android:textSize="@dimen/_12ssp" />
         </LinearLayout>
 
         <LinearLayout
@@ -122,8 +122,8 @@
             style="@style/Widget.MyApplication.BottomNavItem">
 
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="@dimen/_24sdp"
                 android:contentDescription="@string/title_gait"
                 android:duplicateParentState="true"
                 android:src="@drawable/ic_gait"
@@ -136,7 +136,7 @@
                 android:fontFamily="@font/open_sans_semibold"
                 android:text="@string/gait"
                 android:textColor="@color/bottom_nav_item_color"
-                android:textSize="12sp" />
+                android:textSize="@dimen/_12ssp" />
         </LinearLayout>
 
         <LinearLayout
@@ -144,8 +144,8 @@
             style="@style/Widget.MyApplication.BottomNavItem">
 
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="@dimen/_24sdp"
                 android:contentDescription="@string/title_health"
                 android:duplicateParentState="true"
                 android:src="@drawable/ic_health"
@@ -158,7 +158,7 @@
                 android:fontFamily="@font/open_sans_semibold"
                 android:text="@string/health"
                 android:textColor="@color/bottom_nav_item_color"
-                android:textSize="12sp" />
+                android:textSize="@dimen/_12ssp" />
         </LinearLayout>
 
         <LinearLayout
@@ -166,8 +166,8 @@
             style="@style/Widget.MyApplication.BottomNavItem">
 
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="@dimen/_24sdp"
                 android:contentDescription="@string/title_chat"
                 android:duplicateParentState="true"
                 android:src="@drawable/ic_chat"
@@ -180,7 +180,7 @@
                 android:fontFamily="@font/open_sans_semibold"
                 android:text="@string/chat"
                 android:textColor="@color/bottom_nav_item_color"
-                android:textSize="12sp" />
+                android:textSize="@dimen/_12ssp" />
         </LinearLayout>
 
         <LinearLayout
@@ -188,8 +188,8 @@
             style="@style/Widget.MyApplication.BottomNavItem">
 
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="@dimen/_24sdp"
                 android:contentDescription="@string/title_profile"
                 android:duplicateParentState="true"
                 android:src="@drawable/ic_person"
@@ -202,7 +202,7 @@
                 android:fontFamily="@font/open_sans_semibold"
                 android:text="@string/profile"
                 android:textColor="@color/bottom_nav_item_color"
-                android:textSize="12sp" />
+                android:textSize="@dimen/_12ssp" />
         </LinearLayout>
 
         <LinearLayout
@@ -210,8 +210,8 @@
             style="@style/Widget.MyApplication.BottomNavItem">
 
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="@dimen/_24sdp"
                 android:contentDescription="@string/title_community"
                 android:duplicateParentState="true"
                 android:src="@drawable/ic_community"
@@ -224,7 +224,7 @@
                 android:fontFamily="@font/open_sans_semibold"
                 android:text="@string/community"
                 android:textColor="@color/bottom_nav_item_color"
-                android:textSize="12sp" />
+                android:textSize="@dimen/_12ssp" />
         </LinearLayout>
 
     </LinearLayout>

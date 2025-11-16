@@ -37,10 +37,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
-        android:padding="16dp"
+        android:padding="@dimen/_16sdp"
         android:text="教育内容标题"
         android:textColor="@android:color/white"
-        android:textSize="18sp"
+        android:textSize="@dimen/_18ssp"
         android:textStyle="bold" />
 
     <WebView

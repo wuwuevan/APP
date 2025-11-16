@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorSurface"
-        android:elevation="4dp"
+        android:elevation="@dimen/_4sdp"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.Toolbar
@@ -26,15 +26,15 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingEnd="16dp">
+                android:paddingEnd="@dimen/_16sdp">
 
                 <!-- Chat partner avatar -->
                 <ImageView
                     android:id="@+id/iv_chat_avatar"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
+                    android:layout_width="@dimen/_36sdp"
+                    android:layout_height="@dimen/_36sdp"
                     android:background="@drawable/circle_bg_lee"
-                    android:padding="8dp"
+                    android:padding="@dimen/_8sdp"
                     android:src="@drawable/ic_health"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -45,8 +45,8 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="@dimen/_16sdp"
+                    android:layout_marginEnd="@dimen/_16sdp"
                     android:orientation="vertical"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/btn_video_call"
@@ -73,8 +73,8 @@
                 <!-- Video call button -->
                 <ImageButton
                     android:id="@+id/btn_video_call"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
+                    android:layout_width="@dimen/_36sdp"
+                    android:layout_height="@dimen/_36sdp"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="视频通话"
                     android:src="@drawable/ic_notification"
@@ -95,8 +95,8 @@
         android:background="@color/colorBackground"
         android:clipToPadding="false"
         android:overScrollMode="never"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
+        android:paddingTop="@dimen/_8sdp"
+        android:paddingBottom="@dimen/_8sdp"
         app:layout_constraintBottom_toTopOf="@+id/card_input"
         app:layout_constraintTop_toBottomOf="@+id/app_bar_layout"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -107,8 +107,8 @@
         android:id="@+id/tv_typing_indicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginStart="@dimen/_16sdp"
+        android:layout_marginBottom="@dimen/_8sdp"
         android:text="正在输入..."
         android:textAppearance="@style/TextAppearance.MyApplication.Caption"
         android:textColor="@color/colorTextSecondary"
@@ -122,24 +122,24 @@
         android:id="@+id/card_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_margin="@dimen/_8sdp"
         app:cardBackgroundColor="@color/colorSurface"
-        app:cardCornerRadius="24dp"
-        app:cardElevation="2dp"
+        app:cardCornerRadius="@dimen/_24sdp"
+        app:cardElevation="@dimen/_2sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:strokeWidth="0dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp">
+            android:padding="@dimen/_8sdp">
 
             <!-- Attachment button -->
             <ImageButton
                 android:id="@+id/btn_attach"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:layout_marginStart="4dp"
+                android:layout_width="@dimen/_36sdp"
+                android:layout_height="@dimen/_36sdp"
+                android:layout_marginStart="@dimen/_4sdp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="附加文件"
                 android:src="@drawable/ic_task"
@@ -153,15 +153,15 @@
                 android:id="@+id/et_message"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
                 android:background="@android:color/transparent"
                 android:hint="输入消息..."
                 android:inputType="textMultiLine"
                 android:maxLines="4"
-                android:minHeight="36dp"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp"
+                android:minHeight="@dimen/_36sdp"
+                android:paddingStart="@dimen/_8sdp"
+                android:paddingEnd="@dimen/_8sdp"
                 android:textAppearance="@style/TextAppearance.MyApplication.Body1"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/btn_send"
@@ -172,9 +172,9 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_send"
                 style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:layout_marginEnd="4dp"
+                android:layout_width="@dimen/_36sdp"
+                android:layout_height="@dimen/_36sdp"
+                android:layout_marginEnd="@dimen/_4sdp"
                 android:insetLeft="0dp"
                 android:insetTop="0dp"
                 android:insetRight="0dp"
@@ -183,7 +183,7 @@
                 android:minHeight="0dp"
                 android:padding="0dp"
                 app:backgroundTint="@color/colorPrimary"
-                app:cornerRadius="18dp"
+                app:cornerRadius="@dimen/_18sdp"
                 app:icon="@drawable/ic_chat"
                 app:iconGravity="textStart"
                 app:iconPadding="0dp"

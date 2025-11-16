@@ -3,11 +3,11 @@
     android:shape="rectangle">
     <solid android:color="@color/colorChatReceivedBg" />
     <corners
-        android:topLeftRadius="4dp"
-        android:topRightRadius="16dp"
-        android:bottomLeftRadius="16dp"
-        android:bottomRightRadius="16dp" />
+        android:topLeftRadius="@dimen/_4sdp"
+        android:topRightRadius="@dimen/_16sdp"
+        android:bottomLeftRadius="@dimen/_16sdp"
+        android:bottomRightRadius="@dimen/_16sdp" />
     <stroke
-        android:width="1dp"
+        android:width="@dimen/_1sdp"
         android:color="@color/colorDivider" />
 </shape> 

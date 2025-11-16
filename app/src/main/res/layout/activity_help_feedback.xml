@@ -37,7 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="@dimen/_16sdp">
 
         <!-- 反馈类型 -->
         <TextView
@@ -45,21 +45,21 @@
             android:layout_height="wrap_content"
             android:text="反馈类型"
             android:textColor="@color/colorTextSecondary"
-            android:textSize="14sp" />
+            android:textSize="@dimen/_14ssp" />
 
         <Spinner
             android:id="@+id/spinner_feedback_type"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/_8sdp"
             android:background="@drawable/spinner_background"
-            android:padding="12dp" />
+            android:padding="@dimen/_12sdp" />
 
         <!-- 反馈内容 -->
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/_16sdp"
             android:hint="请详细描述您的问题或建议">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -76,7 +76,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/_16sdp"
             android:hint="您的联系方式 (选填)">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -92,7 +92,7 @@
             android:id="@+id/btn_submit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="@dimen/_24sdp"
             android:text="提交反馈" />
     </LinearLayout>
 </LinearLayout> 

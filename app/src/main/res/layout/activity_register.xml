@@ -46,17 +46,17 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="24dp">
+            android:padding="@dimen/_24sdp">
 
             <!-- Registration form card -->
             <androidx.cardview.widget.CardView
                 android:id="@+id/card_register_form"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="@dimen/_16sdp"
                 app:cardBackgroundColor="@color/colorSurface"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="4dp"
+                app:cardCornerRadius="@dimen/_16sdp"
+                app:cardElevation="@dimen/_4sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -65,7 +65,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="24dp">
+                    android:padding="@dimen/_24sdp">
 
                     <!-- Username input -->
                     <com.google.android.material.textfield.TextInputLayout
@@ -94,7 +94,7 @@
                         style="@style/Widget.MyApplication.TextInputLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="@dimen/_16sdp"
                         android:hint="@string/password"
                         app:endIconMode="password_toggle"
                         app:endIconTint="@color/colorPrimary"
@@ -118,7 +118,7 @@
                         style="@style/Widget.MyApplication.TextInputLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="@dimen/_16sdp"
                         android:hint="@string/confirm_password"
                         app:endIconMode="password_toggle"
                         app:endIconTint="@color/colorPrimary"
@@ -143,9 +143,9 @@
                 style="@style/Widget.MyApplication.Button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="@dimen/_24sdp"
                 android:text="@string/register"
-                app:cornerRadius="8dp"
+                app:cornerRadius="@dimen/_8sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/card_register_form" />
@@ -154,7 +154,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="@dimen/_16sdp"
                 android:gravity="center"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -172,7 +172,7 @@
                     android:id="@+id/tv_login"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
+                    android:layout_marginStart="@dimen/_4sdp"
                     android:text="@string/login_now"
                     android:textAppearance="@style/TextAppearance.MyApplication.Body1"
                     android:textColor="@color/colorPrimary" />
@@ -182,7 +182,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="@dimen/_32sdp"
                 android:gravity="center"
                 android:text="注册即表示您同意我们的服务条款和隐私政策"
                 android:textAppearance="@style/TextAppearance.MyApplication.Caption"

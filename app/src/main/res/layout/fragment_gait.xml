@@ -12,9 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:paddingBottom="24dp">
+        android:paddingStart="@dimen/_16sdp"
+        android:paddingEnd="@dimen/_16sdp"
+        android:paddingBottom="@dimen/_24sdp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -25,9 +25,9 @@
                 android:id="@+id/card_gait_header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                app:cardCornerRadius="28dp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginBottom="@dimen/_20sdp"
+                app:cardCornerRadius="@dimen/_28sdp"
                 app:cardElevation="0dp"
                 app:cardUseCompatPadding="false"
                 app:strokeWidth="0dp">
@@ -36,7 +36,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_gait_header_modern"
-                    android:padding="24dp">
+                    android:padding="@dimen/_24sdp">
 
                     <TextView
                         android:id="@+id/tv_gait_title"
@@ -45,7 +45,7 @@
                         android:fontFamily="sans-serif-medium"
                         android:text="@string/gait_screen_title"
                         android:textColor="@color/colorWhite"
-                        android:textSize="22sp"
+                        android:textSize="@dimen/_22ssp"
                         app:layout_constraintEnd_toStartOf="@+id/btn_refresh_gait"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -59,15 +59,15 @@
                         android:insetTop="0dp"
                         android:insetRight="0dp"
                         android:insetBottom="0dp"
-                        android:minHeight="36dp"
-                        android:paddingStart="12dp"
-                        android:paddingEnd="12dp"
+                        android:minHeight="@dimen/_36sdp"
+                        android:paddingStart="@dimen/_12sdp"
+                        android:paddingEnd="@dimen/_12sdp"
                         android:text="@string/gait_refresh"
                         android:textAllCaps="false"
                         android:textColor="@color/colorWhite"
                         app:icon="@drawable/ic_refresh"
                         app:iconGravity="textStart"
-                        app:iconPadding="8dp"
+                        app:iconPadding="@dimen/_8sdp"
                         app:iconTint="@color/colorWhite"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -76,11 +76,11 @@
                         android:id="@+id/tv_last_updated"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
+                        android:layout_marginTop="@dimen/_12sdp"
                         android:fontFamily="sans-serif"
                         android:text="@string/gait_last_updated_placeholder"
                         android:textColor="@color/colorWhite"
-                        android:textSize="13sp"
+                        android:textSize="@dimen/_13ssp"
                         app:layout_constraintEnd_toEndOf="@id/btn_refresh_gait"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/tv_gait_title" />
@@ -89,7 +89,7 @@
                         android:id="@+id/chip_group_activity"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="@dimen/_16sdp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/tv_last_updated"
@@ -137,7 +137,7 @@
                         android:id="@+id/layout_gait_metrics"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
+                        android:layout_marginTop="@dimen/_20sdp"
                         android:orientation="vertical"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -152,142 +152,142 @@
                             <LinearLayout
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_marginEnd="8dp"
+                                android:layout_marginEnd="@dimen/_8sdp"
                                 android:layout_weight="1"
                                 android:background="@drawable/bg_gait_metric_surface"
                                 android:minHeight="@dimen/gait_metric_min_height"
                                 android:orientation="vertical"
-                                android:padding="16dp">
+                                android:padding="@dimen/_16sdp">
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/gait_speed"
                                     android:textColor="@color/colorWhite"
-                                    android:textSize="12sp" />
+                                    android:textSize="@dimen/_12ssp" />
 
                                 <TextView
                                     android:id="@+id/tv_gait_speed"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="6dp"
+                                    android:layout_marginTop="@dimen/_6sdp"
                                     android:fontFamily="sans-serif-medium"
                                     android:text="0.00"
                                     android:textColor="@color/colorWhite"
-                                    android:textSize="24sp" />
+                                    android:textSize="@dimen/_24ssp" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="m/s"
                                     android:textColor="@color/colorWhite"
-                                    android:textSize="12sp" />
+                                    android:textSize="@dimen/_12ssp" />
                             </LinearLayout>
 
                             <LinearLayout
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
+                                android:layout_marginStart="@dimen/_8sdp"
                                 android:layout_weight="1"
                                 android:background="@drawable/bg_gait_metric_surface"
                                 android:minHeight="@dimen/gait_metric_min_height"
                                 android:orientation="vertical"
-                                android:padding="16dp">
+                                android:padding="@dimen/_16sdp">
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/gait_cadence"
                                     android:textColor="@color/colorWhite"
-                                    android:textSize="12sp" />
+                                    android:textSize="@dimen/_12ssp" />
 
                                 <TextView
                                     android:id="@+id/tv_cadence"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="6dp"
+                                    android:layout_marginTop="@dimen/_6sdp"
                                     android:fontFamily="sans-serif-medium"
                                     android:text="0"
                                     android:textColor="@color/colorWhite"
-                                    android:textSize="24sp" />
+                                    android:textSize="@dimen/_24ssp" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="steps/min"
                                     android:textColor="@color/colorWhite"
-                                    android:textSize="12sp" />
+                                    android:textSize="@dimen/_12ssp" />
                             </LinearLayout>
                         </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="16dp"
+                            android:layout_marginTop="@dimen/_16sdp"
                             android:orientation="horizontal"
                             android:weightSum="2">
 
                             <LinearLayout
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_marginEnd="8dp"
+                                android:layout_marginEnd="@dimen/_8sdp"
                                 android:layout_weight="1"
                                 android:background="@drawable/bg_gait_metric_surface"
                                 android:minHeight="@dimen/gait_metric_min_height"
                                 android:orientation="vertical"
-                                android:padding="16dp">
+                                android:padding="@dimen/_16sdp">
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/gait_step_length"
                                     android:textColor="@color/colorWhite"
-                                    android:textSize="12sp" />
+                                    android:textSize="@dimen/_12ssp" />
 
                                 <TextView
                                     android:id="@+id/tv_step_length"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="6dp"
+                                    android:layout_marginTop="@dimen/_6sdp"
                                     android:fontFamily="sans-serif-medium"
                                     android:text="0.00"
                                     android:textColor="@color/colorWhite"
-                                    android:textSize="24sp" />
+                                    android:textSize="@dimen/_24ssp" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="m"
                                     android:textColor="@color/colorWhite"
-                                    android:textSize="12sp" />
+                                    android:textSize="@dimen/_12ssp" />
                             </LinearLayout>
 
                             <LinearLayout
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
+                                android:layout_marginStart="@dimen/_8sdp"
                                 android:layout_weight="1"
                                 android:background="@drawable/bg_gait_metric_surface"
                                 android:minHeight="@dimen/gait_metric_min_height"
                                 android:orientation="vertical"
-                                android:padding="16dp">
+                                android:padding="@dimen/_16sdp">
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/gait_symmetry"
                                     android:textColor="@color/colorWhite"
-                                    android:textSize="12sp" />
+                                    android:textSize="@dimen/_12ssp" />
 
                                 <TextView
                                     android:id="@+id/tv_symmetry"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="6dp"
+                                    android:layout_marginTop="@dimen/_6sdp"
                                     android:fontFamily="sans-serif-medium"
                                     android:text="对称性 0%"
                                     android:textColor="@color/colorWhite"
-                                    android:textSize="24sp" />
+                                    android:textSize="@dimen/_24ssp" />
                             </LinearLayout>
                         </LinearLayout>
                     </LinearLayout>
@@ -296,7 +296,7 @@
                         android:id="@+id/layout_activity_overview"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
+                        android:layout_marginTop="@dimen/_20sdp"
                         android:orientation="vertical"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -319,17 +319,17 @@
                                     android:layout_height="wrap_content"
                                     android:text="@string/gait_current_activity"
                                     android:textColor="@color/colorWhite"
-                                    android:textSize="12sp" />
+                                    android:textSize="@dimen/_12ssp" />
 
                                 <TextView
                                     android:id="@+id/tv_current_activity"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="4dp"
+                                    android:layout_marginTop="@dimen/_4sdp"
                                     android:fontFamily="sans-serif-medium"
                                     android:text="--"
                                     android:textColor="@color/colorWhite"
-                                    android:textSize="16sp" />
+                                    android:textSize="@dimen/_16ssp" />
                             </LinearLayout>
 
                             <LinearLayout
@@ -343,24 +343,24 @@
                                     android:layout_height="wrap_content"
                                     android:text="@string/gait_phase_label"
                                     android:textColor="@color/colorWhite"
-                                    android:textSize="12sp" />
+                                    android:textSize="@dimen/_12ssp" />
 
                                 <TextView
                                     android:id="@+id/tv_gait_phase"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="4dp"
+                                    android:layout_marginTop="@dimen/_4sdp"
                                     android:fontFamily="sans-serif-medium"
                                     android:text="--"
                                     android:textColor="@color/colorWhite"
-                                    android:textSize="16sp" />
+                                    android:textSize="@dimen/_16ssp" />
                             </LinearLayout>
                         </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="12dp"
+                            android:layout_marginTop="@dimen/_12sdp"
                             android:orientation="horizontal"
                             android:weightSum="2">
 
@@ -375,17 +375,17 @@
                                     android:layout_height="wrap_content"
                                     android:text="@string/gait_session_duration_label"
                                     android:textColor="@color/colorWhite"
-                                    android:textSize="12sp" />
+                                    android:textSize="@dimen/_12ssp" />
 
                                 <TextView
                                     android:id="@+id/tv_session_duration"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="4dp"
+                                    android:layout_marginTop="@dimen/_4sdp"
                                     android:fontFamily="sans-serif-medium"
                                     android:text="--"
                                     android:textColor="@color/colorWhite"
-                                    android:textSize="16sp" />
+                                    android:textSize="@dimen/_16ssp" />
                             </LinearLayout>
 
                             <LinearLayout
@@ -399,17 +399,17 @@
                                     android:layout_height="wrap_content"
                                     android:text="@string/gait_step_count_label"
                                     android:textColor="@color/colorWhite"
-                                    android:textSize="12sp" />
+                                    android:textSize="@dimen/_12ssp" />
 
                                 <TextView
                                     android:id="@+id/tv_step_count"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="4dp"
+                                    android:layout_marginTop="@dimen/_4sdp"
                                     android:fontFamily="sans-serif-medium"
                                     android:text="--"
                                     android:textColor="@color/colorWhite"
-                                    android:textSize="16sp" />
+                                    android:textSize="@dimen/_16ssp" />
                             </LinearLayout>
                         </LinearLayout>
                     </LinearLayout>
@@ -420,39 +420,39 @@
                 android:id="@+id/card_gait_analysis"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="2dp"
+                android:layout_marginBottom="@dimen/_16sdp"
+                app:cardCornerRadius="@dimen/_20sdp"
+                app:cardElevation="@dimen/_2sdp"
                 app:strokeColor="@color/colorDivider"
-                app:strokeWidth="1dp">
+                app:strokeWidth="@dimen/_1sdp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="20dp">
+                    android:padding="@dimen/_20sdp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/gait_analysis"
                         android:textColor="@color/colorText"
-                        android:textSize="18sp"
+                        android:textSize="@dimen/_18ssp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/tv_analysis_summary"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="@dimen/_8sdp"
                         android:text="@string/gait_analysis_placeholder"
                         android:textColor="@color/colorTextSecondary"
-                        android:textSize="14sp" />
+                        android:textSize="@dimen/_14ssp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="@dimen/_16sdp"
                         android:orientation="vertical">
 
                         <TextView
@@ -460,12 +460,12 @@
                             android:layout_height="wrap_content"
                             android:text="@string/gait_stability_label"
                             android:textColor="@color/colorText"
-                            android:textSize="13sp" />
+                            android:textSize="@dimen/_13ssp" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
+                            android:layout_marginTop="@dimen/_4sdp"
                             android:orientation="horizontal"
                             android:gravity="center_vertical"
                             android:weightSum="2">
@@ -477,7 +477,7 @@
                                 android:layout_weight="1"
                                 android:text="--"
                                 android:textColor="@color/colorPrimary"
-                                android:textSize="14sp"
+                                android:textSize="@dimen/_14ssp"
                                 android:textStyle="bold" />
 
                             <TextView
@@ -486,7 +486,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="0/100"
                                 android:textColor="@color/colorTextSecondary"
-                                android:textSize="13sp" />
+                                android:textSize="@dimen/_13ssp" />
                         </LinearLayout>
 
                         <com.google.android.material.progressindicator.LinearProgressIndicator
@@ -494,7 +494,7 @@
                             style="@style/Widget.MaterialComponents.LinearProgressIndicator"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
+                            android:layout_marginTop="@dimen/_6sdp"
                             android:max="100"
                             android:indeterminate="false"
                             app:indicatorColor="@color/colorAccent"
@@ -504,7 +504,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="@dimen/_16sdp"
                         android:orientation="vertical">
 
                         <TextView
@@ -512,25 +512,25 @@
                             android:layout_height="wrap_content"
                             android:text="@string/gait_focus_area_label"
                             android:textColor="@color/colorText"
-                            android:textSize="13sp" />
+                            android:textSize="@dimen/_13ssp" />
 
                         <TextView
                             android:id="@+id/tv_focus_area"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
+                            android:layout_marginTop="@dimen/_4sdp"
                             android:text="--"
                             android:textColor="@color/colorTextSecondary"
-                            android:textSize="14sp" />
+                            android:textSize="@dimen/_14ssp" />
 
                         <TextView
                             android:id="@+id/tv_training_recommendation"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
+                            android:layout_marginTop="@dimen/_8sdp"
                             android:text="@string/gait_recommendation_placeholder"
                             android:textColor="@color/colorTextSecondary"
-                            android:textSize="13sp" />
+                            android:textSize="@dimen/_13ssp" />
                     </LinearLayout>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -539,53 +539,53 @@
                 android:id="@+id/card_fall_detection"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="2dp"
+                android:layout_marginBottom="@dimen/_16sdp"
+                app:cardCornerRadius="@dimen/_20sdp"
+                app:cardElevation="@dimen/_2sdp"
                 app:strokeColor="@color/colorDivider"
-                app:strokeWidth="1dp">
+                app:strokeWidth="@dimen/_1sdp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="20dp">
+                    android:padding="@dimen/_20sdp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/gait_fall_detection"
                         android:textColor="@color/colorText"
-                        android:textSize="18sp"
+                        android:textSize="@dimen/_18ssp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/tv_fall_status"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="@dimen/_8sdp"
                         android:text="@string/gait_fall_status_placeholder"
                         android:textColor="@color/colorTextSecondary"
-                        android:textSize="14sp" />
+                        android:textSize="@dimen/_14ssp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="@dimen/_16sdp"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
                         <com.google.android.material.progressindicator.CircularProgressIndicator
                             android:id="@+id/indicator_fall_risk"
                             style="@style/Widget.MaterialComponents.CircularProgressIndicator"
-                            android:layout_width="72dp"
-                            android:layout_height="72dp"
-                            android:layout_marginEnd="16dp"
+                            android:layout_width="@dimen/_72sdp"
+                            android:layout_height="@dimen/_72sdp"
+                            android:layout_marginEnd="@dimen/_16sdp"
                             android:max="100"
                             android:indeterminate="false"
                             app:indicatorColor="@color/colorWarning"
                             app:trackColor="@color/colorDivider"
-                            app:trackThickness="6dp" />
+                            app:trackThickness="@dimen/_6sdp" />
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -599,17 +599,17 @@
                                 android:layout_height="wrap_content"
                                 android:text="跌倒风险 --%"
                                 android:textColor="@color/colorText"
-                                android:textSize="22sp"
+                                android:textSize="@dimen/_22ssp"
                                 android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/tv_confidence"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="4dp"
+                                android:layout_marginTop="@dimen/_4sdp"
                                 android:text="@string/gait_confidence_placeholder"
                                 android:textColor="@color/colorTextSecondary"
-                                android:textSize="13sp" />
+                                android:textSize="@dimen/_13ssp" />
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
@@ -619,39 +619,39 @@
                 android:id="@+id/card_recent_events"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="2dp"
+                android:layout_marginBottom="@dimen/_24sdp"
+                app:cardCornerRadius="@dimen/_20sdp"
+                app:cardElevation="@dimen/_2sdp"
                 app:strokeColor="@color/colorDivider"
-                app:strokeWidth="1dp">
+                app:strokeWidth="@dimen/_1sdp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="20dp">
+                    android:padding="@dimen/_20sdp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/gait_recent_events"
                         android:textColor="@color/colorText"
-                        android:textSize="18sp"
+                        android:textSize="@dimen/_18ssp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
+                        android:layout_marginTop="@dimen/_6sdp"
                         android:text="@string/gait_recent_events_hint"
                         android:textColor="@color/colorTextSecondary"
-                        android:textSize="13sp" />
+                        android:textSize="@dimen/_13ssp" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recycler_recent_events"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="@dimen/_16sdp"
                         android:nestedScrollingEnabled="false"
                         tools:listitem="@layout/item_gait_event" />
                 </LinearLayout>

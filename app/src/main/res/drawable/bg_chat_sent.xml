@@ -3,8 +3,8 @@
     android:shape="rectangle">
     <solid android:color="@color/colorChatSentBg" />
     <corners
-        android:topLeftRadius="16dp"
-        android:topRightRadius="4dp"
-        android:bottomLeftRadius="16dp"
-        android:bottomRightRadius="16dp" />
+        android:topLeftRadius="@dimen/_16sdp"
+        android:topRightRadius="@dimen/_4sdp"
+        android:bottomLeftRadius="@dimen/_16sdp"
+        android:bottomRightRadius="@dimen/_16sdp" />
 </shape> 

@@ -35,7 +35,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="@dimen/_16sdp">
 
         <!-- 通知类型筛选器 -->
         <LinearLayout
@@ -43,13 +43,13 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:layout_marginBottom="16dp">
+            android:layout_marginBottom="@dimen/_16sdp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="通知类型："
-                android:textSize="16sp"
+                android:textSize="@dimen/_16ssp"
                 android:textColor="@color/colorTextPrimary" />
 
             <Spinner
@@ -57,7 +57,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/spinner_background"
-                android:padding="8dp" />
+                android:padding="@dimen/_8sdp" />
         </LinearLayout>
 
         <!-- 通知列表 -->
@@ -66,7 +66,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:divider="@color/colorDivider"
-            android:dividerHeight="1dp" />
+            android:dividerHeight="@dimen/_1sdp" />
 
         <!-- 空视图 -->
         <TextView
@@ -75,7 +75,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="暂无通知"
-            android:textSize="18sp"
+            android:textSize="@dimen/_18ssp"
             android:textColor="@color/colorTextSecondary"
             android:visibility="gone" />
 

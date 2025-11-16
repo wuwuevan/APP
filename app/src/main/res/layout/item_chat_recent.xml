@@ -5,25 +5,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="12dp"
+    android:layout_marginBottom="@dimen/_12sdp"
     app:cardBackgroundColor="@color/colorSurface"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="1dp"
+    app:cardCornerRadius="@dimen/_12sdp"
+    app:cardElevation="@dimen/_1sdp"
     app:rippleColor="@color/colorPrimaryLight"
     app:strokeWidth="0dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp">
+        android:padding="@dimen/_16sdp">
 
         <!-- Avatar/Icon -->
         <ImageView
             android:id="@+id/iv_chat_avatar"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
             android:background="@drawable/circle_bg"
-            android:padding="8dp"
+            android:padding="@dimen/_8sdp"
             android:src="@drawable/ic_chat"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -34,8 +34,8 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginStart="@dimen/_16sdp"
+            android:layout_marginEnd="@dimen/_16sdp"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/tv_chat_time"
@@ -56,7 +56,7 @@
                 android:id="@+id/tv_chat_last_message"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="@dimen/_4sdp"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:textAppearance="@style/TextAppearance.MyApplication.Body2"
@@ -78,10 +78,10 @@
         <!-- Delete chat -->
         <ImageView
             android:id="@+id/iv_delete_chat"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"
             android:contentDescription="@string/delete"
-            android:padding="2dp"
+            android:padding="@dimen/_2sdp"
             android:src="@android:drawable/ic_delete"
             android:tint="@color/colorError"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -91,13 +91,13 @@
         <!-- Unread indicator (optional) -->
         <TextView
             android:id="@+id/tv_unread_count"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
+            android:layout_width="@dimen/_18sdp"
+            android:layout_height="@dimen/_18sdp"
             android:background="@drawable/bg_notification_count"
             android:gravity="center"
             android:textAppearance="@style/TextAppearance.MyApplication.Caption"
             android:textColor="@color/colorWhite"
-            android:textSize="10sp"
+            android:textSize="@dimen/_10ssp"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

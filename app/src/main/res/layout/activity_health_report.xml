@@ -41,33 +41,33 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:padding="@dimen/_16sdp">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="4dp">
+                android:layout_marginBottom="@dimen/_16sdp"
+                app:cardCornerRadius="@dimen/_8sdp"
+                app:cardElevation="@dimen/_4sdp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="@dimen/_16sdp">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="身体质量指数 (BMI)"
                         android:textColor="@color/colorText"
-                        android:textSize="18sp"
+                        android:textSize="@dimen/_18ssp"
                         android:textStyle="bold" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="@dimen/_8sdp"
                         android:orientation="horizontal">
 
                         <TextView
@@ -77,7 +77,7 @@
                             android:layout_weight="1"
                             android:text="22.5"
                             android:textColor="@color/colorPrimary"
-                            android:textSize="24sp"
+                            android:textSize="@dimen/_24ssp"
                             android:textStyle="bold" />
 
                         <TextView
@@ -86,44 +86,44 @@
                             android:layout_height="wrap_content"
                             android:text="正常"
                             android:textColor="@color/colorSuccess"
-                            android:textSize="16sp" />
+                            android:textSize="@dimen/_16ssp" />
                     </LinearLayout>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
+                        android:layout_marginTop="@dimen/_4sdp"
                         android:text="标准范围: 18.5 - 24.0"
                         android:textColor="@color/colorTextSecondary"
-                        android:textSize="14sp" />
+                        android:textSize="@dimen/_14ssp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="4dp">
+                android:layout_marginBottom="@dimen/_16sdp"
+                app:cardCornerRadius="@dimen/_8sdp"
+                app:cardElevation="@dimen/_4sdp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="@dimen/_16sdp">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="心率"
                         android:textColor="@color/colorText"
-                        android:textSize="18sp"
+                        android:textSize="@dimen/_18ssp"
                         android:textStyle="bold" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="@dimen/_8sdp"
                         android:orientation="horizontal">
 
                         <TextView
@@ -133,7 +133,7 @@
                             android:layout_weight="1"
                             android:text="75"
                             android:textColor="@color/colorPrimary"
-                            android:textSize="24sp"
+                            android:textSize="@dimen/_24ssp"
                             android:textStyle="bold" />
 
                         <TextView
@@ -142,44 +142,44 @@
                             android:layout_height="wrap_content"
                             android:text="正常"
                             android:textColor="@color/colorSuccess"
-                            android:textSize="16sp" />
+                            android:textSize="@dimen/_16ssp" />
                     </LinearLayout>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
+                        android:layout_marginTop="@dimen/_4sdp"
                         android:text="标准范围: 60 - 100 次/分钟"
                         android:textColor="@color/colorTextSecondary"
-                        android:textSize="14sp" />
+                        android:textSize="@dimen/_14ssp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="4dp">
+                android:layout_marginBottom="@dimen/_16sdp"
+                app:cardCornerRadius="@dimen/_8sdp"
+                app:cardElevation="@dimen/_4sdp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="@dimen/_16sdp">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="血压"
                         android:textColor="@color/colorText"
-                        android:textSize="18sp"
+                        android:textSize="@dimen/_18ssp"
                         android:textStyle="bold" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="@dimen/_8sdp"
                         android:orientation="horizontal">
 
                         <TextView
@@ -189,7 +189,7 @@
                             android:layout_weight="1"
                             android:text="120/80"
                             android:textColor="@color/colorPrimary"
-                            android:textSize="24sp"
+                            android:textSize="@dimen/_24ssp"
                             android:textStyle="bold" />
 
                         <TextView
@@ -198,44 +198,44 @@
                             android:layout_height="wrap_content"
                             android:text="正常"
                             android:textColor="@color/colorSuccess"
-                            android:textSize="16sp" />
+                            android:textSize="@dimen/_16ssp" />
                     </LinearLayout>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
+                        android:layout_marginTop="@dimen/_4sdp"
                         android:text="标准范围: 90/60 - 140/90 mmHg"
                         android:textColor="@color/colorTextSecondary"
-                        android:textSize="14sp" />
+                        android:textSize="@dimen/_14ssp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="4dp">
+                android:layout_marginBottom="@dimen/_16sdp"
+                app:cardCornerRadius="@dimen/_8sdp"
+                app:cardElevation="@dimen/_4sdp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="@dimen/_16sdp">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="血糖"
                         android:textColor="@color/colorText"
-                        android:textSize="18sp"
+                        android:textSize="@dimen/_18ssp"
                         android:textStyle="bold" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="@dimen/_8sdp"
                         android:orientation="horizontal">
 
                         <TextView
@@ -245,7 +245,7 @@
                             android:layout_weight="1"
                             android:text="5.2"
                             android:textColor="@color/colorPrimary"
-                            android:textSize="24sp"
+                            android:textSize="@dimen/_24ssp"
                             android:textStyle="bold" />
 
                         <TextView
@@ -254,44 +254,44 @@
                             android:layout_height="wrap_content"
                             android:text="正常"
                             android:textColor="@color/colorSuccess"
-                            android:textSize="16sp" />
+                            android:textSize="@dimen/_16ssp" />
                     </LinearLayout>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
+                        android:layout_marginTop="@dimen/_4sdp"
                         android:text="标准范围: 3.9 - 6.1 mmol/L"
                         android:textColor="@color/colorTextSecondary"
-                        android:textSize="14sp" />
+                        android:textSize="@dimen/_14ssp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="4dp">
+                android:layout_marginBottom="@dimen/_16sdp"
+                app:cardCornerRadius="@dimen/_8sdp"
+                app:cardElevation="@dimen/_4sdp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="@dimen/_16sdp">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="步数"
                         android:textColor="@color/colorText"
-                        android:textSize="18sp"
+                        android:textSize="@dimen/_18ssp"
                         android:textStyle="bold" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="@dimen/_8sdp"
                         android:orientation="horizontal">
 
                         <TextView
@@ -301,7 +301,7 @@
                             android:layout_weight="1"
                             android:text="0"
                             android:textColor="@color/colorPrimary"
-                            android:textSize="24sp"
+                            android:textSize="@dimen/_24ssp"
                             android:textStyle="bold" />
 
                         <TextView
@@ -310,44 +310,44 @@
                             android:layout_height="wrap_content"
                             android:text="正常"
                             android:textColor="@color/colorSuccess"
-                            android:textSize="16sp" />
+                            android:textSize="@dimen/_16ssp" />
                     </LinearLayout>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
+                        android:layout_marginTop="@dimen/_4sdp"
                         android:text="标准范围: 2000 - 30000 步"
                         android:textColor="@color/colorTextSecondary"
-                        android:textSize="14sp" />
+                        android:textSize="@dimen/_14ssp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="4dp">
+                android:layout_marginBottom="@dimen/_16sdp"
+                app:cardCornerRadius="@dimen/_8sdp"
+                app:cardElevation="@dimen/_4sdp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="@dimen/_16sdp">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="睡眠质量"
                         android:textColor="@color/colorText"
-                        android:textSize="18sp"
+                        android:textSize="@dimen/_18ssp"
                         android:textStyle="bold" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="@dimen/_8sdp"
                         android:orientation="horizontal">
 
                         <TextView
@@ -357,7 +357,7 @@
                             android:layout_weight="1"
                             android:text="7 小时"
                             android:textColor="@color/colorPrimary"
-                            android:textSize="24sp"
+                            android:textSize="@dimen/_24ssp"
                             android:textStyle="bold" />
 
                         <TextView
@@ -366,16 +366,16 @@
                             android:layout_height="wrap_content"
                             android:text="良好"
                             android:textColor="@color/colorSuccess"
-                            android:textSize="16sp" />
+                            android:textSize="@dimen/_16ssp" />
                     </LinearLayout>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
+                        android:layout_marginTop="@dimen/_4sdp"
                         android:text="建议睡眠时间: 6 - 9 小时/天"
                         android:textColor="@color/colorTextSecondary"
-                        android:textSize="14sp" />
+                        android:textSize="@dimen/_14ssp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -384,25 +384,25 @@
                 android:id="@+id/cv_custom_indicators"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="4dp"
+                android:layout_marginBottom="@dimen/_16sdp"
+                app:cardCornerRadius="@dimen/_8sdp"
+                app:cardElevation="@dimen/_4sdp"
                 android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="@dimen/_16sdp">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="自定义健康指标"
                         android:textColor="@color/colorText"
-                        android:textSize="18sp"
+                        android:textSize="@dimen/_18ssp"
                         android:textStyle="bold"
-                        android:layout_marginBottom="8dp"/>
+                        android:layout_marginBottom="@dimen/_8sdp"/>
 
                     <LinearLayout
                         android:id="@+id/container_custom_indicators_report"
@@ -417,21 +417,21 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="4dp">
+                android:layout_marginBottom="@dimen/_16sdp"
+                app:cardCornerRadius="@dimen/_8sdp"
+                app:cardElevation="@dimen/_4sdp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="@dimen/_16sdp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:layout_marginBottom="8dp">
+                        android:layout_marginBottom="@dimen/_8sdp">
 
                         <TextView
                             android:layout_width="0dp"
@@ -439,7 +439,7 @@
                             android:layout_weight="1"
                             android:text="健康建议"
                             android:textColor="@color/colorText"
-                            android:textSize="18sp"
+                            android:textSize="@dimen/_18ssp"
                             android:textStyle="bold" />
 
                         <Button
@@ -455,10 +455,10 @@
                         android:id="@+id/tv_health_suggestion"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:lineSpacingExtra="4dp"
+                        android:lineSpacingExtra="@dimen/_4sdp"
                         android:text="1. 保持均衡饮食，多摄入蔬菜水果。\n2. 每周进行至少150分钟中等强度的有氧运动。\n3. 保持良好的睡眠习惯，每晚睡眠7-8小时。\n4. 定期监测血压和血糖，保持在正常范围。\n5. 减少久坐时间，每小时起身活动几分钟。"
                         android:textColor="@color/colorText"
-                        android:textSize="15sp" />
+                        android:textSize="@dimen/_15ssp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -468,9 +468,9 @@
                 android:layout_height="wrap_content"
                 android:text="继续，进入主页"
                 android:visibility="gone"
-                android:layout_marginTop="16dp"
-                android:padding="12dp"
-                android:textSize="16sp"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:padding="@dimen/_12sdp"
+                android:textSize="@dimen/_16ssp"
                 tools:visibility="visible"/>
             
         </LinearLayout>

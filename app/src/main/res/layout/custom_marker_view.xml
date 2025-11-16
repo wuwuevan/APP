@@ -3,7 +3,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@drawable/bg_card_rounded"
-    android:padding="8dp">
+    android:padding="@dimen/_8sdp">
 
     <TextView
         android:id="@+id/tv_content"
@@ -11,6 +11,6 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:textColor="@color/colorTextPrimary"
-        android:textSize="12sp" />
+        android:textSize="@dimen/_12ssp" />
 
 </RelativeLayout> 

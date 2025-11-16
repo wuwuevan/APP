@@ -12,10 +12,10 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="16dp"
-        android:paddingTop="16dp"
-        android:paddingEnd="16dp"
-        android:paddingBottom="24dp">
+        android:paddingStart="@dimen/_16sdp"
+        android:paddingTop="@dimen/_16sdp"
+        android:paddingEnd="@dimen/_16sdp"
+        android:paddingBottom="@dimen/_24sdp">
 
         <!-- Header section -->
         <TextView
@@ -32,7 +32,7 @@
             android:id="@+id/tv_header_subtitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="@dimen/_4sdp"
             android:text="跟踪您的健康状况，掌握身体变化"
             android:textAppearance="@style/TextAppearance.MyApplication.Body2"
             android:textColor="@color/colorTextSecondary"
@@ -42,8 +42,8 @@
 
         <ImageButton
             android:id="@+id/btn_settings"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="@dimen/_48sdp"
+            android:layout_height="@dimen/_48sdp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="设置"
             android:src="@drawable/ic_notification"
@@ -56,17 +56,17 @@
             android:id="@+id/card_health_overview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="@dimen/_24sdp"
             app:cardBackgroundColor="@color/colorSurface"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="2dp"
+            app:cardCornerRadius="@dimen/_16sdp"
+            app:cardElevation="@dimen/_2sdp"
             app:layout_constraintTop_toBottomOf="@+id/tv_header_subtitle"
             app:strokeWidth="0dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="16dp">
+                android:padding="@dimen/_16sdp">
 
                 <TextView
                     android:id="@+id/tv_health_overview_title"
@@ -93,7 +93,7 @@
                     android:id="@+id/grid_health_metrics"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="@dimen/_16sdp"
                     app:columnCount="3"
                     app:layout_constraintTop_toBottomOf="@+id/tv_health_overview_title"
                     app:rowCount="2">
@@ -103,14 +103,14 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/bg_card_rounded"
-                        android:padding="12dp"
+                        android:padding="@dimen/_12sdp"
                         app:layout_columnWeight="1"
-                        android:layout_margin="4dp">
+                        android:layout_margin="@dimen/_4sdp">
 
                         <ImageView
                             android:id="@+id/iv_heart_rate_icon"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:layout_width="@dimen/_24sdp"
+                            android:layout_height="@dimen/_24sdp"
                             android:src="@drawable/ic_health"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
@@ -120,7 +120,7 @@
                             android:id="@+id/tv_heart_rate_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
+                            android:layout_marginStart="@dimen/_8sdp"
                             android:text="心率"
                             android:textAppearance="@style/TextAppearance.MyApplication.Caption"
                             android:textColor="@color/colorTextSecondary"
@@ -132,7 +132,7 @@
                             android:id="@+id/tv_heart_rate"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
+                            android:layout_marginTop="@dimen/_8sdp"
                             android:text="75"
                             android:textAppearance="@style/TextAppearance.MyApplication.Headline3"
                             android:textColor="@color/colorTextPrimary"
@@ -142,7 +142,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="4dp"
+                            android:layout_marginStart="@dimen/_4sdp"
                             android:text="BPM"
                             android:textAppearance="@style/TextAppearance.MyApplication.Caption"
                             android:textColor="@color/colorTextTertiary"
@@ -155,14 +155,14 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/bg_card_rounded"
-                        android:padding="12dp"
+                        android:padding="@dimen/_12sdp"
                         app:layout_columnWeight="1"
-                        android:layout_margin="4dp">
+                        android:layout_margin="@dimen/_4sdp">
 
                         <ImageView
                             android:id="@+id/iv_blood_pressure_icon"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:layout_width="@dimen/_24sdp"
+                            android:layout_height="@dimen/_24sdp"
                             android:src="@drawable/ic_health"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
@@ -172,7 +172,7 @@
                             android:id="@+id/tv_blood_pressure_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
+                            android:layout_marginStart="@dimen/_8sdp"
                             android:text="血压"
                             android:textAppearance="@style/TextAppearance.MyApplication.Caption"
                             android:textColor="@color/colorTextSecondary"
@@ -184,7 +184,7 @@
                             android:id="@+id/tv_blood_pressure"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
+                            android:layout_marginTop="@dimen/_8sdp"
                             android:text="120/80"
                             android:textAppearance="@style/TextAppearance.MyApplication.Headline3"
                             android:textColor="@color/colorTextPrimary"
@@ -194,7 +194,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="4dp"
+                            android:layout_marginStart="@dimen/_4sdp"
                             android:text="mmHg"
                             android:textAppearance="@style/TextAppearance.MyApplication.Caption"
                             android:textColor="@color/colorTextTertiary"
@@ -207,14 +207,14 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/bg_card_rounded"
-                        android:padding="12dp"
+                        android:padding="@dimen/_12sdp"
                         app:layout_columnWeight="1"
-                        android:layout_margin="4dp">
+                        android:layout_margin="@dimen/_4sdp">
 
                         <ImageView
                             android:id="@+id/iv_blood_sugar_icon"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:layout_width="@dimen/_24sdp"
+                            android:layout_height="@dimen/_24sdp"
                             android:src="@drawable/ic_health"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
@@ -224,7 +224,7 @@
                             android:id="@+id/tv_blood_sugar_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
+                            android:layout_marginStart="@dimen/_8sdp"
                             android:text="血糖"
                             android:textAppearance="@style/TextAppearance.MyApplication.Caption"
                             android:textColor="@color/colorTextSecondary"
@@ -236,7 +236,7 @@
                             android:id="@+id/tv_blood_sugar"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
+                            android:layout_marginTop="@dimen/_8sdp"
                             android:text="98"
                             android:textAppearance="@style/TextAppearance.MyApplication.Headline3"
                             android:textColor="@color/colorTextPrimary"
@@ -246,7 +246,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="4dp"
+                            android:layout_marginStart="@dimen/_4sdp"
                             android:text="%"
                             android:textAppearance="@style/TextAppearance.MyApplication.Caption"
                             android:textColor="@color/colorTextTertiary"
@@ -259,14 +259,14 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/bg_card_rounded"
-                        android:padding="12dp"
+                        android:padding="@dimen/_12sdp"
                         app:layout_columnWeight="1"
-                        android:layout_margin="4dp">
+                        android:layout_margin="@dimen/_4sdp">
 
                         <ImageView
                             android:id="@+id/iv_bmi_icon"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:layout_width="@dimen/_24sdp"
+                            android:layout_height="@dimen/_24sdp"
                             android:src="@drawable/ic_bmi"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
@@ -276,7 +276,7 @@
                             android:id="@+id/tv_bmi_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
+                            android:layout_marginStart="@dimen/_8sdp"
                             android:text="BMI"
                             android:textAppearance="@style/TextAppearance.MyApplication.Caption"
                             android:textColor="@color/colorTextSecondary"
@@ -288,7 +288,7 @@
                             android:id="@+id/tv_bmi"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
+                            android:layout_marginTop="@dimen/_8sdp"
                             android:text="22.5"
                             android:textAppearance="@style/TextAppearance.MyApplication.Headline3"
                             android:textColor="@color/colorTextPrimary"
@@ -301,14 +301,14 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/bg_card_rounded"
-                        android:padding="12dp"
+                        android:padding="@dimen/_12sdp"
                         app:layout_columnWeight="1"
-                        android:layout_margin="4dp">
+                        android:layout_margin="@dimen/_4sdp">
 
                         <ImageView
                             android:id="@+id/iv_steps_icon"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:layout_width="@dimen/_24sdp"
+                            android:layout_height="@dimen/_24sdp"
                             android:src="@drawable/ic_steps"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
@@ -318,7 +318,7 @@
                             android:id="@+id/tv_steps_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
+                            android:layout_marginStart="@dimen/_8sdp"
                             android:text="步数"
                             android:textAppearance="@style/TextAppearance.MyApplication.Caption"
                             android:textColor="@color/colorTextSecondary"
@@ -330,7 +330,7 @@
                             android:id="@+id/tv_steps"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
+                            android:layout_marginTop="@dimen/_8sdp"
                             android:text="0"
                             android:textAppearance="@style/TextAppearance.MyApplication.Headline3"
                             android:textColor="@color/colorTextPrimary"
@@ -340,7 +340,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="4dp"
+                            android:layout_marginStart="@dimen/_4sdp"
                             android:text="步"
                             android:textAppearance="@style/TextAppearance.MyApplication.Caption"
                             android:textColor="@color/colorTextTertiary"
@@ -353,14 +353,14 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:background="@drawable/bg_card_rounded"
-                        android:padding="12dp"
+                        android:padding="@dimen/_12sdp"
                         app:layout_columnWeight="1"
-                        android:layout_margin="4dp">
+                        android:layout_margin="@dimen/_4sdp">
 
                         <ImageView
                             android:id="@+id/iv_sleep_icon"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:layout_width="@dimen/_24sdp"
+                            android:layout_height="@dimen/_24sdp"
                             android:src="@drawable/ic_sleep"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
@@ -370,7 +370,7 @@
                             android:id="@+id/tv_sleep_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
+                            android:layout_marginStart="@dimen/_8sdp"
                             android:text="睡眠"
                             android:textAppearance="@style/TextAppearance.MyApplication.Caption"
                             android:textColor="@color/colorTextSecondary"
@@ -382,7 +382,7 @@
                             android:id="@+id/tv_sleep"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
+                            android:layout_marginTop="@dimen/_8sdp"
                             android:text="7"
                             android:textAppearance="@style/TextAppearance.MyApplication.Headline3"
                             android:textColor="@color/colorTextPrimary"
@@ -392,7 +392,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="4dp"
+                            android:layout_marginStart="@dimen/_4sdp"
                             android:text="h"
                             android:textAppearance="@style/TextAppearance.MyApplication.Caption"
                             android:textColor="@color/colorTextTertiary"
@@ -406,7 +406,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="@dimen/_16sdp"
                     android:gravity="end"
                     android:orientation="horizontal"
                     app:layout_constraintTop_toBottomOf="@+id/grid_health_metrics">
@@ -444,7 +444,7 @@
             android:id="@+id/tv_trends_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="@dimen/_24sdp"
             android:text="健康趋势"
             android:textAppearance="@style/TextAppearance.MyApplication.Headline3"
             app:layout_constraintStart_toStartOf="parent"
@@ -465,7 +465,7 @@
             android:id="@+id/spinner_trend_metric"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="@dimen/_8sdp"
             android:background="@drawable/spinner_background"
             app:layout_constraintBottom_toBottomOf="@+id/tv_trends_title"
             app:layout_constraintEnd_toStartOf="@id/tv_trends_timeframe"
@@ -475,18 +475,18 @@
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/card_chart"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginTop="16dp"
+            android:layout_height="@dimen/_200sdp"
+            android:layout_marginTop="@dimen/_16sdp"
             app:cardBackgroundColor="@color/colorSurface"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="2dp"
+            app:cardCornerRadius="@dimen/_16sdp"
+            app:cardElevation="@dimen/_2sdp"
             app:layout_constraintTop_toBottomOf="@+id/tv_trends_title"
             app:strokeWidth="0dp">
 
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="16dp">
+                android:padding="@dimen/_16sdp">
 
                 <!-- Real chart view -->
                 <com.github.mikephil.charting.charts.LineChart
@@ -501,17 +501,17 @@
             android:id="@+id/card_health_report"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="@dimen/_24sdp"
             app:cardBackgroundColor="@color/colorSurface"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="2dp"
+            app:cardCornerRadius="@dimen/_16sdp"
+            app:cardElevation="@dimen/_2sdp"
             app:layout_constraintTop_toBottomOf="@+id/card_chart"
             app:strokeWidth="0dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="16dp">
+                android:padding="@dimen/_16sdp">
 
                 <TextView
                     android:id="@+id/tv_report_title"
@@ -526,9 +526,9 @@
                     android:id="@+id/tv_health_report"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="@dimen/_16sdp"
                     android:background="@drawable/bg_card_rounded"
-                    android:padding="16dp"
+                    android:padding="@dimen/_16sdp"
                     android:text="您的健康状况良好，各项指标在正常范围内。建议保持规律作息，适量运动，均衡饮食。"
                     android:textAppearance="@style/TextAppearance.MyApplication.Body2"
                     android:textColor="@color/colorTextSecondary"
@@ -539,9 +539,9 @@
                     style="@style/Widget.MyApplication.Button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="@dimen/_16sdp"
                     android:text="查看完整报告"
-                    app:cornerRadius="8dp"
+                    app:cornerRadius="@dimen/_8sdp"
                     app:icon="@drawable/ic_arrow_right"
                     app:iconGravity="end"
                     app:layout_constraintTop_toBottomOf="@+id/tv_health_report" />
@@ -553,7 +553,7 @@
             android:id="@+id/tv_custom_indicators_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="@dimen/_24sdp"
             android:text="自定义指标"
             android:textAppearance="@style/TextAppearance.MyApplication.Headline3"
             app:layout_constraintStart_toStartOf="parent"
@@ -564,7 +564,7 @@
             android:id="@+id/tv_no_indicators"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/_16sdp"
             android:gravity="center"
             android:text="暂无自定义健康指标"
             android:textAppearance="@style/TextAppearance.MyApplication.Body2"
@@ -577,7 +577,7 @@
             android:id="@+id/container_custom_indicators"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/_16sdp"
             android:orientation="vertical"
             app:layout_constraintTop_toBottomOf="@+id/tv_custom_indicators_title">
 

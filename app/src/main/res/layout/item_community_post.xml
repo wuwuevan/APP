@@ -3,10 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="12dp"
+    android:layout_marginBottom="@dimen/_12sdp"
     android:background="@drawable/bg_card_rounded"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="@dimen/_16sdp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textColor="@color/colorTextPrimary"
-            android:textSize="16sp"
+            android:textSize="@dimen/_16ssp"
             android:textStyle="bold"
             tools:text="康复专家李医生" />
 
@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/colorTextSecondary"
-            android:textSize="12sp"
+            android:textSize="@dimen/_12ssp"
             tools:text="2 小时前" />
     </LinearLayout>
 
@@ -37,9 +37,9 @@
         android:id="@+id/tv_post_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="@dimen/_8sdp"
         android:textColor="@color/colorTextPrimary"
-        android:textSize="18sp"
+        android:textSize="@dimen/_18ssp"
         android:textStyle="bold"
         tools:text="术后第2周的注意事项" />
 
@@ -47,25 +47,25 @@
         android:id="@+id/tv_post_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="@dimen/_6sdp"
         android:textColor="@color/colorTextSecondary"
-        android:textSize="14sp"
+        android:textSize="@dimen/_14ssp"
         tools:text="保持关节适度活动、按时进行冰敷，若出现明显肿胀要及时反馈给医生。" />
 
     <TextView
         android:id="@+id/tv_comment_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="@dimen/_12sdp"
         android:textColor="@color/colorTextSecondary"
-        android:textSize="13sp"
+        android:textSize="@dimen/_13ssp"
         tools:text="2 条回复" />
 
     <LinearLayout
         android:id="@+id/layout_post_actions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="@dimen/_12sdp"
         android:gravity="end"
         android:orientation="horizontal">
 
@@ -79,7 +79,7 @@
             android:id="@+id/btn_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
+            android:layout_marginStart="@dimen/_12sdp"
             android:text="@string/delete"
             android:textColor="@color/colorDanger"
             android:visibility="gone" />
@@ -89,7 +89,7 @@
         android:id="@+id/layout_comments"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="@dimen/_12sdp"
         android:orientation="vertical"
         android:visibility="gone"
         tools:visibility="visible">

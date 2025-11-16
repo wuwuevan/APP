@@ -3,10 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingStart="24dp"
-    android:paddingTop="8dp"
-    android:paddingEnd="24dp"
-    android:paddingBottom="8dp">
+    android:paddingStart="@dimen/_24sdp"
+    android:paddingTop="@dimen/_8sdp"
+    android:paddingEnd="@dimen/_24sdp"
+    android:paddingBottom="@dimen/_8sdp">
 
     <EditText
         android:id="@+id/input_reply_content"

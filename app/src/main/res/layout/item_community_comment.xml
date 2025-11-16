@@ -3,10 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="8dp"
+    android:layout_marginTop="@dimen/_8sdp"
     android:background="@drawable/bg_comment_bubble"
     android:orientation="vertical"
-    android:padding="12dp">
+    android:padding="@dimen/_12sdp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,7 +21,7 @@
             android:layout_weight="1"
             android:textColor="@color/colorTextPrimary"
             android:textStyle="bold"
-            android:textSize="14sp"
+            android:textSize="@dimen/_14ssp"
             tools:text="赵护士" />
 
         <TextView
@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/colorTextSecondary"
-            android:textSize="12sp"
+            android:textSize="@dimen/_12ssp"
             tools:text="1 小时前" />
     </LinearLayout>
 
@@ -37,9 +37,9 @@
         android:id="@+id/tv_comment_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="@dimen/_6sdp"
         android:textColor="@color/colorTextSecondary"
-        android:textSize="14sp"
+        android:textSize="@dimen/_14ssp"
         tools:text="请问冰敷一次大概多久合适？" />
 
 </LinearLayout>

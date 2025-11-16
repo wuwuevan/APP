@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="@dimen/_16sdp">
 
         <TextView
             android:id="@+id/tv_community_title"
@@ -24,40 +24,40 @@
             android:id="@+id/et_search_post"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/_16sdp"
             android:background="@drawable/bg_card_rounded"
-            android:drawablePadding="8dp"
+            android:drawablePadding="@dimen/_8sdp"
             android:hint="@string/community_search_hint"
             android:imeOptions="actionSearch"
             android:inputType="text"
             android:maxLines="1"
-            android:padding="12dp" />
+            android:padding="@dimen/_12sdp" />
 
         <Spinner
             android:id="@+id/spinner_sort"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp" />
+            android:layout_marginTop="@dimen/_12sdp" />
 
         <TextView
             android:id="@+id/tv_empty_state"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="@dimen/_24sdp"
             android:gravity="center"
             android:text="@string/community_empty_title"
             android:textColor="@color/colorTextSecondary"
-            android:textSize="16sp"
+            android:textSize="@dimen/_16ssp"
             android:visibility="gone" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_posts"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="@dimen/_12sdp"
             android:layout_weight="1"
             android:clipToPadding="false"
-            android:paddingBottom="72dp"
+            android:paddingBottom="@dimen/_72sdp"
             tools:listitem="@layout/item_community_post" />
 
     </LinearLayout>
@@ -67,7 +67,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="24dp"
+        android:layout_margin="@dimen/_24sdp"
         android:contentDescription="@string/community_create_post"
         android:src="@drawable/ic_community"
         tools:ignore="ImageContrastCheck" />

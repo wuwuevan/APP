@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
+    android:padding="@dimen/_16sdp"
     android:background="@color/colorBackground"
     tools:context=".ui.notification.NotificationDetailActivity">
 
@@ -12,8 +12,8 @@
         android:id="@+id/tv_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:textSize="22sp"
+        android:layout_marginBottom="@dimen/_8sdp"
+        android:textSize="@dimen/_22ssp"
         android:textStyle="bold"
         android:textColor="@color/colorText"
         tools:text="通知标题" />
@@ -22,8 +22,8 @@
         android:id="@+id/tv_sender"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
-        android:textSize="16sp"
+        android:layout_marginBottom="@dimen/_4sdp"
+        android:textSize="@dimen/_16ssp"
         android:textColor="@color/colorTextSecondary"
         tools:text="发送者：系统" />
 
@@ -31,22 +31,22 @@
         android:id="@+id/tv_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:textSize="14sp"
+        android:layout_marginBottom="@dimen/_16sdp"
+        android:textSize="@dimen/_14ssp"
         android:textColor="@color/colorTextSecondary"
         tools:text="时间：2025-10-27 10:00" />
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="@dimen/_1sdp"
         android:background="@color/colorDivider"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginBottom="@dimen/_16sdp" />
 
     <TextView
         android:id="@+id/tv_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
+        android:textSize="@dimen/_16ssp"
         android:textColor="@color/colorText"
         tools:text="这是通知的具体内容..." />
 
