@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <EditText
+        android:id="@+id/input_health_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/community_health_username_hint"
+        android:inputType="textPersonName"
+        android:maxLines="1"
+        android:padding="8dp" />
+
+    <EditText
+        android:id="@+id/input_health_metric"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:hint="@string/community_health_metric_hint"
+        android:inputType="textCapSentences"
+        android:maxLines="1"
+        android:padding="8dp" />
+
+    <EditText
+        android:id="@+id/input_health_value"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:hint="@string/community_health_value_hint"
+        android:inputType="text"
+        android:maxLines="1"
+        android:padding="8dp" />
+
+    <EditText
+        android:id="@+id/input_health_note"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:gravity="top"
+        android:hint="@string/community_health_note_hint"
+        android:inputType="textMultiLine"
+        android:minLines="3"
+        android:padding="8dp" />
+
+</LinearLayout>
