@@ -126,6 +126,7 @@
     <string name="community_health_value_required">请填写指标数值</string>
     <string name="community_health_saved">健康数据已更新</string>
     <string name="community_health_deleted">健康数据已删除</string>
+    <string name="community_posts_section_title">社区话题</string>
     <plurals name="community_comment_count">
         <item quantity="one">%d 条回复</item>
         <item quantity="other">%d 条回复</item>

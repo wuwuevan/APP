@@ -12,14 +12,6 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <TextView
-            android:id="@+id/tv_community_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/community"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-            android:textColor="@color/colorTextPrimary" />
-
         <EditText
             android:id="@+id/et_search_post"
             android:layout_width="match_parent"
@@ -94,10 +86,20 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/tv_posts_section_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/community_posts_section_title"
+            android:textColor="@color/colorTextPrimary"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
             android:id="@+id/tv_empty_state"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="12dp"
             android:gravity="center"
             android:text="@string/community_empty_title"
             android:textColor="@color/colorTextSecondary"
