@@ -203,6 +203,8 @@ public class MainActivity extends BaseActivity {
                 toolbarTitle.setText(R.string.title_profile);
             } else if (destinationId == R.id.navigation_community) {
                 toolbarTitle.setText(R.string.title_community);
+            } else if (destinationId == R.id.healthShareFragment) {
+                toolbarTitle.setText(R.string.title_health_share);
             }
         }
     }

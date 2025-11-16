@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,6 +12,51 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="16dp">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/colorSurface"
+            android:padding="16dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="2dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/community_health_share_title"
+                    android:textColor="@color/colorTextPrimary"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/community_health_share_intro"
+                    android:textColor="@color/colorTextSecondary"
+                    android:textSize="13sp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_open_health_share"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/community_open_health_share"
+                    android:textAllCaps="false"
+                    app:icon="@drawable/ic_arrow_right"
+                    app:iconGravity="textEnd"
+                    app:iconPadding="8dp" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
         <EditText
             android:id="@+id/et_search_post"
@@ -30,60 +76,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp" />
-
-        <LinearLayout
-            android:id="@+id/layout_health_share"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/bg_card_rounded"
-            android:orientation="vertical"
-            android:padding="16dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/community_health_share_title"
-                android:textColor="@color/colorTextPrimary"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="@string/community_health_share_subtitle"
-                android:textColor="@color/colorTextSecondary"
-                android:textSize="13sp" />
-
-            <TextView
-                android:id="@+id/tv_health_empty_state"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:text="@string/community_health_empty"
-                android:textColor="@color/colorTextSecondary"
-                android:textSize="14sp"
-                android:visibility="gone" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_health_data"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:clipToPadding="false"
-                android:nestedScrollingEnabled="false"
-                tools:listitem="@layout/item_health_share" />
-
-            <Button
-                android:id="@+id/btn_add_health_share"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:text="@string/community_add_health_share"
-                android:textAllCaps="false" />
-        </LinearLayout>
 
         <TextView
             android:id="@+id/tv_posts_section_title"

@@ -29,6 +29,7 @@ public class HealthShareAdapter extends RecyclerView.Adapter<HealthShareAdapter.
 
     private final ArrayList<HealthShareEntry> data = new ArrayList<>();
     private final OnHealthEntryActionListener listener;
+    private long currentUserId = -1L;
 
     public HealthShareAdapter(@NonNull OnHealthEntryActionListener listener) {
         this.listener = listener;
@@ -37,6 +38,14 @@ public class HealthShareAdapter extends RecyclerView.Adapter<HealthShareAdapter.
     public void submitList(@NonNull List<HealthShareEntry> entries) {
         data.clear();
         data.addAll(entries);
+        notifyDataSetChanged();
+    }
+
+    public void setCurrentUserId(long userId) {
+        if (currentUserId == userId) {
+            return;
+        }
+        currentUserId = userId;
         notifyDataSetChanged();
     }
 
@@ -51,7 +60,7 @@ public class HealthShareAdapter extends RecyclerView.Adapter<HealthShareAdapter.
     @Override
     public void onBindViewHolder(@NonNull HealthShareViewHolder holder, int position) {
         HealthShareEntry entry = data.get(position);
-        holder.bind(entry, listener);
+        holder.bind(entry, listener, currentUserId);
     }
 
     @Override
@@ -81,7 +90,8 @@ public class HealthShareAdapter extends RecyclerView.Adapter<HealthShareAdapter.
         }
 
         void bind(@NonNull HealthShareEntry entry,
-                  @NonNull OnHealthEntryActionListener listener) {
+                  @NonNull OnHealthEntryActionListener listener,
+                  long currentUserId) {
             tvUserName.setText(entry.getAuthorName());
             CharSequence timeText = DateUtils.getRelativeTimeSpanString(entry.getUpdatedAt(),
                     System.currentTimeMillis(), DateUtils.MINUTE_IN_MILLIS);
@@ -94,6 +104,9 @@ public class HealthShareAdapter extends RecyclerView.Adapter<HealthShareAdapter.
                 tvNote.setVisibility(View.VISIBLE);
                 tvNote.setText(entry.getNote());
             }
+            boolean canManage = entry.getAuthorId() == currentUserId;
+            btnEdit.setVisibility(canManage ? View.VISIBLE : View.GONE);
+            btnDelete.setVisibility(canManage ? View.VISIBLE : View.GONE);
             btnEdit.setOnClickListener(v -> listener.onEdit(entry));
             btnDelete.setOnClickListener(v -> listener.onDelete(entry));
         }

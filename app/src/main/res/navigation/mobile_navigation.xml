@@ -39,5 +39,16 @@
         android:id="@+id/navigation_community"
         android:name="com.example.myapplication.ui.community.CommunityFragment"
         android:label="@string/community"
-        tools:layout="@layout/fragment_community" />
+        tools:layout="@layout/fragment_community">
+
+        <action
+            android:id="@+id/action_navigation_community_to_healthShareFragment"
+            app:destination="@id/healthShareFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/healthShareFragment"
+        android:name="com.example.myapplication.ui.community.HealthShareFragment"
+        android:label="@string/title_health_share"
+        tools:layout="@layout/fragment_health_share" />
 </navigation>
