@@ -9,18 +9,18 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.myapplication.R;
 import com.example.myapplication.database.DailyTaskDao;
 import com.example.myapplication.model.DailyTask;
+import com.example.myapplication.ui.BaseActivity;
 import com.example.myapplication.utils.SharedPreferencesUtil;
 
 /**
  * 任务详情页面
  */
-public class TaskDetailActivity extends AppCompatActivity {
+public class TaskDetailActivity extends BaseActivity {
     private ImageView ivTaskIcon;
     private TextView tvTaskName;
     private TextView tvTaskDesc;

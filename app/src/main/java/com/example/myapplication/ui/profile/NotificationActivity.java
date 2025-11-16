@@ -9,19 +9,19 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.myapplication.R;
 import com.example.myapplication.database.NotificationDao;
 import com.example.myapplication.model.Notification;
 import com.example.myapplication.ui.notification.NotificationDetailActivity;
+import com.example.myapplication.ui.BaseActivity;
 import com.example.myapplication.utils.SharedPreferencesUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class NotificationActivity extends AppCompatActivity {
+public class NotificationActivity extends BaseActivity {
 
     private ListView lvNotifications;
     private Spinner spNotificationType;

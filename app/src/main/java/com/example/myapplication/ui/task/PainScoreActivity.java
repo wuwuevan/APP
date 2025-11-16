@@ -10,13 +10,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
 import com.example.myapplication.database.DailyTaskDao;
 import com.example.myapplication.database.PainScoreDao;
 import com.example.myapplication.model.DailyTask;
 import com.example.myapplication.model.PainScore;
+import com.example.myapplication.ui.BaseActivity;
 import com.example.myapplication.utils.SharedPreferencesUtil;
 
 import java.text.SimpleDateFormat;
@@ -26,7 +26,7 @@ import java.util.Locale;
 /**
  * 疼痛评分页面
  */
-public class PainScoreActivity extends AppCompatActivity {
+public class PainScoreActivity extends BaseActivity {
     private TextView tvTitle;
     private TextView tvScoreValue;
     private SeekBar seekBarPain;

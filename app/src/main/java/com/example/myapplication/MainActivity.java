@@ -8,19 +8,19 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.NavOptions;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.example.myapplication.ui.BaseActivity;
 import com.google.android.material.elevation.SurfaceColors;
 
 /**
  * Main activity that hosts all fragments and includes the bottom navigation
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     private NavController navController;
     private TextView toolbarTitle;

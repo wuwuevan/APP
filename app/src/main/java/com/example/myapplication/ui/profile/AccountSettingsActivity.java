@@ -5,7 +5,6 @@ import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.myapplication.R;
@@ -13,13 +12,14 @@ import com.example.myapplication.data.AppDatabase;
 import com.example.myapplication.data.User;
 import com.example.myapplication.data.UserDao;
 import com.example.myapplication.utils.SharedPreferencesUtil;
+import com.example.myapplication.ui.BaseActivity;
 import com.google.android.material.textfield.TextInputEditText;
 
 /**
  * 账号设置页面，用于修改密码
  * 注意：当前Room实体User类中没有password字段，此页面仅作为示例
  */
-public class AccountSettingsActivity extends AppCompatActivity {
+public class AccountSettingsActivity extends BaseActivity {
 
     private TextInputEditText etCurrentPassword;
     private TextInputEditText etNewPassword;

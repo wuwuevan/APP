@@ -16,16 +16,16 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 import com.example.myapplication.R;
 import com.example.myapplication.data.AppDatabase;
 import com.example.myapplication.data.User;
 import com.example.myapplication.data.UserDao;
+import com.example.myapplication.ui.BaseActivity;
 import com.example.myapplication.utils.FileUtil;
 import com.example.myapplication.utils.SharedPreferencesUtil;
 import com.google.android.material.textfield.TextInputEditText;
@@ -36,7 +36,7 @@ import java.io.IOException;
 /**
  * 个人信息编辑页面
  */
-public class EditProfileActivity extends AppCompatActivity {
+public class EditProfileActivity extends BaseActivity {
 
     private static final int REQUEST_STORAGE_PERMISSION = 100;
     private static final int REQUEST_PICK_IMAGE = 101;

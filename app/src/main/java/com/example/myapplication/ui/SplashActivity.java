@@ -15,7 +15,6 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.OvershootInterpolator;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.splashscreen.SplashScreen;
 
@@ -28,7 +27,7 @@ import com.example.myapplication.utils.SharedPreferencesUtil;
 /**
  * Modern splash screen with animations
  */
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends BaseActivity {
     
     private static final long SPLASH_DELAY = 3000; // 3 seconds
     private ActivitySplashBinding binding;

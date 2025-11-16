@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.myapplication.R;
@@ -22,6 +21,7 @@ import com.example.myapplication.data.User;
 import com.example.myapplication.data.UserDao;
 import com.example.myapplication.database.HealthIndicatorDao;
 import com.example.myapplication.model.HealthIndicator;
+import com.example.myapplication.ui.BaseActivity;
 import com.example.myapplication.utils.SharedPreferencesUtil;
 import com.example.myapplication.utils.GoogleFitUtil;
 
@@ -29,7 +29,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class InitialHealthMetricsActivity extends AppCompatActivity {
+public class InitialHealthMetricsActivity extends BaseActivity {
 
     private EditText etHeight, etWeight, etHeartRate, etSystolic, etDiastolic;
     private EditText etBloodSugar, etSleepHours, etStepCount;

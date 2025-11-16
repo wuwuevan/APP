@@ -14,15 +14,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 
 import com.example.myapplication.MainActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.database.HealthIndicatorDao;
 import com.example.myapplication.model.CustomHealthIndicator;
 import com.example.myapplication.model.HealthIndicator;
+import com.example.myapplication.ui.BaseActivity;
 import com.example.myapplication.utils.SharedPreferencesUtil;
 
 import java.text.SimpleDateFormat;
@@ -33,7 +33,7 @@ import java.util.Locale;
 /**
  * 健康报告详情页面
  */
-public class HealthReportActivity extends AppCompatActivity {
+public class HealthReportActivity extends BaseActivity {
 
     private TextView tvBMI, tvBMIStatus;
     private TextView tvHeartRate, tvHeartRateStatus;

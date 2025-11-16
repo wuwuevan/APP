@@ -8,15 +8,15 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.myapplication.R;
 import com.example.myapplication.data.AppDatabase;
 import com.example.myapplication.data.Feedback;
 import com.example.myapplication.data.FeedbackDao;
+import com.example.myapplication.ui.BaseActivity;
 
-public class HelpFeedbackActivity extends AppCompatActivity {
+public class HelpFeedbackActivity extends BaseActivity {
 
     private Spinner spinnerFeedbackType;
     private EditText etFeedbackContent;

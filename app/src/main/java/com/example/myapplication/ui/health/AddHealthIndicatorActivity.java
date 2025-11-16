@@ -9,12 +9,12 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
 import com.example.myapplication.database.HealthIndicatorDao;
 import com.example.myapplication.model.CustomHealthIndicator;
 import com.example.myapplication.model.HealthIndicator;
+import com.example.myapplication.ui.BaseActivity;
 import com.example.myapplication.utils.SharedPreferencesUtil;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -22,7 +22,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class AddHealthIndicatorActivity extends AppCompatActivity {
+public class AddHealthIndicatorActivity extends BaseActivity {
 
     public static final String EXTRA_INDICATOR_ID = "indicator_id";
 

@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,6 +17,7 @@ import com.example.myapplication.adapter.MessageAdapter;
 import com.example.myapplication.db.MessageDao;
 import com.example.myapplication.model.ChatMessage;
 import com.example.myapplication.model.Message;
+import com.example.myapplication.ui.BaseActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,7 +41,7 @@ import java.util.concurrent.Executors;
 
 import javax.net.ssl.HttpsURLConnection;
 
-public class ChatActivity extends AppCompatActivity {
+public class ChatActivity extends BaseActivity {
 
     private static final String TAG = "ChatActivity";
     private static final String DEEPSEEK_API_URL = "https://api.deepseek.com/v1/chat/completions";

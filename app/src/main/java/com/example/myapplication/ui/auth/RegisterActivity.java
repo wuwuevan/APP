@@ -11,7 +11,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.myapplication.MainActivity;
@@ -19,12 +18,13 @@ import com.example.myapplication.R;
 import com.example.myapplication.data.AppDatabase;
 import com.example.myapplication.data.User;
 import com.example.myapplication.data.UserDao;
+import com.example.myapplication.ui.BaseActivity;
 import com.example.myapplication.utils.SharedPreferencesUtil;
 
 /**
  * 用户注册页面
  */
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends BaseActivity {
 
     private EditText etUsername;
     private EditText etPassword;

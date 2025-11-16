@@ -2,16 +2,16 @@ package com.example.myapplication.ui.task;
 
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.R;
+import com.example.myapplication.ui.BaseActivity;
 
 /**
  * 每日任务中心Activity，包含TaskFragment
  */
-public class TaskActivity extends AppCompatActivity {
+public class TaskActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -6,12 +6,12 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
 import com.example.myapplication.model.Notification;
+import com.example.myapplication.ui.BaseActivity;
 
-public class NotificationDetailActivity extends AppCompatActivity {
+public class NotificationDetailActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

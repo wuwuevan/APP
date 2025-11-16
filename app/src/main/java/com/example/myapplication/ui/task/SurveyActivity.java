@@ -12,13 +12,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
 import com.example.myapplication.database.DailyTaskDao;
 import com.example.myapplication.database.SurveyDao;
 import com.example.myapplication.model.DailyTask;
 import com.example.myapplication.model.Survey;
+import com.example.myapplication.ui.BaseActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,7 +33,7 @@ import java.util.Map;
 /**
  * 问卷页面
  */
-public class SurveyActivity extends AppCompatActivity {
+public class SurveyActivity extends BaseActivity {
     private TextView tvTitle;
     private TextView tvDescription;
     private LinearLayout llQuestions;
