@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,6 +22,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.adapter.HealthShareAdapter;
 import com.example.myapplication.data.HealthShareEntry;
 import com.example.myapplication.utils.SharedPreferencesUtil;
+import com.google.android.material.appbar.MaterialToolbar;
 
 import java.util.ArrayList;
 
@@ -71,6 +73,11 @@ public class HealthShareFragment extends Fragment {
         btnAddHealthShare = view.findViewById(R.id.btn_add_health_share);
         if (btnAddHealthShare != null) {
             btnAddHealthShare.setOnClickListener(v -> showHealthShareDialog(null));
+        }
+        MaterialToolbar toolbar = view.findViewById(R.id.toolbar_health_share);
+        if (toolbar != null) {
+            toolbar.setNavigationOnClickListener(v ->
+                    NavHostFragment.findNavController(this).navigateUp());
         }
     }
 
