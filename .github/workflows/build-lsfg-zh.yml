@@ -1,0 +1,100 @@
+name: Build LSFG Android Chinese APK
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - lsfg-zh-build
+    paths:
+      - "lsfg-zh/**"
+      - ".github/workflows/build-lsfg-zh.yml"
+  pull_request:
+    branches:
+      - master
+    paths:
+      - "lsfg-zh/**"
+      - ".github/workflows/build-lsfg-zh.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - name: Checkout localization files
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install required Android toolchain
+        run: |
+          yes | sdkmanager --licenses >/dev/null || true
+          sdkmanager \
+            "platform-tools" \
+            "platforms;android-35" \
+            "build-tools;35.0.0" \
+            "ndk;27.0.12077973" \
+            "cmake;3.22.1"
+
+      - name: Clone official LSFG Android source and submodules
+        run: |
+          git clone --recursive https://github.com/FrankBarretta/LSFG-Android.git source
+          git -C source submodule update --init --recursive
+          git -C source log -1 --oneline
+          git -C source submodule status
+
+      - name: Apply Simplified Chinese localization
+        run: |
+          python3 lsfg-zh/apply_safe_zh.py source/LSFG-Android-Application
+          python3 - <<'PY'
+          from pathlib import Path
+          for rel in ('values/strings.xml', 'values-zh-rCN/strings.xml'):
+              p = Path('source/LSFG-Android-Application/app/src/main/res') / rel
+              s = p.read_text(encoding='utf-8')
+              s = s.replace('<string name="param_cpu_saturation_desc">', '<string name="param_cpu_saturation_desc" formatted="false">')
+              s = s.replace('<string name="param_cpu_vignette_desc">', '<string name="param_cpu_vignette_desc" formatted="false">')
+              p.write_text(s, encoding='utf-8')
+          PY
+
+      - name: Build signed debug APK
+        working-directory: source/LSFG-Android-Application
+        run: |
+          printf 'sdk.dir=%s\n' "$ANDROID_HOME" > local.properties
+          chmod +x gradlew
+          set -o pipefail
+          ./gradlew :app:assembleDebug --no-daemon --stacktrace 2>&1 | tee ../../gradle-build.log
+
+      - name: Upload Gradle log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: LSFG-Android-build-log
+          path: gradle-build.log
+          if-no-files-found: warn
+          retention-days: 7
+
+      - name: Prepare APK and checksum
+        run: |
+          mkdir -p dist
+          APK=$(find source/LSFG-Android-Application/app/build/outputs/apk/debug -name '*.apk' -type f | head -1)
+          test -n "$APK"
+          cp "$APK" dist/LSFG-Android-zh-CN-debug.apk
+          sha256sum dist/LSFG-Android-zh-CN-debug.apk > dist/LSFG-Android-zh-CN-debug.apk.sha256
+          ls -lh dist
+
+      - name: Upload Chinese APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: LSFG-Android-zh-CN-debug
+          path: dist/*
+          if-no-files-found: error
+          retention-days: 7
