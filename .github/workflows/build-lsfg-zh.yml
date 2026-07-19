@@ -1,0 +1,78 @@
+name: Build LSFG Android Chinese APK
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - lsfg-zh-build
+    paths:
+      - "lsfg-zh/**"
+      - ".github/workflows/build-lsfg-zh.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - name: Checkout localization files
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install required Android toolchain
+        run: |
+          yes | sdkmanager --licenses >/dev/null || true
+          sdkmanager \
+            "platform-tools" \
+            "platforms;android-35" \
+            "build-tools;35.0.0" \
+            "ndk;27.0.12077973" \
+            "cmake;3.22.1"
+
+      - name: Clone official LSFG Android source and submodules
+        run: |
+          git clone --recursive https://github.com/FrankBarretta/LSFG-Android.git source
+          git -C source submodule update --init --recursive
+          git -C source log -1 --oneline
+          git -C source submodule status
+
+      - name: Apply Simplified Chinese localization
+        run: |
+          python3 lsfg-zh/apply_safe_zh.py source/LSFG-Android-Application
+
+      - name: Build signed debug APK
+        working-directory: source/LSFG-Android-Application
+        env:
+          ANDROID_HOME: ${{ env.ANDROID_HOME }}
+          ANDROID_SDK_ROOT: ${{ env.ANDROID_SDK_ROOT }}
+        run: |
+          printf 'sdk.dir=%s\n' "$ANDROID_HOME" > local.properties
+          chmod +x gradlew
+          ./gradlew :app:assembleDebug --no-daemon --stacktrace
+
+      - name: Prepare APK and checksum
+        run: |
+          mkdir -p dist
+          APK=$(find source/LSFG-Android-Application/app/build/outputs/apk/debug -name '*.apk' -type f | head -1)
+          test -n "$APK"
+          cp "$APK" dist/LSFG-Android-zh-CN-debug.apk
+          sha256sum dist/LSFG-Android-zh-CN-debug.apk > dist/LSFG-Android-zh-CN-debug.apk.sha256
+          ls -lh dist
+
+      - name: Upload Chinese APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: LSFG-Android-zh-CN-debug
+          path: dist/*
+          if-no-files-found: error
+          retention-days: 7
