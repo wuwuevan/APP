@@ -27,9 +27,13 @@ for node in tree.body:
         break
 if not isinstance(translations, dict):
     raise SystemExit('无法读取翻译表 R')
+
+# 这些短词会出现在 Kotlin 字符串插值表达式的变量名中，不能直接替换。
+for unsafe in ('real', 'generated', 'total'):
+    translations.pop(unsafe, None)
 items = sorted(translations.items(), key=lambda kv: len(kv[0]), reverse=True)
 
-# 只改 Kotlin 双引号字符串内部，绝不替换变量名、类名、日志标签或路径。
+# 只改 Kotlin 双引号字符串内部。排除上述短词后，不会改变插值表达式中的标识符。
 string_re = re.compile(r'"((?:\\.|[^"\\])*)"')
 def translate_literal(match: re.Match[str]) -> str:
     body = match.group(1).replace('\\"', '"')
