@@ -8,6 +8,12 @@ on:
     paths:
       - "lsfg-zh/**"
       - ".github/workflows/build-lsfg-zh.yml"
+  pull_request:
+    branches:
+      - master
+    paths:
+      - "lsfg-zh/**"
+      - ".github/workflows/build-lsfg-zh.yml"
 
 permissions:
   contents: read
@@ -52,9 +58,6 @@ jobs:
 
       - name: Build signed debug APK
         working-directory: source/LSFG-Android-Application
-        env:
-          ANDROID_HOME: ${{ env.ANDROID_HOME }}
-          ANDROID_SDK_ROOT: ${{ env.ANDROID_SDK_ROOT }}
         run: |
           printf 'sdk.dir=%s\n' "$ANDROID_HOME" > local.properties
           chmod +x gradlew
