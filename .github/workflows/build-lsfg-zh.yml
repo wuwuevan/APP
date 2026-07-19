@@ -55,13 +55,32 @@ jobs:
       - name: Apply Simplified Chinese localization
         run: |
           python3 lsfg-zh/apply_safe_zh.py source/LSFG-Android-Application
+          python3 - <<'PY'
+          from pathlib import Path
+          for rel in ('values/strings.xml', 'values-zh-rCN/strings.xml'):
+              p = Path('source/LSFG-Android-Application/app/src/main/res') / rel
+              s = p.read_text(encoding='utf-8')
+              s = s.replace('<string name="param_cpu_saturation_desc">', '<string name="param_cpu_saturation_desc" formatted="false">')
+              s = s.replace('<string name="param_cpu_vignette_desc">', '<string name="param_cpu_vignette_desc" formatted="false">')
+              p.write_text(s, encoding='utf-8')
+          PY
 
       - name: Build signed debug APK
         working-directory: source/LSFG-Android-Application
         run: |
           printf 'sdk.dir=%s\n' "$ANDROID_HOME" > local.properties
           chmod +x gradlew
-          ./gradlew :app:assembleDebug --no-daemon --stacktrace
+          set -o pipefail
+          ./gradlew :app:assembleDebug --no-daemon --stacktrace 2>&1 | tee ../../gradle-build.log
+
+      - name: Upload Gradle log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: LSFG-Android-build-log
+          path: gradle-build.log
+          if-no-files-found: warn
+          retention-days: 7
 
       - name: Prepare APK and checksum
         run: |
